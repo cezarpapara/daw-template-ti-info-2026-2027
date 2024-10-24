@@ -1,0 +1,167 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// Функция для слияния двух подмассивов
+void merge(vector<int>& arr, int left, int mid, int right) {
+// Находим размеры двух подмассивов
+int n1 = mid - left + 1;
+int n2 = right - mid;
+
+// Создаем временные массивы
+vector<int> L(n1);
+vector<int> R(n2);
+
+// Копируем данные во временные массивы L[] и R[]
+for (int i = 0; i < n1; i++)
+L[i] = arr[left + i];
+for (int j = 0; j < n2; j++)
+R[j] = arr[mid + 1 + j];
+
+// Индексы начальных элементов подмассивов
+int i = 0; // Индекс для L
+int j = 0; // Индекс для R
+int k = left; // Индекс для основного массива
+
+// Слияние подмассивов обратно в arr[left..right]
+while (i < n1 && j < n2) {
+if (L[i] <= R[j]) {
+arr[k] = L[i];
+i++;
+} else {
+arr[k] = R[j];
+j++;
+}
+k++;
+}
+
+// Копируем оставшиеся элементы, если есть
+while (i < n1) {
+arr[k] = L[i];
+i++;
+k++;
+}
+while (j < n2) {
+arr[k] = R[j];
+j++;
+k++;
+}
+}
+
+// Функция для рекурсивной сортировки слиянием
+void mergeSort(vector<int>& arr, int left, int right) {
+if (left < right) {
+// Находим середину
+int mid = left + (right - left) / 2;
+
+// Рекурсивно сортируем каждую половину
+mergeSort(arr, left, mid);
+mergeSort(arr, mid + 1, right);
+
+// Сливаем отсортированные половины
+merge(arr, left, mid, right);
+}
+}
+
+// Функция для вывода массива
+void printArray(const vector<int>& arr) {
+for (int num : arr) {
+cout « num « " ";
+}
+cout « endl;
+}
+
+int main() {
+vector<int> arr = {38, 27, 43, 3, 9, 82, 10}; // Пример массива
+
+cout « "Исходный массив: ";
+printArray(arr);
+
+mergeSort(arr, 0, arr.size() - 1); // Запускаем сортировку
+
+cout « "Отсортированный массив: ";
+printArray(arr);
+
+return 0;
+}
+------------------------------------------------------------------------------
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+// Functia pentru fuziunea a 2 subarray-uri
+void merge(vector<int>& arr, int left, int mid, int right) {
+// Gasim dimensiunile celor 2 subarray-uri
+int n1 = mid - left + 1;
+int n2 = right - mid;
+// Cream array-uri temporare
+vector<int> L(n1);
+vector<int> R(n2);
+// Copiem datele în array-urile temporare L[] si R[]
+for (int i = 0; i < n1; i++)
+L[i] = arr[left + i];
+for (int j = 0; j < n2; j++)
+R[j] = arr[mid + 1 + j];
+// Indici pentru elementele initiale ale subarray-urilor
+int i = 0; // Index pentru L
+int j = 0; // Index pentru R
+int k = left; // Index pentru array-ul principal
+// Fuziunea subarray-urilor inapoi în arr[left..right]
+while (i < n1 && j < n2) {
+if (L[i] <= R[j]) {
+arr[k] = L[i];
+i++;
+} else {
+arr[k] = R[j];
+j++;
+}
+k++;
+}
+// Copiem elementele ramase, daca exista
+while (i < n1) {
+arr[k] = L[i];
+i++;
+k++;
+}
+while (j < n2) {
+arr[k] = R[j];
+j++;
+k++;
+}
+}
+// Fct pentru sortarea prin fuziune recursiva
+void mergeSort(vector<int>& arr, int left, int right) {
+if (left < right) {
+// Gasim mijlocul
+int mid = left + (right - left) / 2;
+// Sortam recursiv fiecare jumatate
+mergeSort(arr, left, mid);
+mergeSort(arr, mid + 1, right);
+// Fuziunea jumatatilor sortate
+merge(arr, left, mid, right);
+}
+}
+
+// Fct pentru a afisa array-ul
+void printArray(const vector<int>& arr) {
+for (int num : arr) {
+cout « num « " ";
+}
+cout « endl;
+}
+
+int main() {
+vector<int> arr = {8, 2, 4, 3, 9, 5, 1}; // Exemplu de array
+
+cout « "Array-ul initial: ";
+printArray(arr);
+
+mergeSort(arr, 0, arr.size() - 1); // Rulam sortarea
+
+cout « "Array-ul sortat: ";
+printArray(arr);
+
+return 0;
+}
