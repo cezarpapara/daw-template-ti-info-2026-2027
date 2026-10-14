@@ -4,8 +4,8 @@
 nelmio_api_doc:
     documentation:
         info:
-            title: DAW API
-            description: API-ul aplicatiei de laborator - Dezvoltarea aplicatiilor web (IFR anul 2)
+            title: PW / DAW API
+            description: API-ul aplicatiei de laborator - Programare Web (TI anul 4) / Dezvoltarea aplicatiilor web (Informatica anul 2)
             version: 1.0.0
     areas:
         path_patterns:

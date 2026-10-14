@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <header className="header">
-        <span className="logo">DAW</span>
+        <span className="logo">PW / DAW</span>
         <nav>
           <NavLink to="/" end>Acasa</NavLink>
           <NavLink to="/categorii">Categorii</NavLink>

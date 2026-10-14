@@ -1,6 +1,6 @@
 {
   "info": {
-    "name": "DAW API (IFR 2, 2026-2027)",
+    "name": "PW / DAW API (TI + Informatica, 2026-2027)",
     "description": "Cereri de exemplu pentru backend-ul Symfony. Porniti backend-ul inainte (docker compose up -d in folderul backend).",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },

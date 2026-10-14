@@ -1,6 +1,6 @@
 {
     "name": "daw/backend",
-    "description": "Backend Symfony pentru laboratorul Dezvoltarea aplicatiilor web (IFR anul 2)",
+    "description": "Backend Symfony pentru laboratorul Programare Web (TI anul 4) / Dezvoltarea aplicatiilor web (Informatica anul 2)",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
