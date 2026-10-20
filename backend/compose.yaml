@@ -1,12 +1,12 @@
 # ==========================================================================
 #  BACKEND - 3 containere:
-#    daw-nginx    -> serverul web           http://localhost:8080
-#    daw-php      -> aplicatia Symfony      (PHP-FPM)
-#    daw-postgres -> baza de date           localhost:5432 (pentru DBeaver)
+#     daw-nginx    -> serverul web          http://localhost:8080
+#     daw-php      -> aplicatia Symfony      (PHP-FPM)
+#     daw-postgres -> baza de date          localhost:5432 (pentru DBeaver)
 #
 #  Comenzile se ruleaza din FOLDERUL PRINCIPAL al proiectului:
-#    Pornire:  docker compose -f backend/compose.yaml up -d --build
-#    Oprire:   docker compose -f backend/compose.yaml stop
+#    Pornire:   docker compose -f backend/compose.yaml up -d --build
+#    Oprire:    docker compose -f backend/compose.yaml stop
 # ==========================================================================
 name: daw-backend
 
@@ -44,17 +44,12 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      # datele bazei de date se salveaza in backend/docker/postgres/data
-      # (raman acolo si dupa ce opriti containerele; folderul este in .gitignore)
-      - ./docker/postgres/data:/var/lib/postgresql
-      # Daca PostgreSQL nu porneste din cauza permisiunilor (se poate intampla pe Windows),
-      # comentati linia de mai sus si folositi un volum Docker (decomentati si "volumes" de jos):
-      # - daw_postgres_data:/var/lib/postgresql
+      - daw_postgres_data:/var/lib/postgresql
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "daw", "-d", "daw"]
       interval: 5s
       timeout: 5s
       retries: 10
 
-# volumes:
-#   daw_postgres_data:
+volumes:
+  daw_postgres_data:
