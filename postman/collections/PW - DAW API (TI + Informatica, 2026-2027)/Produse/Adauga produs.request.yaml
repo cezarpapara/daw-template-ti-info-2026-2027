@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{baseUrl}}/api/products"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: |-
+    {
+      "name": "Mouse wireless",
+      "description": "Mouse optic, 1600 DPI",
+      "price": "59.90",
+      "categoryId": 1
+    }
+order: 3000

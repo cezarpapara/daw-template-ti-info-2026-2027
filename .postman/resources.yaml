@@ -1,0 +1,13 @@
+# Use this workspace to collaborate
+workspace:
+  id: b5e48534-3908-4bc5-8800-7f75176cf89c
+
+cloudResources:
+  collections:
+    ../postman/collections/PW - DAW API (TI + Informatica, 2026-2027): a2db15c3-1d20-40ca-ac26-2737ac7642aa
+
+# All resources in the `postman/` folder are automatically registered in Local View.
+# Point to additional files outside the `postman/` folder to register them individually. Example:
+#localResources:
+#  collections:
+#    - ../tests/E2E Test Collection/

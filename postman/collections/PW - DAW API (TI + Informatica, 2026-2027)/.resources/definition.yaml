@@ -1,0 +1,5 @@
+$kind: collection
+name: PW / DAW API (TI + Informatica, 2026-2027)
+description: Cereri de exemplu pentru backend-ul Symfony. Porniti backend-ul inainte (docker compose up -d in folderul backend).
+variables:
+  baseUrl: http://localhost:8080

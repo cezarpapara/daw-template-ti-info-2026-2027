@@ -1,0 +1,5 @@
+$kind: http-request
+description: Verifica daca backend-ul si baza de date functioneaza.
+url: "{{baseUrl}}/api/health"
+method: GET
+order: 3000
