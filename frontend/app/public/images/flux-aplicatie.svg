@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="280" viewBox="0 0 720 280" role="img" aria-labelledby="title description">
+  <title id="title">Fluxul unei aplicații web</title>
+  <desc id="description">React comunică cu API-ul, care comunică cu baza de date.</desc>
+  <rect width="720" height="280" fill="#edf4fa"/>
+  <g fill="#fff" stroke="#175e87" stroke-width="3">
+    <rect x="30" y="80" width="170" height="120" rx="12"/>
+    <rect x="275" y="80" width="170" height="120" rx="12"/>
+    <rect x="520" y="80" width="170" height="120" rx="12"/>
+  </g>
+  <g stroke="#175e87" stroke-width="4" fill="none">
+    <path d="M215 140h45m-12-10 12 10-12 10"/>
+    <path d="M460 140h45m-12-10 12 10-12 10"/>
+  </g>
+  <g fill="#183047" font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="115" y="137" font-size="26" font-weight="bold">React</text>
+    <text x="115" y="166" font-size="17">Interfață</text>
+    <text x="360" y="137" font-size="26" font-weight="bold">API</text>
+    <text x="360" y="166" font-size="17">Symfony</text>
+    <text x="605" y="137" font-size="23" font-weight="bold">Date</text>
+    <text x="605" y="166" font-size="17">PostgreSQL</text>
+  </g>
+</svg>
