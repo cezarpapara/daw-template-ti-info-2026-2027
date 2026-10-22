@@ -11,6 +11,7 @@ body {
 /* Meniul de sus */
 .header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 24px;
   padding: 12px 24px;
@@ -24,6 +25,7 @@ body {
 
 .header nav {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
 }
 
@@ -135,4 +137,15 @@ button {
   background: #e12d39;
   padding: 4px 10px;
   font-size: 0.9rem;
+}
+
+/* Cautarea din laboratorul 05 filtreaza lista deja primita de la API. */
+.product-search { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.product-search input { min-width: 0; max-width: 100%; box-sizing: border-box; }
+.product-table-container { overflow-x: auto; }
+
+@media (max-width: 540px) {
+  .header { padding: 12px 16px; gap: 12px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-grid input, .form-grid select { min-width: 0; }
 }
