@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" role="img">
+  <rect width="400" height="240" fill="#b45309"/>
+  <rect x="125" y="30" width="150" height="180" rx="4" fill="#fff" opacity="0.92"/>
+  <rect x="125" y="30" width="12" height="180" fill="#b45309" opacity="0.35"/>
+  <text x="206" y="105" font-family="Georgia, serif" font-size="12" text-anchor="middle" fill="#b45309">Amintiri din copilărie</text>
+  <text x="206" y="150" font-family="Arial, sans-serif" font-size="10" text-anchor="middle" fill="#374151">Ion Creangă</text>
+</svg>
