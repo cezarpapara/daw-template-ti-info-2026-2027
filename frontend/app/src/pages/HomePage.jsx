@@ -14,7 +14,7 @@ function HomePage() {
 
   return (
     <>
-      <h1>Aplicatie PW / DAW</h1>
+      <h1>Aplicatie ProgWeb / DAW - Modificat de ⭐Art⭐</h1>
       <p className="subtitle">Frontend React conectat la un backend Symfony</p>
 
       <section className="card">
