@@ -1,0 +1,118 @@
+/* Paleta se schimbă dintr-un singur loc: variabilele din :root. */
+:root {
+  --culoare-principala: #164e3e;
+  --culoare-accent: #9a3412;
+  --accent-hover: #7c2d12;
+  --fundal: #f4f6f2;
+  --suprafata: #ffffff;
+  --text: #25362e;
+  --text-secundar: #4d5e54;
+  --contur: #a0aba3;
+  --raza: 8px;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  line-height: 1.5;
+  font-family: system-ui, Arial, sans-serif;
+  color: var(--text);
+  background: var(--fundal);
+}
+h1, h2 { line-height: 1.25; }
+h1 { margin-top: 0.4rem; font-size: 2rem; }
+button, input { font: inherit; }
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 3px solid currentColor;
+  outline-offset: 4px;
+}
+
+.sari-la-continut {
+  position: absolute;
+  top: -6rem;
+  left: 1rem;
+  padding: 0.75rem;
+  background: var(--suprafata);
+  color: var(--culoare-principala);
+}
+.sari-la-continut:focus { top: 1rem; }
+.antet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background: var(--culoare-principala);
+}
+.logo { font-size: 1.4rem; font-weight: bold; }
+.logo, .meniu a { color: var(--suprafata); text-decoration: none; }
+.meniu { display: flex; flex-wrap: wrap; gap: 1rem; margin: 0; padding: 0; }
+.meniu li { list-style: none; }
+.meniu a:hover { text-decoration: underline; }
+
+/* Mobile first: unele sub altele pe telefon. */
+.continut {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+.continut > * { min-width: 0; }
+.supratitlu { color: var(--culoare-principala); font-size: 0.85rem; font-weight: 700; }
+.introducere { margin-bottom: 1.5rem; color: var(--text-secundar); }
+.grila { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background: var(--suprafata);
+  border-radius: var(--raza);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 12%);
+}
+.card h2 { margin: 0 0 0.5rem; font-size: 1.15rem; }
+.card p { margin: 0 0 1rem; }
+.card .pret { margin-top: auto; }
+.pret { font-weight: bold; color: var(--culoare-principala); }
+.buton {
+  background: var(--culoare-accent);
+  color: var(--suprafata);
+  border: none;
+  border-radius: var(--raza);
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.buton:hover, .buton:focus-visible { background: var(--accent-hover); }
+.buton:focus-visible { outline-color: var(--culoare-accent); }
+aside {
+  align-self: start;
+  padding: 1.25rem;
+  border-left: 4px solid var(--culoare-principala);
+  background: var(--suprafata);
+}
+aside h2 { margin-top: 0; }
+.newsletter { padding: 1.5rem; background: var(--suprafata); border-radius: var(--raza); }
+.newsletter h2 { margin-top: 0; }
+.newsletter form { display: flex; flex-direction: column; gap: 0.5rem; max-width: 420px; }
+.newsletter input { width: 100%; padding: 0.6rem; border: 1px solid var(--contur); border-radius: var(--raza); }
+.newsletter .buton { align-self: flex-start; }
+.nota { font-size: 0.85rem; color: var(--text-secundar); }
+.subsol { text-align: center; padding: 1rem; color: var(--suprafata); background: var(--culoare-principala); }
+.subsol p { margin: 0.5rem 0; }
+
+/* Tabletă: două coloane și cele două paragrafe din footer alăturate. */
+@media (min-width: 600px) {
+  .antet { flex-direction: row; justify-content: space-between; flex-wrap: wrap; }
+  .grila { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .subsol { display: flex; justify-content: space-between; align-items: center; gap: 2rem; text-align: left; }
+  .subsol p { flex: 1; }
+  .subsol p:last-child { text-align: right; }
+}
+
+/* Desktop: trei coloane de cărți, zona Despre noi în dreapta. */
+@media (min-width: 900px) {
+  .continut { grid-template-columns: 3fr 1fr; }
+  .newsletter { grid-column: 1 / -1; }
+  .grila { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
