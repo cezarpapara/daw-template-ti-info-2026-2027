@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { api } from '../api.js'
+import { useAuth } from '../AuthContext.jsx'
 
-// Pagina Categorii: lista categoriilor + formular de adaugare
+// Pagina Categorii: lista categoriilor + formular de adaugare (doar pentru admin)
 function CategoriesPage() {
-  const [categories, setCategories] = useState([])
+  const { isAdmin } = useAuth()
+  const [categories, setCategories] = useState(null) // null = inca se incarca
   const [name, setName] = useState('')
   const [error, setError] = useState(null)
 
@@ -37,18 +39,22 @@ function CategoriesPage() {
 
       {error && <div className="status status-error">{error}</div>}
 
-      <section className="card">
-        <h2>Adauga o categorie</h2>
-        <form onSubmit={handleSubmit} className="form">
-          <input
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            placeholder="Numele categoriei"
-            required
-          />
-          <button type="submit">Adauga</button>
-        </form>
-      </section>
+      {/* formularul este ascuns pentru ceilalti utilizatori, dar protectia reala este in backend */}
+      {isAdmin && (
+        <section className="card">
+          <h2>Adauga o categorie</h2>
+          <form onSubmit={handleSubmit} className="form">
+            <input
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              placeholder="Numele categoriei"
+              maxLength={100}
+              required
+            />
+            <button type="submit">Adauga</button>
+          </form>
+        </section>
+      )}
 
       <section className="card">
         <h2>Lista categoriilor</h2>
@@ -61,7 +67,7 @@ function CategoriesPage() {
             </tr>
           </thead>
           <tbody>
-            {categories.map((category) => (
+            {categories?.map((category) => (
               <tr key={category.id}>
                 <td>{category.id}</td>
                 <td>{category.name}</td>
@@ -70,7 +76,8 @@ function CategoriesPage() {
             ))}
           </tbody>
         </table>
-        {categories.length === 0 && <p>Nu exista categorii.</p>}
+        {categories === null && !error && <p>Se incarca...</p>}
+        {categories?.length === 0 && <p>Nu exista categorii.</p>}
       </section>
     </>
   )

@@ -21,3 +21,10 @@ git push -u origin nume.prenume
 ```
 
 Pașii pentru prima pornire a containerelor, modul de lucru cu Git și structura proiectului sunt descriși în documentul **Metodologie de lucru și template de proiect** și în îndrumarele de laborator, disponibile pe platforma disciplinei ([examene.pe.ub.ro](http://examene.pe.ub.ro/)) și pe grupul Microsoft Teams al disciplinei.
+
+## Securitate
+
+Aplicatia are autentificare (JWT in cookie `httpOnly`), roluri (`ROLE_USER` / `ROLE_ADMIN`), verificarea proprietarului
+pentru produse, validarea datelor, limitarea incercarilor de login si headere HTTP de securitate.
+Detalii, pasii de configurare dupa clonare (secrete, chei JWT, cont de admin) si cum se verifica fiecare masura:
+[SECURITY.md](SECURITY.md).

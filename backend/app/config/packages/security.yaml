@@ -1,0 +1,63 @@
+# Securitatea aplicatiei: utilizatori, autentificare (JWT) si drepturi de acces
+# https://symfony.com/doc/current/security.html
+security:
+    # Parolele se salveaza ca hash; 'auto' alege cel mai bun algoritm disponibil (bcrypt / argon2id)
+    password_hashers:
+        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+
+    # Utilizatorii se citesc din baza de date (entitatea User), dupa email
+    providers:
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+
+    firewalls:
+        dev:
+            # Ensure dev tools and static assets are always allowed
+            pattern: ^/(_profiler|_wdt|assets|build)/
+            security: false
+
+        # POST /api/auth/login cu {"email": "...", "password": "..."}
+        login:
+            pattern: ^/api/auth/login$
+            stateless: true
+            provider: app_user_provider
+            json_login:
+                check_path: /api/auth/login
+                username_path: email
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            # protectie la ghicirea parolei (brute force):
+            # max 5 incercari gresite in 15 minute pentru acelasi email + IP
+            login_throttling:
+                max_attempts: 5
+                interval: '15 minutes'
+
+        # restul API-ului: fara sesiune, utilizatorul este identificat din token-ul JWT
+        api:
+            pattern: ^/api
+            stateless: true
+            provider: app_user_provider
+            jwt: ~
+
+    # Note: Only the *first* matching rule is applied
+    # Regulile de aici sunt "plasa de siguranta"; regulile fine sunt in controllere (#[IsGranted], voteri).
+    access_control:
+        - { path: ^/api/auth/(login|register|logout)$, roles: PUBLIC_ACCESS }
+        - { path: ^/api/doc, roles: PUBLIC_ACCESS }
+        - { path: ^/api, methods: [GET, OPTIONS], roles: PUBLIC_ACCESS }
+        # orice operatie care modifica date cere un utilizator autentificat
+        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+
+when@test:
+    security:
+        password_hashers:
+            # Password hashers are resource-intensive by design to ensure security.
+            # In tests, it's safe to reduce their cost to improve performance.
+            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+                algorithm: auto
+                cost: 4 # Lowest possible value for bcrypt
+                time_cost: 3 # Lowest possible value for argon
+                memory_cost: 10 # Lowest possible value for argon

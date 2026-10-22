@@ -1,0 +1,9 @@
+# Limitarea numarului de cereri (protectie impotriva abuzului)
+# https://symfony.com/doc/current/rate_limiter.html
+framework:
+    rate_limiter:
+        # max 5 conturi noi pe ora de pe aceeasi adresa IP (vezi AuthController::register)
+        registration:
+            policy: fixed_window
+            limit: 5
+            interval: '1 hour'

@@ -1,0 +1,32 @@
+# Autentificarea cu JWT (JSON Web Token)
+# https://symfony.com/bundles/LexikJWTAuthenticationBundle/current/index.html
+lexik_jwt_authentication:
+    secret_key: '%env(resolve:JWT_SECRET_KEY)%'
+    public_key: '%env(resolve:JWT_PUBLIC_KEY)%'
+    pass_phrase: '%env(JWT_PASSPHRASE)%'
+
+    # token-ul expira dupa 1 ora; dupa aceea utilizatorul trebuie sa se autentifice din nou
+    token_ttl: 3600
+
+    # De unde se citeste token-ul:
+    #  - din cookie-ul BEARER (folosit de frontend-ul React)
+    #  - din headerul "Authorization: Bearer ..." (util in Postman)
+    token_extractors:
+        authorization_header:
+            enabled: true
+        cookie:
+            enabled: true
+            name: BEARER
+
+    # La login, token-ul este pus intr-un cookie:
+    #  - httpOnly: JavaScript nu il poate citi (protectie impotriva furtului prin XSS)
+    #  - samesite strict: browserul nu il trimite in cereri pornite de pe alte site-uri (protectie CSRF)
+    #  - secure: doar pe HTTPS (activat in productie prin JWT_COOKIE_SECURE=1)
+    set_cookies:
+        BEARER:
+            samesite: strict
+            path: /
+            httpOnly: true
+            secure: '%env(bool:JWT_COOKIE_SECURE)%'
+    # token-ul nu mai apare si in corpul raspunsului, doar in cookie
+    remove_token_from_body_when_cookies_used: true

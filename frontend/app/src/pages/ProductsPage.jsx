@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { api } from '../api.js'
+import { useAuth } from '../AuthContext.jsx'
 
 const emptyForm = { name: '', description: '', price: '', categoryId: '' }
 
-// Pagina Produse: lista produselor, adaugare si stergere
+// Pagina Produse: lista produselor, adaugare (utilizatori autentificati)
+// si stergere (proprietarul produsului sau un admin)
 function ProductsPage() {
-  const [products, setProducts] = useState([])
+  const { user, canManageProduct } = useAuth()
+  const [products, setProducts] = useState(null) // null = inca se incarca
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState(emptyForm)
   const [error, setError] = useState(null)
+  const [violations, setViolations] = useState({})
 
   function loadProducts() {
     api.getProducts()
@@ -42,16 +46,21 @@ function ProductsPage() {
       })
       setForm(emptyForm)
       setError(null)
+      setViolations({})
       loadProducts()
     } catch (err) {
       setError(err.message)
+      setViolations(err.violations ?? {})
     }
   }
 
   // DELETE /api/products/{id}
-  async function handleDelete(id) {
+  async function handleDelete(product) {
+    if (!window.confirm(`Stergeti produsul "${product.name}"?`)) {
+      return
+    }
     try {
-      await api.deleteProduct(id)
+      await api.deleteProduct(product.id)
       loadProducts()
     } catch (err) {
       setError(err.message)
@@ -64,30 +73,45 @@ function ProductsPage() {
 
       {error && <div className="status status-error">{error}</div>}
 
-      <section className="card">
-        <h2>Adauga un produs</h2>
-        <form onSubmit={handleSubmit} className="form form-grid">
-          <input name="name" value={form.name} onChange={handleChange} placeholder="Nume" required />
-          <input
-            name="price"
-            value={form.price}
-            onChange={handleChange}
-            placeholder="Pret (ex: 49.99)"
-            type="number"
-            step="0.01"
-            min="0"
-            required
-          />
-          <select name="categoryId" value={form.categoryId} onChange={handleChange} required>
-            <option value="">Alege categoria</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>{category.name}</option>
-            ))}
-          </select>
-          <input name="description" value={form.description} onChange={handleChange} placeholder="Descriere (optional)" />
-          <button type="submit">Adauga</button>
-        </form>
-      </section>
+      {user ? (
+        <section className="card">
+          <h2>Adauga un produs</h2>
+          <form onSubmit={handleSubmit} className="form form-grid">
+            <input name="name" value={form.name} onChange={handleChange} placeholder="Nume" maxLength={150} required />
+            <input
+              name="price"
+              value={form.price}
+              onChange={handleChange}
+              placeholder="Pret (ex: 49.99)"
+              type="number"
+              step="0.01"
+              min="0"
+              required
+            />
+            <select name="categoryId" value={form.categoryId} onChange={handleChange} required>
+              <option value="">Alege categoria</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>{category.name}</option>
+              ))}
+            </select>
+            <input
+              name="description"
+              value={form.description}
+              onChange={handleChange}
+              placeholder="Descriere (optional)"
+              maxLength={2000}
+            />
+            <button type="submit">Adauga</button>
+          </form>
+          {Object.entries(violations).map(([field, message]) => (
+            <p key={field} className="field-error">{message}</p>
+          ))}
+        </section>
+      ) : (
+        <p className="muted">
+          <Link to="/autentificare">Autentificati-va</Link> pentru a adauga produse.
+        </p>
+      )}
 
       <section className="card">
         <h2>Lista produselor</h2>
@@ -101,19 +125,22 @@ function ProductsPage() {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {products?.map((product) => (
               <tr key={product.id}>
                 <td><Link to={`/produse/${product.id}`}>{product.name}</Link></td>
                 <td>{product.category.name}</td>
                 <td>{product.price}</td>
                 <td>
-                  <button className="button-danger" onClick={() => handleDelete(product.id)}>Sterge</button>
+                  {canManageProduct(product) && (
+                    <button className="button-danger" onClick={() => handleDelete(product)}>Sterge</button>
+                  )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        {products.length === 0 && <p>Nu exista produse.</p>}
+        {products === null && !error && <p>Se incarca...</p>}
+        {products?.length === 0 && <p>Nu exista produse.</p>}
       </section>
     </>
   )

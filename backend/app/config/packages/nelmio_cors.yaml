@@ -1,10 +1,14 @@
+# CORS: ce site-uri au voie sa apeleze API-ul din browser (doar frontend-ul, vezi CORS_ALLOW_ORIGIN din .env)
+# https://symfony.com/bundles/NelmioCorsBundle/current/index.html
 nelmio_cors:
     defaults:
         origin_regex: true
         allow_origin: ['%env(CORS_ALLOW_ORIGIN)%']
-        allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
+        # browserul are voie sa trimita cookie-ul cu token-ul JWT (credentials: 'include' in api.js)
+        allow_credentials: true
+        allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'DELETE']
         allow_headers: ['Content-Type', 'Authorization']
-        expose_headers: ['Link']
+        expose_headers: ['Retry-After']
         max_age: 3600
     paths:
-        '^/': null
+        '^/api': null

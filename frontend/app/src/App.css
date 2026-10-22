@@ -136,3 +136,32 @@ button {
   padding: 4px 10px;
   font-size: 0.9rem;
 }
+
+.form-column {
+  flex-direction: column;
+  max-width: 360px;
+}
+
+.field-error {
+  color: #e12d39;
+  font-size: 0.9rem;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Utilizatorul autentificat, in dreapta meniului */
+.header .user {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #cbd2d9;
+}
+
+.header .user button {
+  padding: 4px 10px;
+  font-size: 0.9rem;
+}

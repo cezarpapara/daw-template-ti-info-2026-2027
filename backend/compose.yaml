@@ -15,7 +15,8 @@ services:
     image: nginx:1.30-alpine
     container_name: daw-nginx
     ports:
-      - "8080:80"
+      # 127.0.0.1: accesibil doar de pe calculatorul vostru, nu si din reteaua locala
+      - "127.0.0.1:8080:80"
     volumes:
       - ./app:/var/www/app:ro
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
@@ -42,7 +43,8 @@ services:
       POSTGRES_USER: daw
       POSTGRES_PASSWORD: daw
     ports:
-      - "5432:5432"
+      # baza de date NU trebuie expusa in retea (parola daw/daw este doar pentru dezvoltare)
+      - "127.0.0.1:5432:5432"
     volumes:
       # datele bazei de date se salveaza in backend/docker/postgres/data
       # (raman acolo si dupa ce opriti containerele; folderul este in .gitignore)

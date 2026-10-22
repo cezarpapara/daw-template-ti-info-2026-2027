@@ -6,6 +6,8 @@ const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8080'
 async function request(path, options = {}) {
   const response = await fetch(`${API_URL}${path}`, {
     headers: { 'Content-Type': 'application/json' },
+    // trimite si cookie-ul httpOnly cu token-ul JWT (JavaScript nu il poate citi, doar browserul il trimite)
+    credentials: 'include',
     ...options,
   })
 
@@ -14,9 +16,12 @@ async function request(path, options = {}) {
     return null
   }
 
-  const data = await response.json()
+  const data = await response.json().catch(() => ({}))
   if (!response.ok) {
-    throw new Error(data.error ?? `Eroare ${response.status}`)
+    const error = new Error(data.error ?? `Eroare ${response.status}`)
+    error.status = response.status
+    error.violations = data.violations ?? {} // mesajele de validare pentru fiecare camp
+    throw error
   }
   return data
 }
@@ -26,6 +31,20 @@ export const api = {
 
   // GET /api/health
   getHealth: () => request('/api/health'),
+
+  // POST /api/auth/register
+  register: (email, password) =>
+    request('/api/auth/register', { method: 'POST', body: JSON.stringify({ email, password }) }),
+
+  // POST /api/auth/login (raspunsul pune token-ul in cookie si intoarce { user })
+  login: (email, password) =>
+    request('/api/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) }),
+
+  // POST /api/auth/logout
+  logout: () => request('/api/auth/logout', { method: 'POST' }),
+
+  // GET /api/auth/me
+  getMe: () => request('/api/auth/me'),
 
   // GET /api/categories
   getCategories: () => request('/api/categories'),

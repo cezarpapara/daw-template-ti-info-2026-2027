@@ -15,7 +15,7 @@ services:
       dockerfile: docker/react/Dockerfile
     container_name: daw-react
     ports:
-      - "5173:5173"
+      - "127.0.0.1:5173:5173"
     volumes:
       # codul din frontend/app apare in container in /app;
       # modificarile salvate se vad imediat in browser (fara build din nou)

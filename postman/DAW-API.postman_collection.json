@@ -1,7 +1,7 @@
 {
   "info": {
     "name": "PW / DAW API (TI + Informatica, 2026-2027)",
-    "description": "Cereri de exemplu pentru backend-ul Symfony. Porniti backend-ul inainte (docker compose up -d in folderul backend).",
+    "description": "Cereri de exemplu pentru backend-ul Symfony. Porniti backend-ul inainte (docker compose up -d in folderul backend). Operatiile care modifica date necesita autentificare: rulati intai Autentificare > Login.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
@@ -28,6 +28,105 @@
         },
         "description": "Verifica daca backend-ul si baza de date functioneaza."
       }
+    },
+    {
+      "name": "Autentificare",
+      "item": [
+        {
+          "name": "Cont nou",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Creeaza un cont cu rolul ROLE_USER. Parola: minim 8 caractere si suficient de complexa. Max 5 conturi noi pe ora de pe acelasi IP.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@exemplu.ro\",\n  \"password\": \"Parola-Sigura-2026!\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Pune token-ul JWT in cookie-ul BEARER (httpOnly). Postman pastreaza cookie-ul si il trimite automat la cererile urmatoare. Dupa 5 incercari gresite in 15 minute raspunsul este 429.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@exemplu.ro\",\n  \"password\": \"Parola-Sigura-2026!\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Utilizatorul curent",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ]
+            },
+            "description": "Necesita autentificare (cookie-ul BEARER sau headerul Authorization: Bearer <token>)."
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "logout"
+              ]
+            },
+            "description": "Sterge cookie-ul BEARER."
+          }
+        }
+      ]
     },
     {
       "name": "Categorii",
@@ -70,7 +169,7 @@
                 "categories"
               ]
             },
-            "description": "",
+            "description": "Doar administratorii (ROLE_ADMIN). Admin-ul se creeaza cu: docker exec -it daw-php php bin/console app:create-admin <email>",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"Jucarii\"\n}",
@@ -144,7 +243,7 @@
                 "products"
               ]
             },
-            "description": "",
+            "description": "Necesita autentificare (rulati intai Autentificare > Login). Proprietarul produsului este utilizatorul autentificat.",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"name\": \"Mouse wireless\",\n  \"description\": \"Mouse optic, 1600 DPI\",\n  \"price\": \"59.90\",\n  \"categoryId\": 1\n}",
@@ -153,6 +252,34 @@
                   "language": "json"
                 }
               }
+            }
+          }
+        },
+        {
+          "name": "Modifica produs",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1"
+              ]
+            },
+            "description": "Doar proprietarul produsului sau un administrator.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Laptop\",\n  \"description\": \"Laptop 15 inch, 32 GB RAM\",\n  \"price\": \"3999.99\",\n  \"categoryId\": 1\n}"
             }
           }
         },
@@ -172,7 +299,7 @@
                 "1"
               ]
             },
-            "description": ""
+            "description": "Doar proprietarul produsului sau un administrator."
           }
         }
       ]

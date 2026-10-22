@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Doctrine\DBAL\Connection;
 use OpenApi\Attributes as OA;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -22,13 +23,15 @@ class HealthController extends AbstractController
     #[Route('/api/health', name: 'api_health', methods: ['GET'])]
     #[OA\Tag(name: 'Stare')]
     #[OA\Response(response: 200, description: 'Backend-ul functioneaza')]
-    public function health(Connection $connection): JsonResponse
+    public function health(Connection $connection, LoggerInterface $logger): JsonResponse
     {
         try {
             $connection->executeQuery('SELECT 1');
             $database = 'conectata';
         } catch (\Throwable $e) {
-            $database = 'eroare: '.$e->getMessage();
+            // detaliile erorii (server, utilizator, port) merg doar in log, nu catre client
+            $logger->error('Baza de date nu raspunde', ['exception' => $e]);
+            $database = 'eroare de conectare';
         }
 
         return $this->json([

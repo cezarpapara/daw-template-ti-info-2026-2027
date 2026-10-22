@@ -30,6 +30,12 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
+    // Utilizatorul care a adaugat produsul: doar el (sau un admin) il poate modifica/sterge.
+    // Produsele de exemplu nu au proprietar, deci le poate gestiona doar un admin.
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    private ?User $owner = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -83,7 +89,19 @@ class Product
         return $this;
     }
 
-    // Datele trimise ca JSON catre frontend
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    // Datele trimise ca JSON catre frontend (doar id-ul proprietarului, nu si email-ul)
     public function toArray(): array
     {
         return [
@@ -95,6 +113,7 @@ class Product
                 'id' => $this->category?->getId(),
                 'name' => $this->category?->getName(),
             ],
+            'ownerId' => $this->owner?->getId(),
         ];
     }
 }
