@@ -1,0 +1,55 @@
+:root {
+  --fundal: #f4f6f2;
+  --panou: #ffffff;
+  --text: #25362e;
+  --text-secundar: #4d5e54;
+  --accent: #164e3e;
+  --accent-hover: #103a2e;
+  --contur: #a0aba3;
+  --eroare: #b42318;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, Arial, sans-serif; line-height: 1.5; color: var(--text); background: var(--fundal); }
+
+/* JavaScript pune sau scoate această clasă de pe body. */
+.intunecat {
+  --fundal: #16241d;
+  --panou: #22372c;
+  --text: #f4f8f5;
+  --text-secundar: #c9d8ce;
+  --accent: #b8ebce;
+  --accent-hover: #d7f6e3;
+  --contur: #809b8b;
+  --eroare: #ffb4ab;
+}
+main { max-width: 780px; margin: 0 auto; padding: 2rem 1rem; }
+h1, h2 { line-height: 1.2; }
+h1 { margin: 0.5rem 0; font-size: clamp(1.8rem, 5vw, 2.5rem); overflow-wrap: anywhere; }
+h2 { margin-top: 0; }
+.antet { margin-bottom: 1.5rem; }
+.supratitlu { color: var(--text-secundar); font-size: 0.85rem; font-weight: 700; }
+.actiuni { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.panou { padding: 1.5rem; margin-bottom: 1.5rem; border: 1px solid var(--contur); border-radius: 10px; background: var(--panou); }
+form { display: flex; flex-direction: column; align-items: flex-start; }
+label { font-weight: 600; }
+.ajutor { color: var(--text-secundar); margin: 0.35rem 0 0.75rem; font-size: 0.95rem; }
+button, input { font: inherit; border-radius: 6px; }
+input { width: 100%; max-width: 420px; padding: 0.65rem; background: var(--panou); color: var(--text); border: 1px solid var(--contur); }
+input[aria-invalid="true"] { border-color: var(--eroare); }
+button { padding: 0.65rem 1rem; border: 2px solid transparent; background: var(--accent); color: var(--panou); font-weight: 600; cursor: pointer; }
+button:hover, button:focus-visible { background: var(--accent-hover); }
+button:disabled { opacity: 0.6; cursor: wait; }
+.secundar { background: transparent; color: var(--accent); border-color: var(--accent); }
+.secundar:hover, .secundar:focus-visible { background: var(--accent); color: var(--panou); }
+button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.eroare { color: var(--eroare); }
+#eroare-nume { min-height: 1.5em; margin: 0.35rem 0 0.75rem; }
+.previzualizare { padding-top: 1rem; border-top: 1px solid var(--contur); overflow-wrap: anywhere; }
+.confirmare { color: var(--accent); font-weight: 600; overflow-wrap: anywhere; }
+.confirmare:empty, #stare:empty, #vreme:empty { display: none; }
+#vreme { padding-left: 1.25rem; }
+#vreme li { padding: 0.3rem 0; }
+footer { color: var(--text-secundar); font-size: 0.85rem; }
+@media (max-width: 400px) {
+  .panou { padding: 1rem; }
+}

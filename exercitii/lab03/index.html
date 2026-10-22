@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorul 03 – JavaScript</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header class="antet">
+      <p class="supratitlu">JavaScript · DOM · evenimente · fetch</p>
+      <h1 id="titlu">Laboratorul 03</h1>
+      <p>Un formular interactiv și vremea curentă din Bacău.</p>
+      <div class="actiuni">
+        <button id="btn-tema" type="button" aria-pressed="false">Schimbă tema</button>
+        <button id="btn-reset" type="button" class="secundar">Resetează</button>
+      </div>
+    </header>
+
+    <section class="panou" aria-labelledby="titlu-formular">
+      <h2 id="titlu-formular">Formular</h2>
+      <form id="formular" novalidate>
+        <label for="nume">Numele vostru</label>
+        <p id="instructiuni-nume" class="ajutor">Cel puțin 3 caractere, fără cifre.</p>
+        <input id="nume" name="nume" type="text" autocomplete="name" aria-describedby="instructiuni-nume eroare-nume">
+        <p id="eroare-nume" class="eroare" aria-live="polite"></p>
+        <button type="submit">Trimite</button>
+      </form>
+      <p class="previzualizare">Previzualizare: Salut, <strong id="previzualizare">...</strong>!</p>
+      <p id="confirmare" class="confirmare" aria-live="polite"></p>
+    </section>
+
+    <section class="panou" aria-labelledby="titlu-vreme">
+      <h2 id="titlu-vreme">Vremea în Bacău</h2>
+      <p class="ajutor">Date curente de la Open-Meteo, încărcate la apăsarea butonului.</p>
+      <button id="btn-vreme" type="button" aria-controls="vreme">Afișează vremea</button>
+      <p id="stare" role="status" aria-live="polite"></p>
+      <ul id="vreme" aria-label="Date meteo pentru Bacău"></ul>
+    </section>
+
+    <footer>PW/DAW · Laboratorul 03 · Datele meteo necesită conexiune la internet.</footer>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
