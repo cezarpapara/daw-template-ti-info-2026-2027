@@ -19,7 +19,7 @@ Paleta exemplului a fost schimbată în verde închis și cărămiziu numai prin
 | Buton `#9a3412` | 7,31:1 |
 | Buton la hover/focus `#7c2d12` | 9,37:1 |
 
-Poți reproduce verificarea cerută în fișă în [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/), introducând albul și fiecare culoare de fundal. Valorile de mai sus sunt calculate local, nu reprezintă o verificare efectuată în site.
+Verificarea a fost efectuată și în WebAIM Contrast Checker: [verde](https://webaim.org/resources/contrastchecker/?fcolor=FFFFFF&bcolor=164E3E) 9,57:1, [cărămiziu](https://webaim.org/resources/contrastchecker/?fcolor=FFFFFF&bcolor=9A3412) 7,3:1 și [hover](https://webaim.org/resources/contrastchecker/?fcolor=FFFFFF&bcolor=7C2D12) 9,37:1. Site-ul indică Pass AA și AAA pentru text normal la toate trei. Diferența 7,31/7,3 provine din afișarea zecimalelor.
 
 ## Comportament intenționat
 
