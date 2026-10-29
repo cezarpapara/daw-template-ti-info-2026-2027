@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320">
+  <rect width="640" height="320" fill="#dbeafe"/>
+  <circle cx="500" cy="84" r="42" fill="#fef3c7"/>
+  <path d="M0 235Q160 195 320 240T640 220V320H0Z" fill="#1e3a8a"/>
+  <path d="M90 95q25-40 50 0t50 0M440 180q20-35 40 0t40 0" fill="none" stroke="#2563eb" stroke-width="7"/>
+  <text x="320" y="145" text-anchor="middle" font-family="Georgia,serif" font-size="48" font-weight="bold" fill="#1e3a8a">POEZII</text>
+  <text x="320" y="184" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#1e3a8a">MIHAI EMINESCU</text>
+</svg>

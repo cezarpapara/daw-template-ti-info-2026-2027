@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320">
+  <rect width="640" height="320" fill="#e0f2fe"/>
+  <circle cx="115" cy="94" r="38" fill="#facc15"/>
+  <path d="M0 236Q160 190 320 230T640 214V320H0Z" fill="#0e7490"/>
+  <path d="M115 177l18-43 18 43-18 25z" fill="#c2410c"/>
+  <path d="M430 66l8 18 20 2-15 13 4 20-17-10-17 10 4-20-15-13 20-2z" fill="#f59e0b"/>
+  <text x="340" y="145" text-anchor="middle" font-family="Georgia,serif" font-size="48" font-weight="bold" fill="#164e63">Micul Prinț</text>
+  <text x="340" y="184" text-anchor="middle" font-family="Georgia,serif" font-size="18" fill="#164e63">ANTOINE DE SAINT-EXUPÉRY</text>
+</svg>

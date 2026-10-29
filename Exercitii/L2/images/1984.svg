@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320">
+  <rect width="640" height="320" fill="#1f2937"/>
+  <path d="M0 45h640M0 275h640" stroke="#dc2626" stroke-width="5"/>
+  <circle cx="320" cy="142" r="63" fill="#991b1b"/>
+  <circle cx="320" cy="142" r="24" fill="#fecaca"/>
+  <path d="M110 245V76m420 169V76" stroke="#6b7280" stroke-width="12"/>
+  <text x="320" y="160" text-anchor="middle" font-family="Georgia,serif" font-size="56" font-weight="bold" fill="#fff">1984</text>
+  <text x="320" y="220" text-anchor="middle" font-family="Georgia,serif" font-size="22" fill="#fecaca">GEORGE ORWELL</text>
+</svg>

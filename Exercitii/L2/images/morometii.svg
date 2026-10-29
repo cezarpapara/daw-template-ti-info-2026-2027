@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320">
+  <rect width="640" height="320" fill="#f5e8d0"/>
+  <path d="M0 206L115 130l85 53 102-94 95 87 90-65 153 89v120H0Z" fill="#9a3412"/>
+  <path d="M0 250Q180 214 330 248T640 238V320H0Z" fill="#365314"/>
+  <path d="M120 210v-78h74v78M135 132v-30h45v30" fill="#78350f"/>
+  <text x="385" y="139" text-anchor="middle" font-family="Georgia,serif" font-size="43" font-weight="bold" fill="#431407">MOROMEȚII</text>
+  <text x="385" y="176" text-anchor="middle" font-family="Georgia,serif" font-size="20" fill="#431407">MARIN PREDA</text>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320">
+  <rect width="640" height="320" fill="#fef3c7"/>
+  <circle cx="520" cy="72" r="36" fill="#f59e0b"/>
+  <path d="M0 245Q130 180 260 245T520 230T760 250V320H0Z" fill="#65a30d"/>
+  <path d="M62 192h150v95H62z" fill="#b45309"/><path d="M76 150h120v42H76z" fill="#fbbf24"/>
+  <path d="M75 163h122M75 177h122" stroke="#78350f" stroke-width="5"/>
+  <text x="320" y="130" text-anchor="middle" font-family="Georgia,serif" font-size="32" fill="#713f12">AMINTIRI DIN</text>
+  <text x="320" y="174" text-anchor="middle" font-family="Georgia,serif" font-size="38" font-weight="bold" fill="#713f12">COPILĂRIE</text>
+</svg>

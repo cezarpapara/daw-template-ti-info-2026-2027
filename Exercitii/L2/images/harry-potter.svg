@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320">
+  <rect width="640" height="320" fill="#172554"/>
+  <circle cx="510" cy="72" r="38" fill="#fde68a"/>
+  <path d="M0 260L112 84l92 176 95-123 93 123 95-175 153 175v60H0Z" fill="#312e81"/>
+  <path d="M288 78l-55 104h47l-28 79 101-121h-54l30-62z" fill="#facc15"/>
+  <text x="320" y="138" text-anchor="middle" font-family="Georgia,serif" font-size="35" font-weight="bold" fill="#fff">HARRY POTTER</text>
+  <text x="320" y="178" text-anchor="middle" font-family="Georgia,serif" font-size="22" fill="#fde68a">PIATRA FILOSOFALĂ</text>
+</svg>
