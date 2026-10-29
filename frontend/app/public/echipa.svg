@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-labelledby="title">
+ <title id="title">Echipă de dezvoltatori colaborând</title>
+ <rect width="640" height="360" fill="#e8f1ed"/>
+ <path d="M0 278h640v82H0z" fill="#d5e4dc"/>
+ <rect x="207" y="60" width="226" height="148" rx="8" fill="#243f3b"/>
+ <rect x="220" y="73" width="200" height="116" rx="3" fill="#f8fbf8"/>
+ <rect x="239" y="91" width="91" height="9" rx="4" fill="#2f7b68"/>
+ <rect x="239" y="111" width="151" height="7" rx="3" fill="#a8c9bc"/>
+ <rect x="239" y="128" width="132" height="7" rx="3" fill="#a8c9bc"/>
+ <rect x="239" y="145" width="108" height="7" rx="3" fill="#a8c9bc"/>
+ <path d="M185 208h270l24 20H161z" fill="#486762"/>
+ <rect x="307" y="228" width="26" height="44" fill="#486762"/>
+ <path d="M253 272h134l18 11H235z" fill="#36534e"/>
+ <circle cx="145" cy="157" r="29" fill="#b96f50"/>
+ <path d="M116 154c0-26 14-42 34-42 22 0 35 17 34 39-12-7-21-19-24-29-8 15-24 25-44 27z" fill="#322f2c"/>
+ <path d="M95 267v-55c0-20 18-34 40-34h20c22 0 40 14 40 34v55z" fill="#deab54"/>
+ <path d="M153 190l-8 19 10 15 11-15-8-19z" fill="#f8eee0"/>
+ <circle cx="495" cy="157" r="29" fill="#d99b72"/>
+ <path d="M466 154c0-25 13-40 34-40 20 0 34 15 34 38-15-3-26-12-33-24-6 13-18 22-35 26z" fill="#533b34"/>
+ <path d="M447 267v-55c0-20 18-34 40-34h20c22 0 40 14 40 34v55z" fill="#528b77"/>
+ <path d="M505 190l-8 19 10 15 11-15-8-19z" fill="#f8eee0"/>
+ <path d="M131 236l70-23 32 19-62 30z" fill="#f5f7f4" stroke="#486762" stroke-width="5"/>
+ <path d="M510 235l-59-21-31 18 53 29z" fill="#f5f7f4" stroke="#486762" stroke-width="5"/>
+</svg>
