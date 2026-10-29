@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorul 03 - JavaScript</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 id="titlu">Laboratorul 03</h1>
+    <button id="btn-tema" type="button">Schimbă tema</button>
+    
+    <!-- Exercițiul 1: Buton de reset -->
+    <button id="btn-reset" type="button">Resetează</button>
+
+    <h2>Formular</h2>
+    <form id="formular" novalidate>
+        <label for="nume">Numele vostru</label>
+        <input id="nume" type="text" autocomplete="name">
+        <button type="submit">Trimite</button>
+        <p id="eroare-nume" class="eroare"></p>
+    </form>
+    <p>Previzualizare: Salut, <strong id="previzualizare">...</strong>!</p>
+
+    <h2>Vremea</h2>
+    <!-- Exercițiul 4: Alegerea orașului dintr-o listă -->
+    <label for="oras">Alege orașul:</label>
+    <select id="oras">
+        <option value="46.57,26.91">Bacău</option>
+        <option value="47.16,27.59">Iași</option>
+        <option value="44.43,26.10">București</option>
+        <option value="46.77,23.60">Cluj-Napoca</option>
+    </select>
+    <button id="btn-vreme" type="button">Afișează vremea</button>
+    <p id="stare"></p>
+    <ul id="vreme"></ul>
+
+    <script src="script.js"></script>
+</body>
+</html>
