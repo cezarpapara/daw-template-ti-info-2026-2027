@@ -1,0 +1,36 @@
+!DOCTYPE html>
+<html lang="ro">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Laboratorul 03 – JavaScript</title>
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <h1 id="titlu">Laboratorul 03</h1>
+ <button id="btn-tema" type="button">Schimbă tema</button>
+ <button id="btn-reset" type="button">Resetează</button>
+ <h2>Formular</h2>
+ <form id="formular" novalidate>
+ <label for="nume">Numele vostru</label>
+ <input id="nume" type="text" autocomplete="name">
+ <button type="submit">Trimite</button>
+ <p id="eroare-nume" class="eroare"></p>
+ </form>
+ <p>Previzualizare: Salut, <strong id="previzualizare">...</strong>!</p>
+ <h2 id="titlu-vreme">Vremea în Bacău</h2>
+ <label for="oras">Alege orașul</label>
+ <select id="oras">
+  <option value="46.567,26.914">Bacău</option>
+  <option value="44.4268,26.1025">București</option>
+  <option value="46.7712,23.6236">Cluj-Napoca</option>
+  <option value="47.1585,27.6014">Iași</option>
+  <option value="45.7489,21.2087">Timișoara</option>
+  <option value="44.1598,28.6348">Constanța</option>
+ </select>
+ <button id="btn-vreme" type="button">Afișează vremea</button>
+ <p id="stare"></p>
+ <ul id="vreme"></ul>
+ <script src="script.js"></script>
+</body>
+</html>
