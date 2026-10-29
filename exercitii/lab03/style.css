@@ -1,0 +1,11 @@
+body {
+  font-family: system-ui, Arial, sans-serif;
+  margin: 2rem;
+}
+.intunecat {
+  background: #1f2937;
+  color: #f9fafb;
+}
+.eroare {
+  color: #b42318;
+}
