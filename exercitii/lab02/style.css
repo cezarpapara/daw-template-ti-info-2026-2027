@@ -1,0 +1,61 @@
+:root {
+--culoare-principala: #1f3a73;
+--culoare-accent: #b45309;
+--fundal: #f6f7fb;
+--text: #1f2937;
+--raza: 8px;
+}
+* { box-sizing: border-box; }
+body {
+margin: 0; line-height: 1.5;
+font-family: system-ui, Arial, sans-serif;
+color: var(--text); background: var(--fundal);
+}
+
+.antet {
+display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+padding: 1rem; background: var(--culoare-principala);
+}
+.logo { font-size: 1.4rem; font-weight: bold; }
+.logo, .meniu a { color: #fff; text-decoration: none; }
+.meniu { display: flex; gap: 1rem; margin: 0; padding: 0; }
+.meniu li { list-style: none; }
+.meniu a:hover { text-decoration: underline; }
+.continut {
+display: grid; gap: 1.5rem;
+max-width: 1100px; margin: 0 auto; padding: 1rem;
+}
+.grila { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+.card {
+background: #fff; border-radius: var(--raza); padding: 1rem;
+box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+.pret { font-weight: bold; color: var(--culoare-principala); }
+
+.buton {
+background: var(--culoare-accent); color: #fff;
+border: none; border-radius: var(--raza);
+padding: 0.6rem 1rem; cursor: pointer;
+transition: background 0.2s;
+}
+.buton:hover, .buton:focus-visible { background: #92400e; }
+.newsletter form {
+display: flex; flex-direction: column; gap: 0.5rem; max-width: 420px;
+}
+.newsletter input { padding: 0.6rem; border: 1px solid #9ca3af; }
+.subsol {
+text-align: center; padding: 1rem;
+color: #fff; background: var(--culoare-principala);
+}
+
+/* Tableta: de la 600px în sus */
+@media (min-width: 600px) {
+.antet { flex-direction: row; justify-content: space-between; }
+.grila { grid-template-columns: repeat(2, 1fr); }
+}
+/* Desktop: de la 900px în sus */
+@media (min-width: 900px) {
+.continut { grid-template-columns: 3fr 1fr; }
+.newsletter { grid-column: 1 / -1; }
+.grila { grid-template-columns: repeat(3, 1fr); }
+}
