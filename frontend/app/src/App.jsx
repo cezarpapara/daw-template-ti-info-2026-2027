@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage.jsx'
 import CategoriesPage from './pages/CategoriesPage.jsx'
 import ProductsPage from './pages/ProductsPage.jsx'
 import ProductDetailsPage from './pages/ProductDetailsPage.jsx'
+import AboutPage from './pages/AboutPage.jsx' // 1. Am importat pagina nouă
 import './App.css'
 
 // Structura comuna a tuturor paginilor: meniul de sus + pagina curenta
@@ -15,6 +16,7 @@ function App() {
           <NavLink to="/" end>Acasa</NavLink>
           <NavLink to="/categorii">Categorii</NavLink>
           <NavLink to="/produse">Produse</NavLink>
+          <NavLink to="/despre">Despre</NavLink> {/* 2. Am adăugat legătura în meniu */}
         </nav>
       </header>
 
@@ -25,6 +27,7 @@ function App() {
           <Route path="/categorii" element={<CategoriesPage />} />
           <Route path="/produse" element={<ProductsPage />} />
           <Route path="/produse/:id" element={<ProductDetailsPage />} />
+          <Route path="/despre" element={<AboutPage />} /> {/* 3. Am adăugat ruta */}
           <Route path="*" element={<p>Pagina nu exista.</p>} />
         </Routes>
       </main>
