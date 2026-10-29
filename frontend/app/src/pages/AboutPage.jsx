@@ -1,5 +1,6 @@
 import Card from "../components/Card";
 import PageTitle from "../components/PageTitle";
+import { useState } from "react";
 
 const sections = [
   { id: 1, title: "Backend", text: "Symfony 8 și PHP 8.5 expun un API JSON." },
@@ -19,6 +20,8 @@ const sections = [
   },
 ];
 export default function AboutPage() {
+  const [count, setCount] = useState(0);
+
   return (
     <section>
       <PageTitle
@@ -40,6 +43,12 @@ export default function AboutPage() {
           />
         ))}
       </div>
+      <button type="button" onClick={() => setCount(count + 1)}>
+        Ați apăsat de {count} ori
+      </button>
+      <button type="button" onClick={() => setCount(0)}>
+        Resetează
+      </button>
     </section>
   );
 }
