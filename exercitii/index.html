@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratorul 03 – Librăria din cartier</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="antet">
+        <a class="logo" href="#">Librăria din cartier</a>
+        <nav aria-label="Meniul principal">
+            <ul class="meniu">
+                <li><a href="#produse">Produse</a></li>
+                <li><a href="#formular-sectiune">Formular</a></li>
+                <li><a href="#vreme-sectiune">Vremea</a></li>
+                <li><a href="#despre">Despre noi</a></li>
+            </ul>
+        </nav>
+        <div class="actiuni">
+            <button id="btn-tema" type="button" class="buton">Schimbă tema</button>
+            <!-- Ex. 1: buton Resetează -->
+            <button id="btn-reset" type="button" class="buton buton-secundar">Resetează</button>
+        </div>
+    </header>
+
+    <main class="continut">
+        <section id="produse">
+            <h1 id="titlu">Laboratorul 03</h1>
+            <div class="grila">
+                <article class="card">
+                    <img src="https://picsum.photos/seed/creanga/400/160" alt="Coperta cărții Amintiri din copilărie, ediție ilustrată">
+                    <h2>Amintiri din copilărie</h2>
+                    <p>Ion Creangă. Ediție ilustrată.</p>
+                    <p class="pret">45 lei</p>
+                    <button type="button" class="buton">Adaugă în coș</button>
+                </article>
+                <article class="card">
+                    <img src="https://picsum.photos/seed/eminescu/400/160" alt="Coperta antologiei Poezii de Mihai Eminescu">
+                    <h2>Poezii</h2>
+                    <p>Mihai Eminescu. Antologie pentru liceu.</p>
+                    <p class="pret">32 lei</p>
+                    <button type="button" class="buton">Adaugă în coș</button>
+                </article>
+                <article class="card">
+                    <img src="https://picsum.photos/seed/caragiale/400/160" alt="Coperta volumului O scrisoare pierdută de I. L. Caragiale">
+                    <h2>O scrisoare pierdută</h2>
+                    <p>I. L. Caragiale. Comedie în patru acte.</p>
+                    <p class="pret">28 lei</p>
+                    <button type="button" class="buton">Adaugă în coș</button>
+                </article>
+                <article class="card">
+                    <img src="https://picsum.photos/seed/rebreanu/400/160" alt="Coperta romanului Ion de Liviu Rebreanu">
+                    <h2>Ion</h2>
+                    <p>Liviu Rebreanu. Roman, ediție integrală.</p>
+                    <p class="pret">39 lei</p>
+                    <button type="button" class="buton">Adaugă în coș</button>
+                </article>
+                <article class="card">
+                    <img src="https://picsum.photos/seed/sadoveanu/400/160" alt="Coperta romanului Baltagul de Mihail Sadoveanu">
+                    <h2>Baltagul</h2>
+                    <p>Mihail Sadoveanu. Ediție comentată.</p>
+                    <p class="pret">35 lei</p>
+                    <button type="button" class="buton">Adaugă în coș</button>
+                </article>
+                <article class="card">
+                    <img src="https://picsum.photos/seed/blaga/400/160" alt="Coperta volumului Poemele luminii de Lucian Blaga">
+                    <h2>Poemele luminii</h2>
+                    <p>Lucian Blaga. Volum de debut, ediție bibliofilă.</p>
+                    <p class="pret">42 lei</p>
+                    <button type="button" class="buton">Adaugă în coș</button>
+                </article>
+            </div>
+        </section>
+
+        <aside id="despre">
+            <h2>Despre noi</h2>
+            <p>O librărie mică, deschisă zilnic între 9 și 19, cu livrare în oraș.</p>
+        </aside>
+
+        <section id="formular-sectiune" class="panou">
+            <h2>Formular</h2>
+            <form id="formular" novalidate>
+                <label for="nume">Numele vostru</label>
+                <input id="nume" type="text" autocomplete="name">
+                <button type="submit" class="buton">Trimite</button>
+                <p id="eroare-nume" class="eroare"></p>
+            </form>
+            <p>Previzualizare: Salut, <strong id="previzualizare">...</strong>!</p>
+        </section>
+
+        <section id="vreme-sectiune" class="panou">
+            <h2>Vremea</h2>
+            <!-- Ex. 4: alegerea orașului -->
+            <label for="oras">Orașul</label>
+            <select id="oras">
+                <option value="46.57,26.91">Bacău</option>
+                <option value="47.16,27.59">Iași</option>
+                <option value="44.43,26.10">București</option>
+                <option value="46.77,23.60">Cluj-Napoca</option>
+                <option value="47.01,28.86">Chișinău</option>
+            </select>
+            <button id="btn-vreme" type="button" class="buton">Afișează vremea</button>
+            <p id="stare"></p>
+            <ul id="vreme"></ul>
+        </section>
+    </main>
+
+    <footer class="subsol">
+        <p>&copy; 2026 Librăria din cartier · exercițiu de laborator PW/DAW</p>
+        <p>Str. Ștefan cel Mare 126, Chișinău · Luni–Duminică, 9:00–19:00</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

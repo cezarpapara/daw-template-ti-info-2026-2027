@@ -1,0 +1,205 @@
+:root {
+    --culoare-principala: #312e81;
+    --culoare-accent: #0f766e;
+    --culoare-accent-inchis: #115e59;
+    --fundal: #f0fdfa;
+    --fundal-card: #ffffff;
+    --text: #1e293b;
+    --raza: 8px;
+}
+
+/* Tema întunecată: schimbăm doar variabilele, restul paginii se adaptează */
+.intunecat {
+    --fundal: #1f2937;
+    --fundal-card: #374151;
+    --text: #f9fafb;
+}
+
+.eroare {
+    color: #b42318;
+    margin: 0.5rem 0 0;
+}
+
+.intunecat .eroare {
+    color: #fca5a5;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    line-height: 1.5;
+    font-family: system-ui, Arial, sans-serif;
+    color: var(--text);
+    background: var(--fundal);
+    transition: background 0.2s, color 0.2s;
+}
+
+.antet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--culoare-principala);
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.logo,
+.meniu a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.meniu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.meniu li {
+    list-style: none;
+}
+
+.meniu a:hover {
+    text-decoration: underline;
+}
+
+.actiuni {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.continut {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.grila {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+.card,
+.panou {
+    background: var(--fundal-card);
+    border-radius: var(--raza);
+    padding: 1rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+.card img {
+    display: block;
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: var(--raza);
+    margin-bottom: 0.75rem;
+}
+
+.pret {
+    font-weight: bold;
+    color: var(--culoare-accent);
+}
+
+.buton {
+    background: var(--culoare-accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--raza);
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.buton:hover,
+.buton:focus-visible {
+    background: var(--culoare-accent-inchis);
+}
+
+.buton:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.buton-secundar {
+    background: transparent;
+    border: 1px solid #fff;
+}
+
+.buton-secundar:hover,
+.buton-secundar:focus-visible {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+#formular {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 420px;
+}
+
+#formular input,
+#oras {
+    padding: 0.6rem;
+    border: 1px solid #9ca3af;
+    border-radius: var(--raza);
+    font: inherit;
+}
+
+#vreme-sectiune label {
+    margin-right: 0.5rem;
+}
+
+#vreme {
+    padding-left: 1.2rem;
+}
+
+.subsol {
+    text-align: center;
+    padding: 1rem;
+    color: #fff;
+    background: var(--culoare-principala);
+}
+
+.subsol p {
+    margin: 0.25rem 0;
+}
+
+/* Tabletă: de la 600px în sus */
+@media (min-width: 600px) {
+    .antet {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .subsol {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        text-align: left;
+    }
+}
+
+/* Desktop: de la 900px în sus */
+@media (min-width: 900px) {
+    .continut {
+        grid-template-columns: 3fr 1fr;
+    }
+
+    .panou {
+        grid-column: 1 / -1;
+    }
+}

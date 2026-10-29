@@ -42,7 +42,7 @@ services:
       POSTGRES_USER: daw
       POSTGRES_PASSWORD: daw
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       # datele bazei de date se salveaza in backend/docker/postgres/data
       # (raman acolo si dupa ce opriti containerele; folderul este in .gitignore)
