@@ -13,7 +13,7 @@ name: daw-backend
 services:
   daw-nginx:
     image: nginx:1.30-alpine
-    container_name: daw-nginx
+    container_name: daw-ng`inx
     ports:
       - "8080:80"
     volumes:
