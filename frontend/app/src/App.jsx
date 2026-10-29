@@ -1,4 +1,5 @@
 import { NavLink, Route, Routes } from 'react-router'
+import AboutPage from './pages/AboutPage';
 import HomePage from './pages/HomePage.jsx'
 import CategoriesPage from './pages/CategoriesPage.jsx'
 import ProductsPage from './pages/ProductsPage.jsx'
@@ -26,6 +27,7 @@ function App() {
           <Route path="/produse" element={<ProductsPage />} />
           <Route path="/produse/:id" element={<ProductDetailsPage />} />
           <Route path="*" element={<p>Pagina nu exista.</p>} />
+          <Route path="/despre" element={<AboutPage />} />
         </Routes>
       </main>
     </>
