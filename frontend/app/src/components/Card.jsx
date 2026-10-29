@@ -8,7 +8,4 @@ export default function Card({ title, text, image, imageAlt = '' }) {
       <p>{text}</p>
     </article>
   );
-}git status
-git add .
-git commit -m "Laboratorul 04: componenta Card si pagina Despre"
-git push origin numele.tau
+}
