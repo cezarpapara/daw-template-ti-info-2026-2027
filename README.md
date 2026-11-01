@@ -15,6 +15,9 @@ Symfony 8 (PHP 8.5), PostgreSQL 18, Doctrine ORM, React 19 + Vite, Docker Compos
 7. Datele de exemplu: `backend/app/sql/date-exemplu.sql` (rulate în DBeaver)
 8. Interfața: http://localhost:5173 | API: http://localhost:8080/api/doc
 
+## Capturi de ecran
+![Pagina unui produs, cu recenzii](docs/capturi/produs.png)
+
 ## Performanță (Lighthouse)
 - **Scoruri inițiale:** Performance: 35, Accessibility: 100, Best Practices: 100, SEO: 82.
 - **Îmbunătățiri:** Scorul SEO a crescut la maxim (100) după adăugarea tag-urilor meta și title.
