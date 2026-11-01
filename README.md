@@ -20,4 +20,5 @@ Symfony 8 (PHP 8.5), PostgreSQL 18, Doctrine ORM, React 19 + Vite, Docker Compos
 
 ## Performanță (Lighthouse)
 - **Scoruri inițiale:** Performance: 35, Accessibility: 100, Best Practices: 100, SEO: 82.
-- **Îmbunătățiri:** Scorul SEO a crescut la maxim (100) după adăugarea tag-urilor meta și title.
+- **Scoruri după optimizare:** Performance: 28, Accessibility: 100, Best Practices: 100, SEO: 91.
+- **Îmbunătățiri:** Scorul SEO a crescut la 91 după adăugarea tag-urilor meta și title în interfața React.
