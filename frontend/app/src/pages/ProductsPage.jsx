@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router'; // Importăm Link pentru navigare
+import { api } from '../api.js'; // Importăm obiectul api configurat
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
-  const [search, setSearch] = useState(''); // Starea pentru căutare
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    // Apelăm API-ul pentru produse
-    fetch('/api/products')
-      .then(res => res.json())
+    // Folosim api.getProducts() pentru a face cererea corect la portul 8080
+    api.getProducts()
       .then(setProducts)
       .catch(err => console.error(err));
   }, []);
 
-  // Logica de filtrare
   const term = search.trim().toLowerCase();
   const visibleProducts = products.filter((product) =>
     product.name.toLowerCase().includes(term)
@@ -31,7 +31,6 @@ export default function ProductsPage() {
           onChange={(event) => setSearch(event.target.value)}
           style={{ flex: 1 }}
         />
-        {/* Exercițiul 4: Buton Șterge căutarea */}
         {search && (
           <button onClick={() => setSearch('')} className="button-danger">
             Șterge căutarea
@@ -39,7 +38,6 @@ export default function ProductsPage() {
         )}
       </div>
 
-      {/* Exercițiul 5: Afișăm câte produse am găsit */}
       <p className="subtitle">
         {visibleProducts.length} din {products.length} produse corespund căutării.
       </p>
@@ -50,7 +48,10 @@ export default function ProductsPage() {
 
       <ul>
         {visibleProducts.map(product => (
-          <li key={product.id}>{product.name} - {product.price} lei</li>
+          <li key={product.id}>
+            {/* Transformăm numele într-un link către pagina de detalii */}
+            <Link to={`/produse/${product.id}`}>{product.name}</Link> - {product.price} lei
+          </li>
         ))}
       </ul>
     </section>
