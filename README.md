@@ -1,23 +1,20 @@
-# Template de proiect – Programare Web / Dezvoltarea Aplicațiilor Web
+# Magazinul meu - Proiect PW/DAW 2026-2027
 
-Proiect de pornire pentru laboratorul disciplinelor **Programare Web** (Tehnologia Informației, anul IV) și **Dezvoltarea Aplicațiilor Web** (Informatică, anul II, învățământ cu frecvență), Universitatea „Vasile Alecsandri” din Bacău, anul universitar 2026–2027.
+Aplicație web demonstrativă tip magazin online, incluzând gestionarea produselor, a categoriilor și un sistem de recenzii.
 
-Titular: Ș.l. dr. ing. Eusebiu Pruteanu · Laborator: Asist. univ. drd. asoc. Cezar-Marian Papară
+## Tehnologii
+Symfony 8 (PHP 8.5), PostgreSQL 18, Doctrine ORM, React 19 + Vite, Docker Compose.
 
-Proiectul este format din două aplicații separate, care comunică prin API:
+## Rulare
+1. `git clone https://github.com/UTILIZATORUL_TAU/daw-template-ti-info-2026-2027.git`
+2. `git checkout ramura-ta`
+3. `docker compose -f backend/compose.yaml up -d --build`
+4. `docker compose -f frontend/compose.yaml up -d --build`
+5. `docker exec -it daw-php composer install`
+6. `docker exec -it daw-php php bin/console doctrine:migrations:migrate`
+7. Datele de exemplu: `backend/app/sql/date-exemplu.sql` (rulate în DBeaver)
+8. Interfața: http://localhost:5173 | API: http://localhost:8080/api/doc
 
-- **backend** – PHP Symfony, cu bază de date PostgreSQL;
-- **frontend** – React.
-
-Totul rulează în containere Docker; nu este nevoie să instalați PHP, Node.js sau PostgreSQL pe calculator.
-
-## Pornire rapidă
-
-```bash
-git clone https://github.com/cezarpapara/daw-template-ti-info-2026-2027.git
-cd daw-template-ti-info-2026-2027
-git checkout -b nume.prenume
-git push -u origin nume.prenume
-```
-
-Pașii pentru prima pornire a containerelor, modul de lucru cu Git și structura proiectului sunt descriși în documentul **Metodologie de lucru și template de proiect** și în îndrumarele de laborator, disponibile pe platforma disciplinei ([examene.pe.ub.ro](http://examene.pe.ub.ro/)) și pe grupul Microsoft Teams al disciplinei.
+## Performanță (Lighthouse)
+- **Scoruri inițiale:** Performance: 35, Accessibility: 100, Best Practices: 100, SEO: 82.
+- **Îmbunătățiri:** Scorul SEO a crescut la maxim (100) după adăugarea tag-urilor meta și title.

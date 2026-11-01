@@ -20,6 +20,9 @@ export default function ProductsPage() {
 
   return (
     <section>
+      {/* Eticheta title pentru scorul maxim SEO în Lighthouse[cite: 15] */}
+      <title>Produse - Magazinul nostru</title>
+
       <h1>Produse</h1>
       
       <div className="form-field" style={{ flexDirection: 'row', alignItems: 'center', maxWidth: '600px' }}>
