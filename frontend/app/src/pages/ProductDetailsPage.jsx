@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { api } from '../api.js'
+import ReviewSection from '../components/ReviewSection.jsx' // 1. Am adăugat importul
 
 // Pagina de detalii pentru un produs: /produse/:id
 function ProductDetailsPage() {
@@ -30,6 +31,9 @@ function ProductDetailsPage() {
           <p className="muted">Date primite de la <code>GET {api.url}/api/products/{product.id}</code></p>
         </section>
       )}
+
+      {/* 2. Am adăugat componenta de recenzii sub detaliile produsului */}
+      {product && <ReviewSection productId={id} />}
     </>
   )
 }
