@@ -1,0 +1,7 @@
+$kind: http-request
+url: http://localhost:8080/api/demo/parola
+method: POST
+body:
+  type: json
+  content: '{"password": "parola123"}'
+order: 6000

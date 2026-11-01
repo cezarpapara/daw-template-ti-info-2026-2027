@@ -3,6 +3,7 @@ namespace App\Entity;
 use App\Repository\ReviewRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
 class Review
@@ -13,12 +14,26 @@ class Review
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(message: 'Autorul este obligatoriu.')]
+    #[Assert\Length(
+        min: 2, 
+        max: 100, 
+        minMessage: 'Autorul trebuie să aibă cel puțin {{ limit }} caractere.', 
+        maxMessage: 'Cel mult {{ limit }} caractere.'
+    )]
     private ?string $author = null;
 
     #[ORM\Column]
+    #[Assert\Range(
+        min: 1, 
+        max: 5, 
+        notInRangeMessage: 'Nota trebuie să fie între {{ min }} și {{ max }}.'
+    )]
     private ?int $rating = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Length(max: 1000, maxMessage: 'Comentariul are cel mult {{ limit }} caractere.')]
+    #[Assert\Regex(pattern: '/spam/i', match: false, message: 'Comentariul conține cuvinte interzise.')]
     private ?string $comment = null;
 
     #[ORM\Column]
@@ -26,6 +41,7 @@ class Review
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+    #[Assert\NotNull(message: 'Produsul indicat nu există.')]
     private ?Product $product = null;
 
     public function __construct()
