@@ -5,6 +5,7 @@ import ProductsPage from './pages/ProductsPage.jsx'
 import ProductDetailsPage from './pages/ProductDetailsPage.jsx'
 import './App.css'
 import AboutPage from './pages/AboutPage';
+import ContactPage from'./pages/ContactPage';
 // Structura comuna a tuturor paginilor: meniul de sus + pagina curenta
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           <NavLink to="/categorii">Categorii</NavLink>
           <NavLink to="/produse">Produse</NavLink>
           <NavLink to="/despre">Despre</NavLink>
-        </nav>
+          <NavLink to="/contact">Contact</NavLink>
       </header>
 
       <main className="container">
@@ -27,6 +28,7 @@ function App() {
           <Route path="/produse" element={<ProductsPage />} />
           <Route path="/produse/:id" element={<ProductDetailsPage />} />
           <Route path="/despre" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<p>Pagina nu exista.</p>} />
         </Routes>
       </main>

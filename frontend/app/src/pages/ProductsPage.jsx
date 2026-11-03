@@ -7,6 +7,11 @@ const emptyForm = { name: '', description: '', price: '', categoryId: '' }
 // Pagina Produse: lista produselor, adaugare si stergere
 function ProductsPage() {
   const [products, setProducts] = useState([])
+  const [search, setSearch] = useState('');
+  const term = search.trim().toLowerCase();
+  const visibleProducts = products.filter((product) =>
+  product.name.toLowerCase().includes(term)
+  );
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState(emptyForm)
   const [error, setError] = useState(null)
@@ -66,6 +71,12 @@ function ProductsPage() {
 
       <section className="card">
         <h2>Adauga un produs</h2>
+        <input
+          type="text"
+          placeholder="Cauta produse..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
         <form onSubmit={handleSubmit} className="form form-grid">
           <input name="name" value={form.name} onChange={handleChange} placeholder="Nume" required />
           <input
@@ -101,10 +112,10 @@ function ProductsPage() {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {visibleProducts.map((product) => (
               <tr key={product.id}>
                 <td><Link to={`/produse/${product.id}`}>{product.name}</Link></td>
-                <td>{product.category.name}</td>
+                <td>{product.category?.name ?? '—'}</td>
                 <td>{product.price}</td>
                 <td>
                   <button className="button-danger" onClick={() => handleDelete(product.id)}>Sterge</button>
