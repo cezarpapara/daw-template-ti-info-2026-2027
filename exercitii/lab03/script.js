@@ -1,4 +1,4 @@
-// Selectăm elementele din pagină.
+// Selectăm elementele formularului și butoanele generale.
 const titlu = document.querySelector('#titlu');
 const btnTema = document.querySelector('#btn-tema');
 const btnReset = document.querySelector('#btn-reset');
@@ -7,11 +7,16 @@ const inputNume = document.querySelector('#nume');
 const eroareNume = document.querySelector('#eroare-nume');
 const previzualizare = document.querySelector('#previzualizare');
 
+// Selectăm elementele pentru vreme.
+const selectOras = document.querySelector('#oras');
+const titluVreme = document.querySelector('#titlu-vreme');
 const btnVreme = document.querySelector('#btn-vreme');
 const stare = document.querySelector('#stare');
 const listaVreme = document.querySelector('#vreme');
 
-// Schimbăm tema prin adăugarea sau eliminarea unei clase CSS.
+let cerereActiva = null;
+
+// Schimbăm tema.
 btnTema.addEventListener('click', () => {
   document.body.classList.toggle('intunecat');
 });
@@ -23,7 +28,7 @@ inputNume.addEventListener('input', () => {
   inputNume.removeAttribute('aria-invalid');
 });
 
-// Validăm numele fără să reîncărcăm pagina.
+// Validăm formularul.
 formular.addEventListener('submit', (event) => {
   event.preventDefault();
 
@@ -52,21 +57,14 @@ formular.addEventListener('submit', (event) => {
   previzualizare.textContent = '...';
 });
 
-// Adresa API-ului: temperatura și vântul pentru Bacău.
-const URL_VREME =
-  'https://api.open-meteo.com/v1/forecast'
-  + '?latitude=46.57&longitude=26.91'
-  + '&current=temperature_2m,wind_speed_10m';
-
-// Reținem cererea activă pentru a o putea anula la resetare.
-let cerereActiva = null;
-
+// Adăugăm text în lista vremii.
 function adaugaRand(text) {
   const li = document.createElement('li');
   li.textContent = text;
   listaVreme.append(li);
 }
 
+// Descriem temperatura.
 function descrieTemperatura(temperatura) {
   if (temperatura < 10) {
     return 'rece';
@@ -79,17 +77,50 @@ function descrieTemperatura(temperatura) {
   return 'cald';
 }
 
+// Anulăm cererea activă și golim rezultatele meteo.
+function golesteVremea() {
+  if (cerereActiva) {
+    cerereActiva.abort();
+    cerereActiva = null;
+  }
+
+  listaVreme.replaceChildren();
+  stare.textContent = '';
+  btnVreme.disabled = false;
+}
+
+// La schimbarea orașului eliminăm datele orașului anterior.
+selectOras.addEventListener('change', () => {
+  golesteVremea();
+
+  const numeOras = selectOras.selectedOptions[0].textContent;
+  titluVreme.textContent = `Vremea în ${numeOras}`;
+});
+
+// Cerem vremea pentru orașul selectat.
 async function incarcaVremea() {
+  golesteVremea();
+
+  const [latitudine, longitudine] = selectOras.value.split(',');
+  const numeOras = selectOras.selectedOptions[0].textContent;
+
+  const urlVreme =
+    'https://api.open-meteo.com/v1/forecast'
+    + `?latitude=${latitudine}&longitude=${longitudine}`
+    + '&current=temperature_2m,wind_speed_10m'
+    + '&timezone=auto';
+
   const controller = new AbortController();
   cerereActiva = controller;
 
+  titluVreme.textContent = `Vremea în ${numeOras}`;
   stare.textContent = 'Se încarcă…';
-  listaVreme.replaceChildren();
   btnVreme.disabled = true;
 
   try {
-    const raspuns = await fetch(URL_VREME, {
-      signal: controller.signal
+    const raspuns = await fetch(urlVreme, {
+      signal: controller.signal,
+      cache: 'no-store'
     });
 
     if (!raspuns.ok) {
@@ -100,7 +131,7 @@ async function incarcaVremea() {
 
     const date = await raspuns.json();
 
-    // Ignorăm rezultatul dacă între timp s-a apăsat Resetează.
+    // Nu afișăm rezultate pentru o cerere anulată sau înlocuită.
     if (cerereActiva !== controller) {
       return;
     }
@@ -119,7 +150,10 @@ async function incarcaVremea() {
       + `${unitati.wind_speed_10m}`
     );
 
-    adaugaRand(`Ora măsurătorii (GMT): ${acum.time}`);
+    adaugaRand(
+      `Ora locală a măsurătorii (${date.timezone}): `
+      + acum.time.replace('T', ' ')
+    );
 
     stare.textContent = '';
   } catch (eroare) {
@@ -143,19 +177,16 @@ async function incarcaVremea() {
 
 btnVreme.addEventListener('click', incarcaVremea);
 
-// Readucem pagina la starea inițială, păstrând tema aleasă.
+// Resetăm formularul și vremea, păstrând tema aleasă.
 btnReset.addEventListener('click', () => {
-  if (cerereActiva) {
-    cerereActiva.abort();
-    cerereActiva = null;
-  }
+  golesteVremea();
 
   titlu.textContent = 'Laboratorul 03';
   formular.reset();
   previzualizare.textContent = '...';
   eroareNume.textContent = '';
   inputNume.removeAttribute('aria-invalid');
-  listaVreme.replaceChildren();
-  stare.textContent = '';
-  btnVreme.disabled = false;
+
+  selectOras.selectedIndex = 0;
+  titluVreme.textContent = 'Vremea în Bacău';
 });
