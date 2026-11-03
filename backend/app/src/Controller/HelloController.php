@@ -23,7 +23,11 @@ final class HelloController extends AbstractController
         ]);
     }
 
-    #[Route('/api/time', name: 'api_time', methods: ['GET'])]
+    #[Route(
+        '/api/time',
+        name: 'api_time',
+        methods: ['GET']
+    )]
     public function time(): JsonResponse
     {
         $now = new \DateTimeImmutable();
@@ -35,7 +39,11 @@ final class HelloController extends AbstractController
         ]);
     }
 
-    #[Route('/api/numbers', name: 'api_numbers', methods: ['GET'])]
+    #[Route(
+        '/api/numbers',
+        name: 'api_numbers',
+        methods: ['GET']
+    )]
     public function numbers(Request $request): JsonResponse
     {
         $n = filter_var(
@@ -77,10 +85,13 @@ final class HelloController extends AbstractController
         ]);
     }
 
-    #[Route('/api/sum', name: 'api_sum', methods: ['GET'])]
+    #[Route(
+        '/api/sum',
+        name: 'api_sum',
+        methods: ['GET']
+    )]
     public function sum(Request $request): JsonResponse
     {
-        // Lipsa parametrului este tratată ca valoare invalidă.
         $a = filter_var(
             $request->query->get('a'),
             FILTER_VALIDATE_INT
@@ -105,6 +116,46 @@ final class HelloController extends AbstractController
             'a' => $a,
             'b' => $b,
             'sum' => $a + $b,
+        ]);
+    }
+
+    #[Route(
+        '/api/factorial/{n}',
+        name: 'api_factorial',
+        methods: ['GET']
+    )]
+    public function factorial(string $n): JsonResponse
+    {
+        $value = filter_var(
+            $n,
+            FILTER_VALIDATE_INT,
+            [
+                'options' => [
+                    'min_range' => 0,
+                    'max_range' => 20,
+                ],
+            ]
+        );
+
+        if ($value === false) {
+            return $this->json(
+                [
+                    'error' => 'n trebuie să fie un număr întreg între 0 și 20.',
+                ],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+        // 0! și 1! sunt ambele egale cu 1.
+        $result = 1;
+
+        for ($i = 2; $i <= $value; $i++) {
+            $result *= $i;
+        }
+
+        return $this->json([
+            'n' => $value,
+            'factorial' => $result,
         ]);
     }
 }
