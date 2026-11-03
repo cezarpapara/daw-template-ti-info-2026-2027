@@ -1,0 +1,57 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: system-ui, Arial, sans-serif;
+  line-height: 1.5;
+  background: #ffffff;
+  color: #1f2937;
+}
+
+.intunecat {
+  background: #1f2937;
+  color: #f9fafb;
+}
+
+button,
+input {
+  font: inherit;
+  padding: 0.5rem 0.75rem;
+}
+
+button {
+  margin: 0.25rem 0;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: wait;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+input {
+  width: 100%;
+  max-width: 360px;
+}
+
+.eroare {
+  color: #b42318;
+}
+
+.intunecat .eroare {
+  color: #fda29b;
+}
+
+[aria-invalid="true"] {
+  border: 2px solid #b42318;
+}
