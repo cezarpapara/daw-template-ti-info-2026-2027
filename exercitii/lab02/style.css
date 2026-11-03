@@ -1,3 +1,4 @@
+/* Paleta de culori */
 :root {
   --culoare-principala: #14532d;
   --culoare-accent: #7c2d12;
@@ -6,6 +7,7 @@
   --raza: 8px;
 }
 
+/* Stiluri generale */
 * {
   box-sizing: border-box;
 }
@@ -41,6 +43,8 @@ body {
 
 .meniu {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
   margin: 0;
   padding: 0;
@@ -54,7 +58,7 @@ body {
   text-decoration: underline;
 }
 
-/* Conținut și carduri: Grid */
+/* Conținutul principal */
 .continut {
   display: grid;
   gap: 1.5rem;
@@ -63,17 +67,32 @@ body {
   padding: 1rem;
 }
 
+.continut > * {
+  min-width: 0;
+}
+
+/* Grila își adaptează automat numărul de coloane */
 .grila {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1rem;
 }
 
+/* Cardurile produselor */
 .card {
+  min-width: 0;
   background: #fff;
   border-radius: var(--raza);
   padding: 1rem;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: var(--raza);
 }
 
 .pret {
@@ -81,7 +100,7 @@ body {
   color: var(--culoare-principala);
 }
 
-/* Butoane și formular */
+/* Butoane */
 .buton {
   background: var(--culoare-accent);
   color: #fff;
@@ -97,18 +116,22 @@ body {
   background: #92400e;
 }
 
+/* Formularul de newsletter */
 .newsletter form {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
   max-width: 420px;
 }
 
 .newsletter input {
+  min-width: 0;
   padding: 0.6rem;
   border: 1px solid #9ca3af;
 }
 
+/* Subsol: implicit, paragrafele sunt unul sub altul */
 .subsol {
   text-align: center;
   padding: 1rem;
@@ -123,8 +146,11 @@ body {
     justify-content: space-between;
   }
 
-  .grila {
-    grid-template-columns: repeat(2, 1fr);
+  .subsol {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
   }
 }
 
@@ -136,18 +162,5 @@ body {
 
   .newsletter {
     grid-column: 1 / -1;
-  }
-
-  .grila {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-/* De la 600px, paragrafele subsolului stau unul lângă altul. */
-@media (min-width: 600px) {
-  .subsol {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
   }
 }
