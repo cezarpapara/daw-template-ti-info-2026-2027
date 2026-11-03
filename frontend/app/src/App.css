@@ -136,3 +136,13 @@ button {
   padding: 4px 10px;
   font-size: 0.9rem;
 }
+
+.info-card-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+gap: 1rem;
+margin-top: 1rem;
+}
+.info-card { border: 1px solid #d1d5db; border-radius: 8px; padding: 1rem; }
+.info-card-title { margin: 0.5rem 0; font-size: 1.2rem; }
+.info-card-image { width: 100%; height: 140px; object-fit: cover; }
