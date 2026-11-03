@@ -1,4 +1,10 @@
-export default function Card({ title, text, image, imageAlt = '' }) {
+export default function Card({
+  title,
+  text,
+  image,
+  imageAlt = '',
+  children
+}) {
   return (
     <article className="info-card">
       {image && (
@@ -11,6 +17,8 @@ export default function Card({ title, text, image, imageAlt = '' }) {
 
       <h2 className="info-card-title">{title}</h2>
       <p>{text}</p>
+
+      {children}
     </article>
   );
 }
