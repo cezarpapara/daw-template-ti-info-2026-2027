@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <header class="antet">
+<h1 id="titlu">Laboratorul 03</h1>
+        <button id="tema" type="button">Schimbă tema</button>
+    </header>
+
+    <main class="continut">
+
+        <section class="card">
+            <h2>Formular de prezentare</h2>
+
+            <form id="formular">
+
+                <label for="nume">Introdu numele tău:</label>
+
+                <input
+                    type="text"
+                    id="nume"
+                    name="nume"
+                    placeholder="Numele tău"
+                >
+
+                <p id="previzualizare">
+                    Numele va apărea aici.
+                </p>
+
+                <p id="eroare"></p>
+
+                <button type="submit">Trimite</button>
+
+                <button type="reset" id="resetare">
+                    Resetează
+                </button>
+
+            </form>
+
+            <p id="mesaj"></p>
+        </section>
+
+        <section class="card">
+            <h2>Vremea în Bacău</h2>
+
+            <button id="vreme" type="button">
+                Verifică vremea
+            </button>
+            <label for="oras">Alege orașul:</label>
+
+<select id="oras">
+    <option value="46.57,26.91">Bacău</option>
+    <option value="47.16,27.59">Iași</option>
+    <option value="44.43,26.10">București</option>
+    <option value="46.77,23.59">Cluj</option>
+</select>
+
+            <div id="rezultat-vreme">
+                Apasă butonul pentru a verifica vremea.
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="subsol">
+        <p>Laboratorul 03 - HTML, CSS și JavaScript</p>
+    </footer>
+
+</body>
+</html>

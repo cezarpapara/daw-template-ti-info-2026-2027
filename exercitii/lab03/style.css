@@ -1,0 +1,125 @@
+
+:root {
+    --culoare-principala: #1f3a73;
+    --culoare-accent: #b45309;
+    --fundal: #f6f7fb;
+    --text: #1f2937;
+    --raza: 8px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--fundal);
+    transition: background 0.3s, color 0.3s;
+}
+
+.antet {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.5rem;
+    color: white;
+    background: var(--culoare-principala);
+}
+
+.antet h1 {
+    margin: 0;
+}
+
+.continut {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.card {
+    padding: 1.5rem;
+    background: white;
+    border-radius: var(--raza);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+input {
+    padding: 0.8rem;
+    border: 1px solid #9ca3af;
+    border-radius: var(--raza);
+    font-size: 1rem;
+}
+
+button {
+    padding: 0.7rem 1rem;
+    color: white;
+    background: var(--culoare-accent);
+    border: none;
+    border-radius: var(--raza);
+    cursor: pointer;
+}
+
+button:hover {
+    background: #92400e;
+}
+
+#eroare {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+#mesaj {
+    font-weight: bold;
+}
+
+#rezultat-vreme {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--fundal);
+    border-radius: var(--raza);
+}
+
+.subsol {
+    padding: 1rem;
+    text-align: center;
+    color: white;
+    background: var(--culoare-principala);
+}
+
+/* TEMA ÎNTUNECAT */
+body.tema-inchisa {
+    --fundal: #1f2937;
+    --text: #f9fafb;
+}
+
+body.tema-inchisa .card {
+    background: #374151;
+    color: white;
+}
+
+/* TABLETĂ ȘI DESKTOP */
+@media (min-width: 600px) {
+    .continut {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 900px) {
+    .continut {
+        padding: 2rem;
+    }
+}
