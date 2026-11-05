@@ -33,6 +33,7 @@ unde se afla codul fiecarei masuri si cum poate fi verificata.
 | Endpoint | Anonim | `ROLE_USER` | `ROLE_ADMIN` |
 |---|---|---|---|
 | `GET /api/health`, `GET /api/categories`, `GET /api/products[/{id}]` | da | da | da |
+| `GET /api/hello/{name}`, `/api/time`, `/api/numbers`, `/api/sum`, `/api/factorial/{n}` (laboratorul 06) | da | da | da |
 | `POST /api/auth/register`, `POST /api/auth/login`, `POST /api/auth/logout` | da | da | da |
 | `GET /api/auth/me` | nu (`401`) | da | da |
 | `POST /api/products` | nu (`401`) | da (devine proprietar) | da |

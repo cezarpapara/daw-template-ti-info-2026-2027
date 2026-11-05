@@ -72,6 +72,7 @@ class ApiExceptionSubscriber implements EventSubscriberInterface
         // doar in modul dev: detaliile tehnice, ca sa puteti depana mai usor
         if ($this->debug) {
             $data['debug'] = $exception->getMessage();
+            $data['file'] = $exception->getFile().':'.$exception->getLine();
         }
 
         $event->setResponse(new JsonResponse($data, $status, $headers));

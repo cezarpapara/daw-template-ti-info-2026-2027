@@ -32,6 +32,10 @@ export const api = {
   // GET /api/health
   getHealth: () => request('/api/health'),
 
+  // GET /api/hello/{name}
+  // encodeURIComponent: textul poate contine caractere cu sens special intr-o adresa (/, ?, #)
+  getHello: (name) => request(`/api/hello/${encodeURIComponent(name)}`),
+
   // POST /api/auth/register
   register: (email, password) =>
     request('/api/auth/register', { method: 'POST', body: JSON.stringify({ email, password }) }),

@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { api } from '../api.js'
 import Card from '../components/Card.jsx'
 import PageTitle from '../components/PageTitle.jsx'
 
@@ -19,6 +21,19 @@ const sections = [
 
 // Pagina "Despre proiect": /despre
 function AboutPage() {
+  // Laboratorul 05, exercitiul 1: starea contorului; la fiecare setCount, React redeseneaza pagina
+  const [count, setCount] = useState(0)
+
+  // Laboratorul 06, exercitiul 5: mesajul vine de la backend, GET /api/hello/{name}
+  const [hello, setHello] = useState(null)
+  const [helloError, setHelloError] = useState(null)
+
+  useEffect(() => {
+    api.getHello('Stefan')
+      .then((data) => setHello(data.message))
+      .catch((err) => setHelloError(err.message))
+  }, [])
+
   return (
     <section>
       <PageTitle
@@ -27,6 +42,23 @@ function AboutPage() {
       />
       {/* exercitiul 5: numarul de sectiuni, calculat din lista */}
       <p className="muted">Proiectul are {sections.length} componente principale.</p>
+
+      <section className="card">
+        <h2>Mesaj de la backend</h2>  
+        {hello && <p>{hello}</p>}
+        {helloError && <div className="status status-error">{helloError}</div>}
+        {!hello && !helloError && <p>Se incarca...</p>}
+      </section>
+
+      <section className="card">
+        <h2>Contor</h2>
+        <div className="form">
+          <button type="button" onClick={() => setCount(count + 1)}>
+            Ati apasat de {count} ori
+          </button>
+          <button type="button" onClick={() => setCount(0)}>Reseteaza</button>
+        </div>
+      </section>
 
       <div className="info-card-grid">
         {/* key spune lui React care card este care, ca sa actualizeze doar ce s-a schimbat;

@@ -303,6 +303,119 @@
           }
         }
       ]
+    },
+    {
+      "name": "Laborator 06",
+      "item": [
+        {
+          "name": "Salut",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/hello/Ana",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "hello",
+                "Ana"
+              ]
+            },
+            "description": "Numele poate contine doar litere; /api/hello/123 intoarce 404."
+          }
+        },
+        {
+          "name": "Ora serverului",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/time",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "time"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Numere pare",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/numbers?n=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "numbers"
+              ],
+              "query": [
+                {
+                  "key": "n",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Numerele pare de la 1 la n, suma si patratele. Pentru n=0 sau n=abc raspunsul este 400."
+          }
+        },
+        {
+          "name": "Suma",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/sum?a=3&b=4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sum"
+              ],
+              "query": [
+                {
+                  "key": "a",
+                  "value": "3"
+                },
+                {
+                  "key": "b",
+                  "value": "4"
+                }
+              ]
+            },
+            "description": "400 daca a sau b lipseste ori nu este numar intreg."
+          }
+        },
+        {
+          "name": "Factorial",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/factorial/5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "factorial",
+                "5"
+              ]
+            },
+            "description": "n intre 0 si 20; altfel 400."
+          }
+        }
+      ]
     }
   ]
 }
