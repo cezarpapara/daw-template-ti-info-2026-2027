@@ -1,8 +1,8 @@
 :root {
-  --culoare-principala: #1f3a73;
-  --culoare-accent: #b45309;
-  --fundal: #f6f7fb;
-  --text: #1f2937;
+  --culoare-principala: #064e3b;
+  --culoare-accent: #9a3412;
+  --fundal: #f0fdf4;
+  --text: #0f172a;
   --raza: 8px;
 }
 * {
@@ -108,7 +108,7 @@ body {
     }
   }
   /* Desktop: de la 900px în sus */
-  @media (min-width: 900px) {   
+  @media (min-width: 900px) {
     .continut {
       grid-template-columns: 3fr 1fr;
     }
