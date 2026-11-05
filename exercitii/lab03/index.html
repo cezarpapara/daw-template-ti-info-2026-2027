@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Laboratorul 03 – JavaScript</title>
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <h1 id="titlu">Laboratorul 03</h1>
+ <button id="btn-tema" type="button">Schimbă tema</button>
+ <h2>Formular</h2>
+ <form id="formular" novalidate>
+ <label for="nume">Numele vostru</label>
+ <input id="nume" type="text" autocomplete="name">
+ <button type="submit">Trimite</button>
+ <p id="eroare-nume" class="eroare"></p>
+ </form>
+ <p>Previzualizare: Salut, <strong id="previzualizare">...</strong>!</p>
+ <h2>Vremea în Bacău</h2>
+ <button id="btn-vreme" type="button">Afișează vremea</button>
+ <p id="stare"></p>
+ <ul id="vreme"></ul>
+ <script src="script.js"></script>
+</body>
+</html>
+{
+ "latitude": 46.57,
+ "longitude": 26.91,
+ "current_units": { "temperature_2m": "°C", "wind_speed_10m": "km/h" },
+ "current": {
+ "time": "2026-10-07T12:00",
+ "temperature_2m": 14.2,
+ "wind_speed_10m": 9.4
+ }
+}
+const URL_VREME = 'https://api.open-meteo.com/v1/forecast'
+ + '?latitude=46.57&longitude=26.91&current=temperature_2m,wind_speed_10m';
+const btnVreme = document.querySelector('#btn-vreme');
+const stare = document.querySelector('#stare');
+const listaVreme = document.querySelector('#vreme');
+function adaugaRand(text) {
+ const li = document.createElement('li');
+ li.textContent = text;
+ listaVreme.append(li);
+}
+async function incarcaVremea() {
+ stare.textContent = 'Se încarcă…';
+ listaVreme.innerHTML = '';
+ btnVreme.disabled = true;
+ try {
+ const raspuns = await fetch(URL_VREME);
+ if (!raspuns.ok) {
+ throw new Error('Serverul a răspuns cu codul ' + raspuns.status);
+ }
+ const date = await raspuns.json();
+ const acum = date.current;
+ const u = date.current_units;
+ adaugaRand(`Temperatura: ${acum.temperature_2m} ${u.temperature_2m}`);
+ adaugaRand(`Vântul: ${acum.wind_speed_10m} ${u.wind_speed_10m}`);
+ adaugaRand(`Ora măsurătorii (GMT): ${acum.time}`);
+ stare.textContent = '';
+ } catch (eroare) {
+ console.error(eroare);
+ stare.textContent = 'Nu am putut încărca vremea. Încercați din nou.';
+ } finally {
+ btnVreme.disabled = false;
+ }
+}
+btnVreme.addEventListener('click', incarcaVremea);
+<select id="oras">
+ <option value="46.57,26.91">Bacău</option>
+ <option value="47.16,27.59">Iași</option>
+ <option value="44.43,26.10">București</option>
+ <option value="46.77,23.60">Cluj-Napoca</option>
+</select>
