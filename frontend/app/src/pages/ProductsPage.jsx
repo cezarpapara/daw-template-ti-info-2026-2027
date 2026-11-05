@@ -10,6 +10,11 @@ function ProductsPage() {
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState(emptyForm)
   const [error, setError] = useState(null)
+  const [search, setSearch] = useState('');
+  const term = search.trim().toLowerCase();
+  const visibleProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(term)
+  );
 
   function loadProducts() {
     api.getProducts()
@@ -78,6 +83,7 @@ function ProductsPage() {
             min="0"
             required
           />
+
           <select name="categoryId" value={form.categoryId} onChange={handleChange} required>
             <option value="">Alege categoria</option>
             {categories.map((category) => (
@@ -91,6 +97,17 @@ function ProductsPage() {
 
       <section className="card">
         <h2>Lista produselor</h2>
+        <input
+          type="search"
+          placeholder="Caută după nume…"
+          aria-label="Caută produse"
+          value={search}
+          onChange={
+            (event) => setSearch(event.target.value)
+          
+          }
+        />{' '}{' '}
+        <button type="button" onClick={() => setSearch('')}>Resetează căutarea</button>
         <table>
           <thead>
             <tr>
@@ -113,6 +130,12 @@ function ProductsPage() {
             ))}
           </tbody>
         </table>
+        {term && visibleProducts.length > 0 && (
+          <p>{visibleProducts.length} produse corespund căutării.</p>
+        )}
+        {visibleProducts.length === 0 && (
+          <p>Niciun produs nu corespunde căutării.</p>
+        )}
         {products.length === 0 && <p>Nu exista produse.</p>}
       </section>
     </>
