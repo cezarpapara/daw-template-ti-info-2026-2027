@@ -6,6 +6,7 @@ import ProductDetailsPage from './pages/ProductDetailsPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import AboutPage from './pages/AboutPage.jsx'
+import ContactPage from './pages/ContactPage.jsx'
 import { useAuth } from './AuthContext.jsx'
 import './App.css'
 
@@ -22,6 +23,7 @@ function App() {
           <NavLink to="/categorii">Categorii</NavLink>
           <NavLink to="/produse">Produse</NavLink>
           <NavLink to="/despre">Despre</NavLink>
+          <NavLink to="/contact">Contact</NavLink>
         </nav>
         <div className="user">
           {user ? (
@@ -46,6 +48,7 @@ function App() {
           <Route path="/produse" element={<ProductsPage />} />
           <Route path="/produse/:id" element={<ProductDetailsPage />} />
           <Route path="/despre" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           <Route path="/autentificare" element={<LoginPage />} />
           <Route path="/inregistrare" element={<RegisterPage />} />
           <Route path="*" element={<p>Pagina nu exista.</p>} />

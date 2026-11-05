@@ -116,7 +116,8 @@ td {
 }
 
 input,
-select {
+select,
+textarea {
   padding: 8px 10px;
   border: 1px solid #cbd2d9;
   border-radius: 6px;
@@ -150,8 +151,8 @@ button {
 }
 
 button:disabled {
-  opacity: 0.6;
-  cursor: default;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Utilizatorul autentificat, in dreapta meniului */
@@ -193,4 +194,39 @@ button:disabled {
   height: 140px;
   object-fit: cover;
   border-radius: 4px;
+}
+
+/* Laboratorul 05: formularul de contact */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  max-width: 480px;
+}
+
+.form-error {
+  color: #b42318;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.form-success {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.form-counter {
+  margin: 0;
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+/* Laboratorul 05: cautarea de pe pagina de produse */
+.search-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
 }

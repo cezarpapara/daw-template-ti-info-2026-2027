@@ -14,6 +14,14 @@ function ProductsPage() {
   const [form, setForm] = useState(emptyForm)
   const [error, setError] = useState(null)
   const [violations, setViolations] = useState({})
+  const [search, setSearch] = useState('')
+
+  // Lista filtrata se calculeaza la fiecare redesenare, din datele deja primite:
+  // cautarea se face in browser, fara nicio cerere noua catre server.
+  const term = search.trim().toLowerCase()
+  const visibleProducts = (products ?? []).filter((product) =>
+    product.name.toLowerCase().includes(term)
+  )
 
   function loadProducts() {
     api.getProducts()
@@ -21,6 +29,9 @@ function ProductsPage() {
       .catch((err) => setError(err.message))
   }
 
+  // useEffect ruleaza dupa afisarea componentei. Lista goala [] de la final inseamna
+  // "o singura data, la prima afisare"; fara ea, efectul ar rula dupa fiecare redesenare,
+  // iar fiecare raspuns ar declansa o noua cerere.
   useEffect(() => {
     loadProducts()
     // categoriile sunt necesare pentru lista de selectie din formular
@@ -115,6 +126,23 @@ function ProductsPage() {
 
       <section className="card">
         <h2>Lista produselor</h2>
+        <div className="search-bar">
+          <input
+            type="search"
+            placeholder="Cauta dupa nume..."
+            aria-label="Cauta produse"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+          {/* exercitiul 4: butonul apare doar cand exista text in cautare */}
+          {search !== '' && (
+            <button type="button" onClick={() => setSearch('')}>Sterge cautarea</button>
+          )}
+          {/* exercitiul 5: cate produse corespund cautarii */}
+          {products !== null && (
+            <span className="muted">{visibleProducts.length} din {products.length} produse</span>
+          )}
+        </div>
         <table>
           <thead>
             <tr>
@@ -125,7 +153,7 @@ function ProductsPage() {
             </tr>
           </thead>
           <tbody>
-            {products?.map((product) => (
+            {visibleProducts.map((product) => (
               <tr key={product.id}>
                 <td><Link to={`/produse/${product.id}`}>{product.name}</Link></td>
                 <td>{product.category.name}</td>
@@ -141,6 +169,9 @@ function ProductsPage() {
         </table>
         {products === null && !error && <p>Se incarca...</p>}
         {products?.length === 0 && <p>Nu exista produse.</p>}
+        {products?.length > 0 && visibleProducts.length === 0 && (
+          <p>Niciun produs nu corespunde cautarii.</p>
+        )}
       </section>
     </>
   )
