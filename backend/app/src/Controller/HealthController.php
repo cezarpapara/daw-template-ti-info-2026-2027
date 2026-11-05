@@ -1,41 +1,46 @@
 <?php
-
 namespace App\Controller;
-
-use Doctrine\DBAL\Connection;
-use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
-class HealthController extends AbstractController
+final class HelloController extends AbstractController
 {
-    // http://localhost:8080/ duce direct la documentatia API (Swagger)
-    #[Route('/', name: 'home', methods: ['GET'])]
-    public function home(): RedirectResponse
-    {
-        return $this->redirect('/api/doc');
-    }
-
-    // Verifica daca backend-ul si baza de date functioneaza
-    #[Route('/api/health', name: 'api_health', methods: ['GET'])]
-    #[OA\Tag(name: 'Stare')]
-    #[OA\Response(response: 200, description: 'Backend-ul functioneaza')]
-    public function health(Connection $connection): JsonResponse
-    {
-        try {
-            $connection->executeQuery('SELECT 1');
-            $database = 'conectata';
-        } catch (\Throwable $e) {
-            $database = 'eroare: '.$e->getMessage();
-        }
-
-        return $this->json([
-            'status' => 'ok',
-            'message' => 'Salut din Symfony!',
-            'database' => $database,
-            'time' => (new \DateTimeImmutable())->format('Y-m-d H:i:s'),
-        ]);
-    }
+ #[Route('/api/hello/{name}', name: 'api_hello', methods: ['GET'])]
+ public function hello(string $name): JsonResponse
+ {
+ return $this->json(['message' => "Salut, $name!"]);
+ }
+ #[Route('/api/time', name: 'api_time', methods: ['GET'])]
+ public function time(): JsonResponse
+ {
+ $now = new \DateTimeImmutable();
+ return $this->json([
+ 'date' => $now->format('Y-m-d'),
+ 'time' => $now->format('H:i:s'),
+ 'timezone' => $now->getTimezone()->getName(),
+ ]);
+ }
+  #[Route('/api/numbers', name: 'api_numbers', methods: ['GET'])]
+ public function numbers(Request $request): JsonResponse
+ {
+ // ?n=5 ; dacă lipsește, folosim 5
+ $n = filter_var($request->query->get('n', 5), FILTER_VALIDATE_INT, [
+ 'options' => ['min_range' => 1, 'max_range' => 100],
+ ]);
+ if ($n === false) {
+ return $this->json(
+ ['error' => 'n trebuie să fie un număr întreg între 1 și 100.'],
+ Response::HTTP_BAD_REQUEST
+ );
+ }
+ $numbers = range(1, $n);
+ return $this->json([
+ 'n' => $n,
+ 'numbers' => $numbers,
+ 'sum' => array_sum($numbers),
+ 'squares' => array_map(fn (int $x) => $x * $x, $numbers),
+ ]);
+ }
 }
