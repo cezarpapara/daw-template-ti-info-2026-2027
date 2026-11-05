@@ -17,11 +17,19 @@ inputNume.addEventListener("input", () => {
 formular.addEventListener("submit", (event) => {
   event.preventDefault(); // oprim reîncărcarea paginii
   const nume = inputNume.value.trim();
+
   if (nume.length < 3) {
     eroareNume.textContent = "Numele trebuie să aibă cel puțin 3 caractere.";
     inputNume.focus();
     return;
   }
+
+  if (/[0-9]/.test(nume)) {
+    eroareNume.textContent = "Numele nu poate conține cifre.";
+    inputNume.focus();
+    return;
+  }
+
   eroareNume.textContent = "";
   titlu.textContent = `Bine ai venit, ${nume}!`;
   formular.reset();
@@ -49,7 +57,15 @@ async function incarcaVremea() {
     const date = await raspuns.json();
     const acum = date.current;
     const u = date.current_units;
-    adaugaRand(`Temperatura: ${acum.temperature_2m} ${u.temperature_2m}`);
+    const temp = acum.temperature_2m;
+    let tip = "plăcut";
+    if (temp < 10) {
+      tip = "rece";
+    } else if (temp > 25) {
+      tip = "cald";
+    }
+
+    adaugaRand(`Temperatura: ${temp} ${u.temperature_2m} (${tip})`);
     adaugaRand(`Vântul: ${acum.wind_speed_10m} ${u.wind_speed_10m}`);
     adaugaRand(`Ora măsurătorii (GMT): ${acum.time}`);
     stare.textContent = "";
@@ -61,3 +77,11 @@ async function incarcaVremea() {
   }
 }
 btnVreme.addEventListener("click", incarcaVremea);
+
+const btnReset = document.querySelector("#btn-reset");
+
+btnReset.addEventListener("click", () => {
+  titlu.textContent = "Laboratorul 03";
+  listaVreme.innerHTML = "";
+  stare.textContent = "";
+});
