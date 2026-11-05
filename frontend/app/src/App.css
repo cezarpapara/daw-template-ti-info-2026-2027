@@ -131,10 +131,45 @@ button {
   cursor: pointer;
 }
 
+.button-secondary {
+  background: #e5e7eb;
+  color: #1f2933;
+}
+
 .button-danger {
   background: #e12d39;
   padding: 4px 10px;
   font-size: 0.9rem;
+}
+
+.search-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.search-row input {
+  flex: 1;
+}
+
+.search-count {
+  margin: 0 0 0.75rem;
+  color: #52606d;
+}
+
+.counter-box {
+  border: 1px solid #d1d5db;
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.counter-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
 }
 
 .info-card-grid {
@@ -146,3 +181,11 @@ margin-top: 1rem;
 .info-card { border: 1px solid #d1d5db; border-radius: 8px; padding: 1rem; }
 .info-card-title { margin: 0.5rem 0; font-size: 1.2rem; }
 .info-card-image { width: 100%; height: 140px; object-fit: cover; }
+
+.form-field {
+display: flex; flex-direction: column; gap: 0.25rem;
+margin-bottom: 1rem; max-width: 480px;
+}
+.form-error { color: #b42318; margin: 0; font-size: 0.9rem; }
+.form-success { color: #2e7d32; font-weight: bold; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }

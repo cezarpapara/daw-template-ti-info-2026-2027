@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Card from '../components/Card';
 import PageTitle from '../components/PageTitle';
 
@@ -15,12 +16,27 @@ const sections = [
 ];
 
 export default function AboutPage() {
+  const [count, setCount] = useState(0);
+
   return (
     <section className="container">
       <PageTitle
         title="Despre proiect"
         subtitle={`Acest proiect are ${sections.length} secțiuni principale.`}
       />
+
+      <div className="counter-box">
+        <p>Ați apăsat de {count} ori.</p>
+        <div className="counter-actions">
+          <button type="button" onClick={() => setCount((current) => current + 1)}>
+            +1
+          </button>
+          <button type="button" className="button-secondary" onClick={() => setCount(0)}>
+            Resetează
+          </button>
+        </div>
+      </div>
+
       <div className="info-card-grid">
         {sections.map((section) => (
           <Card

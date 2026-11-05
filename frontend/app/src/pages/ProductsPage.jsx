@@ -10,6 +10,13 @@ function ProductsPage() {
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState(emptyForm)
   const [error, setError] = useState(null)
+  const [search, setSearch] = useState('')
+
+  // Căutarea și filtrarea în client (Laborator 05, Secțiunea 5)
+  const term = search.trim().toLowerCase()
+  const visibleProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(term),
+  )
 
   function loadProducts() {
     api.getProducts()
@@ -17,20 +24,18 @@ function ProductsPage() {
       .catch((err) => setError(err.message))
   }
 
+  // useEffect rulează o singură dată la prima afișare datorită vectorului de dependențe gol [] (Laborator 05, Secțiunea 5)
   useEffect(() => {
     loadProducts()
-    // categoriile sunt necesare pentru lista de selectie din formular
     api.getCategories()
       .then((data) => setCategories(data))
       .catch((err) => setError(err.message))
   }, [])
 
-  // Actualizeaza campul modificat din formular
   function handleChange(event) {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
 
-  // POST /api/products
   async function handleSubmit(event) {
     event.preventDefault()
     try {
@@ -48,7 +53,6 @@ function ProductsPage() {
     }
   }
 
-  // DELETE /api/products/{id}
   async function handleDelete(id) {
     try {
       await api.deleteProduct(id)
@@ -91,6 +95,28 @@ function ProductsPage() {
 
       <section className="card">
         <h2>Lista produselor</h2>
+
+        {/* Câmpul de căutare și opțiunea de resetare (Exercițiul 4) */}
+        <div className="search-row">
+          <input
+            type="search"
+            placeholder="Caută după nume…"
+            aria-label="Caută produse"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+          {search && (
+            <button type="button" className="button-secondary" onClick={() => setSearch('')}>
+              Șterge căutarea
+            </button>
+          )}
+        </div>
+
+        {/* Contorul de produse filtrate (Exercițiul 5) */}
+        <p className="search-count">
+          {visibleProducts.length} din {products.length} produse
+        </p>
+
         <table>
           <thead>
             <tr>
@@ -101,7 +127,7 @@ function ProductsPage() {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {visibleProducts.map((product) => (
               <tr key={product.id}>
                 <td><Link to={`/produse/${product.id}`}>{product.name}</Link></td>
                 <td>{product.category.name}</td>
@@ -113,7 +139,9 @@ function ProductsPage() {
             ))}
           </tbody>
         </table>
-        {products.length === 0 && <p>Nu exista produse.</p>}
+
+        {/* Mesajul pentru căutări fără rezultat (Laborator 05, Secțiunea 5)[cite: 5] */}
+        {visibleProducts.length === 0 && <p>Niciun produs nu corespunde căutării.</p>}
       </section>
     </>
   )
