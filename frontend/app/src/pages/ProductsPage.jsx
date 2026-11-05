@@ -4,12 +4,21 @@ import { api } from '../api.js'
 
 const emptyForm = { name: '', description: '', price: '', categoryId: '' }
 
-// Pagina Produse: lista produselor, adaugare si stergere
+// Pagina Produse: lista produselor, adaugare, stergere si cautare
 function ProductsPage() {
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState(emptyForm)
   const [error, setError] = useState(null)
+  
+  // Starea pentru cautare
+  const [search, setSearch] = useState('');
+  const term = search.trim().toLowerCase();
+  
+  // Filtram produsele in functie de ce se scrie in bara de cautare
+  const visibleProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(term)
+  );
 
   function loadProducts() {
     api.getProducts()
@@ -91,6 +100,31 @@ function ProductsPage() {
 
       <section className="card">
         <h2>Lista produselor</h2>
+        
+        {/* Bara de cautare si informatiile aditionale */}
+        <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <input
+            type="search"
+            placeholder="Caută după nume..."
+            aria-label="Caută produse"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            style={{ padding: '0.5rem', width: '100%', maxWidth: '300px' }}
+          />
+          
+          {/* Ex 4: Buton "Sterge Cautarea" (doar cand este completata) */}
+          {search && (
+            <button type="button" onClick={() => setSearch('')}>
+              Șterge căutarea
+            </button>
+          )}
+          
+          {/* Ex 5: Afisarea nr de produse care corespund cautarii */}
+          <span style={{ fontSize: '0.9rem', color: '#666' }}>
+            {visibleProducts.length} din {products.length} produse
+          </span>
+        </div>
+
         <table>
           <thead>
             <tr>
@@ -101,7 +135,8 @@ function ProductsPage() {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {/* AM SCHIMBAT AICI DIN products.map IN visibleProducts.map */}
+            {visibleProducts.map((product) => (
               <tr key={product.id}>
                 <td><Link to={`/produse/${product.id}`}>{product.name}</Link></td>
                 <td>{product.category.name}</td>
@@ -113,7 +148,11 @@ function ProductsPage() {
             ))}
           </tbody>
         </table>
-        {products.length === 0 && <p>Nu exista produse.</p>}
+        
+        {/* Mesajul cand nu exista rezultate la cautare */}
+        {visibleProducts.length === 0 && (
+            <p style={{ marginTop: '1rem', color: '#666' }}>Niciun produs nu corespunde căutării.</p>
+        )}
       </section>
     </>
   )
