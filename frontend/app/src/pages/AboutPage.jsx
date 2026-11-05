@@ -1,6 +1,7 @@
 import Card from "../components/Card";
 import PageTitle from "../components/PageTitle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { api } from "../api.js";
 
 const sections = [
   { id: 1, title: "Backend", text: "Symfony 8 și PHP 8.5 expun un API JSON." },
@@ -21,6 +22,16 @@ const sections = [
 ];
 export default function AboutPage() {
   const [count, setCount] = useState(0);
+  const [hello, setHello] = useState(null);
+  const [error, setError] = useState(null);
+
+  // GET /api/hello/{name}
+  useEffect(() => {
+    api
+      .getHello("Razvan")
+      .then((data) => setHello(data.message))
+      .catch((err) => setError(err.message));
+  }, []);
 
   return (
     <section>
@@ -28,6 +39,8 @@ export default function AboutPage() {
         title="Despre proiect"
         subtitle="Află mai multe despre acest proiect."
       />
+      {error && <p>Eroare: {error}</p>}
+      {hello && <p>{hello}</p>}
       <div>
         <p>Sunt de afisat {sections.length} secțiuni.</p>
       </div>
