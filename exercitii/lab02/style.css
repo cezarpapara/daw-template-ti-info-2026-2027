@@ -1,7 +1,7 @@
 :root {
-    --culoare-principala: #1f3a73;
-    --culoare-accent: #b45309;
-    --fundal: #f6f7fb;
+    --culoare-principala: #14532d;
+    --culoare-accent: #dc2626;
+    --fundal: #f0fdf4;
     --text: #1f2937;
     --raza: 8px;
 }
@@ -47,8 +47,21 @@ body {
 }
 /* Tabletă: de la 600px în sus */
 @media (min-width: 600px) {
-    .antet { flex-direction: row; justify-content: space-between; }
-    .grila { grid-template-columns: repeat(2, 1fr); }
+    .antet {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .grila {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .subsol {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    }
 }
 /* Desktop: de la 900px în sus */
 @media (min-width: 900px) {
