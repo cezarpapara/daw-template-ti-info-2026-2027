@@ -2,6 +2,7 @@ import { NavLink, Route, Routes } from 'react-router'
 import HomePage from './pages/HomePage.jsx'
 import CategoriesPage from './pages/CategoriesPage.jsx'
 import ProductsPage from './pages/ProductsPage.jsx'
+import AboutPage from './pages/AboutPage'
 import ProductDetailsPage from './pages/ProductDetailsPage.jsx'
 import './App.css'
 
@@ -14,6 +15,7 @@ function App() {
         <nav>
           <NavLink to="/" end>Acasa</NavLink>
           <NavLink to="/categorii">Categorii</NavLink>
+          <NavLink to="/despre">Despre</NavLink>
           <NavLink to="/produse">Produse</NavLink>
         </nav>
       </header>
@@ -25,6 +27,7 @@ function App() {
           <Route path="/categorii" element={<CategoriesPage />} />
           <Route path="/produse" element={<ProductsPage />} />
           <Route path="/produse/:id" element={<ProductDetailsPage />} />
+          <Route path="/despre" element={<AboutPage />} />
           <Route path="*" element={<p>Pagina nu exista.</p>} />
         </Routes>
       </main>
