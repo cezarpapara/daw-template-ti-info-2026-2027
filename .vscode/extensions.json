@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "ms-azuretools.vscode-docker",
+    "bmewburn.vscode-intelephense-client",
+    "mikestead.dotenv"
+  ]
+}

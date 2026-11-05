@@ -1,0 +1,55 @@
+# ==========================================================================
+#  BACKEND - 3 containere:
+#    daw-nginx    -> serverul web           http://localhost:8080
+#    daw-php      -> aplicatia Symfony      (PHP-FPM)
+#    daw-postgres -> baza de date           localhost:5432 (pentru DBeaver)
+#
+#  Comenzile se ruleaza din FOLDERUL PRINCIPAL al proiectului:
+#    Pornire:  docker compose -f backend/compose.yaml up -d --build
+#    Oprire:   docker compose -f backend/compose.yaml stop
+# ==========================================================================
+name: daw-backend
+
+services:
+  daw-nginx:
+    image: nginx:1.30-alpine
+    container_name: daw-nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/app:ro
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - daw-php
+
+  daw-php:
+    build:
+      context: ./docker/php
+    container_name: daw-php
+    volumes:
+      # codul din backend/app apare in container in /var/www/app;
+      # orice modificare salvata in VS Code se vede imediat (fara build din nou)
+      - ./app:/var/www/app
+    depends_on:
+      daw-postgres:
+        condition: service_healthy
+
+  daw-postgres:
+    image: postgres:18-alpine
+    container_name: daw-postgres
+    environment:
+      POSTGRES_DB: daw
+      POSTGRES_USER: daw
+      POSTGRES_PASSWORD: daw
+    ports:
+      - "5432:5432"
+    volumes:
+      - daw_postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "daw", "-d", "daw"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  daw_postgres_data:

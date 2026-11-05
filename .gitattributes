@@ -1,0 +1,6 @@
+# Toate fisierele text se salveaza cu terminatii de linie Linux (LF),
+# ca sa functioneze corect in containerele Docker si pe Windows.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ico binary

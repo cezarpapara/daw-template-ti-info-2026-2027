@@ -1,0 +1,15 @@
+# Documentatia API generata automat (Swagger / OpenAPI)
+# Interfata: http://localhost:8080/api/doc
+# https://symfony.com/bundles/NelmioApiDocBundle/current/index.html
+nelmio_api_doc:
+    documentation:
+        info:
+            title: PW / DAW API
+            description: API-ul aplicatiei de laborator - Programare Web (TI anul 4) / Dezvoltarea aplicatiilor web (Informatica anul 2)
+            version: 1.0.0
+    areas:
+        path_patterns:
+            - ^/api(?!/doc) # documenteaza rutele /api/..., mai putin /api/doc
+    # Fisierele interfetei Swagger sunt servite local (functioneaza si fara internet)
+    html_config:
+        assets_mode: bundle

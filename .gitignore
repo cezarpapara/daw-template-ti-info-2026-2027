@@ -1,0 +1,6 @@
+# Fisiere ale sistemului de operare si ale editorului
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json

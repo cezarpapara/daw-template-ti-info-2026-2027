@@ -1,0 +1,163 @@
+:root {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color: #1f2933;
+  background: #f5f7fa;
+}
+
+body {
+  margin: 0;
+}
+
+/* Meniul de sus */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 12px 24px;
+  background: #1f2933;
+}
+
+.logo {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.header nav {
+  display: flex;
+  gap: 16px;
+}
+
+.header a {
+  color: #cbd2d9;
+  text-decoration: none;
+}
+
+.header a.active {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Continutul paginii */
+.container {
+  max-width: 860px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+
+h1 {
+  margin-bottom: 4px;
+}
+
+.subtitle,
+.muted {
+  color: #52606d;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #e4e7eb;
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin: 16px 0;
+}
+
+code {
+  background: #f0f4f8;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Mesaje de stare */
+.status {
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 16px 0;
+}
+
+.status p {
+  margin: 4px 0;
+}
+
+.status-ok {
+  background: #e3f9e5;
+  border: 1px solid #57ae5b;
+}
+
+.status-error {
+  background: #ffe3e3;
+  border: 1px solid #e12d39;
+}
+
+/* Tabele */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid #e4e7eb;
+}
+
+/* Formulare */
+.form {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+input,
+textarea,
+select {
+  padding: 8px 10px;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+button {
+  background: #2f5fd0;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.button-danger {
+  background: #e12d39;
+  padding: 4px 10px;
+  font-size: 0.9rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  max-width: 480px;
+}
+
+.form-error {
+  color: #b42318;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.form-success {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
