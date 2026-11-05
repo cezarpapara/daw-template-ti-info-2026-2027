@@ -1,18 +1,19 @@
-import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router'
-import { api } from '../api.js'
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router';
+import { api } from '../api.js';
+import ReviewSection from '../components/ReviewSection';
 
 // Pagina de detalii pentru un produs: /produse/:id
 function ProductDetailsPage() {
-  const { id } = useParams() // id-ul din adresa (URL)
-  const [product, setProduct] = useState(null)
-  const [error, setError] = useState(null)
+  const { id } = useParams(); // id-ul din adresa (URL)[cite: 46]
+  const [product, setProduct] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     api.getProduct(id)
       .then((data) => setProduct(data))
-      .catch((err) => setError(err.message))
-  }, [id])
+      .catch((err) => setError(err.message));
+  }, [id]);
 
   return (
     <>
@@ -30,8 +31,11 @@ function ProductDetailsPage() {
           <p className="muted">Date primite de la <code>GET {api.url}/api/products/{product.id}</code></p>
         </section>
       )}
+
+      {/* Componenta pentru recenzii adăugată sub detaliile produsului */}
+      <ReviewSection productId={id} />
     </>
-  )
+  );
 }
 
-export default ProductDetailsPage
+export default ProductDetailsPage;
