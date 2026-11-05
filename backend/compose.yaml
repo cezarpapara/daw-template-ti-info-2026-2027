@@ -43,10 +43,10 @@ services:
       POSTGRES_PASSWORD: daw
     ports:
       - "5432:5432"
-    volumes:
+    # volumes:
       # datele bazei de date se salveaza in backend/docker/postgres/data
       # (raman acolo si dupa ce opriti containerele; folderul este in .gitignore)
-      - ./docker/postgres/data:/var/lib/postgresql
+      # - ./docker/postgres/data:/var/lib/postgresql
       # Daca PostgreSQL nu porneste din cauza permisiunilor (se poate intampla pe Windows),
       # comentati linia de mai sus si folositi un volum Docker (decomentati si "volumes" de jos):
       # - daw_postgres_data:/var/lib/postgresql
@@ -56,5 +56,5 @@ services:
       timeout: 5s
       retries: 10
 
-# volumes:
-#   daw_postgres_data:
+volumes:
+  daw_postgres_data:
