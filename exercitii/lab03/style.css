@@ -1,0 +1,16 @@
+body { font-family: system-ui, Arial, sans-serif; margin: 2rem; }
+
+/* clasele de mai jos sunt puse si scoase din JavaScript */
+.intunecat { background: #1f2937; color: #f9fafb; }
+.eroare { color: #b42318; }
+
+/* Exercitiul 3: culoarea cuvantului de langa temperatura */
+.rece { color: #2563eb; font-weight: 600; }
+.placut { color: #16a34a; font-weight: 600; }
+.cald { color: #ea580c; font-weight: 600; }
+
+/* pe fundal inchis, culorile de mai sus ar fi greu de citit */
+.intunecat .eroare { color: #fca5a5; }
+.intunecat .rece { color: #93c5fd; }
+.intunecat .placut { color: #86efac; }
+.intunecat .cald { color: #fdba74; }
