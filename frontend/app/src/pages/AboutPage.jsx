@@ -1,4 +1,6 @@
 import Card from "../components/Card";
+import PageTitle from "../components/PageTitle";
+
 const sections = [
   {
     id: 1,
@@ -11,13 +13,20 @@ const sections = [
     id: 2,
     title: "Frontend",
     text: "React 19 afișează datele primite de la API.",
+    image: "../../public/echipa.png",
+    imageAlt: "Echipa frontend",
   },
   { id: 3, title: "Baza de date", text: "PostgreSQL 18 păstrează datele." },
+  { id: 4, title: "Docker", text: "Containere pentru rulare și distribuție." },
 ];
+
 export default function AboutPage() {
   return (
     <section>
-      <h1>Despre proiect</h1>
+      <PageTitle
+        title="Despre proiect"
+        subtitle="Arhitectura și tehnologiile utilizate în dezvoltare."
+      />
       <div className="info-card-grid">
         {sections.map((section) => (
           <Card
