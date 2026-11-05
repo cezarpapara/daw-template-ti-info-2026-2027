@@ -12,7 +12,8 @@ body {
 .header {
   display: flex;
   align-items: center;
-  gap: 24px;
+  flex-wrap: wrap; /* pe ecrane inguste, meniul trece pe randul urmator */
+  gap: 8px 24px;
   padding: 12px 24px;
   background: #1f2933;
 }
@@ -24,7 +25,8 @@ body {
 
 .header nav {
   display: flex;
-  gap: 16px;
+  flex-wrap: wrap;
+  gap: 8px 16px;
 }
 
 .header a {
@@ -164,4 +166,31 @@ button:disabled {
 .header .user button {
   padding: 4px 10px;
   font-size: 0.9rem;
+}
+
+/* Laboratorul 04: componenta Card (prefixul info- evita conflictele cu clasele existente) */
+.info-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.info-card {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.info-card-title {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.info-card-image {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 4px;
 }

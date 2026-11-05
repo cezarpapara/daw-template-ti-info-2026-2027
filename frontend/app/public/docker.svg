@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 140" role="img" aria-label="Trei containere Docker">
+  <rect width="440" height="140" fill="#e8f1fb"/>
+  <g font-family="system-ui, Arial, sans-serif" font-size="15" font-weight="600" text-anchor="middle">
+    <rect x="20" y="40" width="120" height="60" rx="8" fill="#2496ed"/>
+    <text x="80" y="66" fill="#ffffff">nginx + PHP</text>
+    <text x="80" y="86" fill="#ffffff" font-size="12" font-weight="400">:8080</text>
+    <rect x="160" y="40" width="120" height="60" rx="8" fill="#336791"/>
+    <text x="220" y="66" fill="#ffffff">PostgreSQL</text>
+    <text x="220" y="86" fill="#ffffff" font-size="12" font-weight="400">:5432</text>
+    <rect x="300" y="40" width="120" height="60" rx="8" fill="#149eca"/>
+    <text x="360" y="66" fill="#ffffff">React</text>
+    <text x="360" y="86" fill="#ffffff" font-size="12" font-weight="400">:5173</text>
+  </g>
+  <path d="M140 70h20M280 70h20" stroke="#1f2933" stroke-width="2"/>
+</svg>
