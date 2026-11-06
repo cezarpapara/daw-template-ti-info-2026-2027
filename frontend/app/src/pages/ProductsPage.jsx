@@ -7,6 +7,12 @@ const emptyForm = { name: '', description: '', price: '', categoryId: '' }
 // Pagina Produse: lista produselor, adaugare si stergere
 function ProductsPage() {
   const [products, setProducts] = useState([])
+  const [search, setSearch] = useState('');
+  const term = search.trim().toLowerCase();
+  const visibleProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(term)
+  );
+
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState(emptyForm)
   const [error, setError] = useState(null)
@@ -88,6 +94,14 @@ function ProductsPage() {
           <button type="submit">Adauga</button>
         </form>
       </section>
+
+      <input
+        type="search"
+        placeholder="Caută după nume…"
+        aria-label="Caută produse"
+        value={search}
+        onChange={(event) => setSearch(event.target.value)}
+      />
 
       <section className="card">
         <h2>Lista produselor</h2>
