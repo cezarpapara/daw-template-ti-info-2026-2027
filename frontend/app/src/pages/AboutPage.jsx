@@ -1,5 +1,6 @@
 import Card from '../components/Card';
 import PageTitle from '../components/PageTitle';
+import { useState } from 'react';
 
 const sections = [
     { id: 1, title: 'Backend', text: 'Symfony 8 și PHP 8.5 expun un API JSON.' },
@@ -24,6 +25,17 @@ export default function AboutPage() {
                         imageAlt={section.imageAlt}
                     />
                 ))}
+            </div>
+            <div className="counter-section">
+                <h2>Contor: {count}</h2>
+
+                <button onClick={() => setCount(count + 1)}>
+                    Adaugă
+                </button>
+
+                <button onClick={() => setCount(0)}>
+                    Resetează
+                </button>
             </div>
         </section>
     );

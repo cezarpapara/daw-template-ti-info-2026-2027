@@ -1,5 +1,5 @@
 import { useState } from 'react';
-const EMPTY = { name: '', email: '', message: '' };
+const EMPTY = { name: '', email: '', subject: '', message: '' };
 function validate(values) {
     const errors = {};
     if (values.name.trim().length < 3) {
@@ -8,8 +8,14 @@ function validate(values) {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) {
         errors.email = 'Introduceți o adresă validă, de exemplu ion@exemplu.ro.';
     }
+    if (values.subject.trim().length < 5) {
+        errors.subject = 'Subiectul trebuie sa aiba cel putin 5 caractere.';
+    }
     if (values.message.trim().length < 10) {
         errors.message = 'Mesajul trebuie să aibă cel puțin 10 caractere.';
+    }
+    if (values.message.length > 500) {
+        errors.message = 'Mesajul nu poate depasi 500 de caractere.';
     }
     return errors;
 }
@@ -58,10 +64,23 @@ export default function ContactPage() {
                     )}
                 </div>
                 <div className="form-field">
+                    <label htmlFor="subject">Subiect</label>
+                    <input
+                        id="subject" name="subject" value={values.subject}
+                        onChange={handleChange} onBlur={handleBlur}
+                        required
+                        minLength={5}
+                    />
+                    {touched.subject && errors.subject && (
+                        <p className="form-error">{errors.subject}</p>
+                    )}
+                </div>
+                <div className="form-field">
                     <label htmlFor="message">Mesaj</label>
                     <textarea id="message" name="message" rows="5"
                         value={values.message}
                         onChange={handleChange} onBlur={handleBlur} />
+                    <p>{values.message.length} / 500</p>
                     {touched.message && errors.message && (
                         <p className="form-error">{errors.message}</p>
                     )}
