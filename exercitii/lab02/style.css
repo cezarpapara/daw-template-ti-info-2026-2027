@@ -1,0 +1,95 @@
+:root {
+ --culoare-principala: #0f172a; /* Paletă actualizată (Ex 2) */
+ --culoare-accent: #0284c7;    /* Albastru vibrant, contrast excelent cu textul alb */
+ --fundal: #f8fafc;
+ --text: #334155;
+ --raza: 8px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+ margin: 0; line-height: 1.5;
+ font-family: system-ui, Arial, sans-serif;
+ color: var(--text); background: var(--fundal);
+}
+
+.antet {
+ display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+ padding: 1rem; background: var(--culoare-principala);
+}
+
+.logo { font-size: 1.4rem; font-weight: bold; }
+.logo, .meniu a { color: #fff; text-decoration: none; }
+.meniu { display: flex; gap: 1rem; margin: 0; padding: 0; }
+.meniu li { list-style: none; }
+.meniu a:hover { text-decoration: underline; }
+
+.continut {
+ display: grid; gap: 1.5rem;
+ max-width: 1100px; margin: 0 auto; padding: 1rem;
+}
+
+.grila { 
+ display: grid; 
+ /* Înlocuit regulile vechi cu auto-fit + minmax (Exercițiul 5) */
+ grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+ gap: 1rem; 
+}
+
+.card {
+ background: #fff; border-radius: var(--raza); padding: 1rem;
+ box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+ display: flex;
+ flex-direction: column;
+ justify-content: space-between;
+}
+
+/* Stil pentru imaginile din carduri (Exercițiul 4) */
+.card-img {
+ width: 100%;
+ height: 160px;
+ object-fit: cover;
+ border-radius: calc(var(--raza) - 2px);
+ margin-bottom: 0.75rem;
+}
+
+.pret { font-weight: bold; color: var(--culoare-principala); margin: 0.5rem 0; }
+
+.buton {
+ background: var(--culoare-accent); color: #fff;
+ border: none; border-radius: var(--raza);
+ padding: 0.6rem 1rem; cursor: pointer;
+ transition: background 0.2s;
+ font-weight: 600;
+}
+.buton:hover, .buton:focus-visible { background: #0369a1; }
+
+.newsletter form {
+ display: flex; flex-direction: column; gap: 0.5rem; max-width: 420px;
+}
+.newsletter input { padding: 0.6rem; border: 1px solid #9ca3af; border-radius: var(--raza); }
+
+.subsol {
+ text-align: center; padding: 1rem;
+ color: #fff; background: var(--culoare-principala);
+}
+
+/* Footer cu Flexbox de la 600px în sus (Exercițiul 3) */
+@media (min-width: 600px) {
+ .antet { flex-direction: row; justify-content: space-between; }
+ 
+ .subsol {
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: 1rem;
+ }
+}
+
+/* Desktop: de la 900px în sus */
+@media (min-width: 900px) {
+ .continut { grid-template-columns: 3fr 1fr; }
+ .newsletter { grid-column: 1 / -1; }
+}
