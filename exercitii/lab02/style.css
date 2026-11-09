@@ -1,0 +1,163 @@
+:root {
+    --culoare-principala: #1f3a73;
+    --culoare-accent: #b45309;
+    --fundal: #f6f7fb;
+    --text: #1f2937;
+    --raza: 8px;
+}
+
+* { 
+    box-sizing: border-box; 
+}
+
+body {
+    margin: 0; 
+    line-height: 1.5;
+    font-family: system-ui, Arial, sans-serif;
+    color: var(--text); 
+    background: var(--fundal);
+}
+
+.antet {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 0.5rem;
+    padding: 1.25rem 2rem; 
+    background: var(--culoare-principala);
+}
+
+.logo { 
+    font-size: 1.5rem; 
+    font-weight: bold; 
+}
+
+.logo, .meniu a { 
+    color: #fff; 
+    text-decoration: none; 
+}
+
+.meniu { 
+    display: flex; 
+    gap: 1.5rem; 
+    margin: 0; 
+    padding: 0; 
+}
+
+.meniu li { 
+    list-style: none; 
+}
+
+.meniu a:hover { 
+    text-decoration: underline; 
+}
+
+.continut {
+    display: grid; 
+    gap: 2rem;
+    max-width: 1200px; 
+    margin: 0 auto; 
+    padding: 1.5rem;
+}
+
+/* GRILĂ AUTOMATĂ: Fiecare card are minim 250px lățime și se adaptează proporțional */
+.grila { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 1.5rem; 
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #fff; 
+    border-radius: var(--raza); 
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Imagine mai înaltă și clară pe laptop */
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 0.75rem;
+}
+
+.card h2 {
+    font-size: 1.25rem;
+    margin: 0.5rem 0 0.25rem 0;
+}
+
+.card p {
+    margin: 0.25rem 0;
+}
+
+.pret { 
+    font-weight: bold; 
+    font-size: 1.1rem;
+    color: var(--culoare-principala); 
+    margin-top: 0.5rem !important;
+}
+
+.buton {
+    background: var(--culoare-accent); 
+    color: #fff;
+    border: none; 
+    border-radius: var(--raza);
+    padding: 0.7rem 1rem; 
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 0.75rem;
+}
+
+.buton:hover, .buton:focus-visible { 
+    background: #92400e; 
+}
+
+.newsletter form {
+    display: flex; 
+    flex-direction: column; 
+    gap: 0.75rem; 
+    max-width: 420px;
+}
+
+.newsletter input { 
+    padding: 0.7rem; 
+    border: 1px solid #9ca3af; 
+    border-radius: 4px;
+}
+
+.subsol {
+    text-align: center; 
+    padding: 1.5rem;
+    color: #fff; 
+    background: var(--culoare-principala);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* RESPONSIVE: Tabletă și Laptop/Desktop */
+@media (min-width: 600px) {
+    .antet { 
+        flex-direction: row; 
+        justify-content: space-between; 
+    }
+    .subsol {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 1.5rem 2rem;
+    }
+}
+
+@media (min-width: 900px) {
+    .continut { 
+        grid-template-columns: 1fr; 
+    }
+}

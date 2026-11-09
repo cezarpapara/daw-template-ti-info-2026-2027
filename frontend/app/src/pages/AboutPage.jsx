@@ -1,9 +1,9 @@
 import Card from '../components/Card';
 
 const sections = [
-  { id: 1, title: 'Backend', text: '...', image: '/poza.jpg', imageAlt: 'Poza toamna' },
-  { id: 2, title: 'Frontend', text: 'React 19 afișează datele primite de la API.' },
-  { id: 3, title: 'Baza de date', text: 'PostgreSQL 18 păstrează datele.' },
+  { id: 1, title: 'Backend', text: '...', image: '/images.jpeg', imageAlt: 'imagine backend' },
+  { id: 2, title: 'Frontend', text: '...', image: '/images2.jpeg', imageAlt: 'imagine frontend' },
+  { id: 3, title: 'Baza de date', text: '...', image: '/images3.jpeg', imageAlt: 'imagine baza de date' },
   { id: 4, title: 'Docker', text: 'Containerizează aplicația pentru rulare facilă.' },
   ];
 
