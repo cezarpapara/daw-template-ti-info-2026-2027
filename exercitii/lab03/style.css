@@ -1,0 +1,25 @@
+body { 
+    font-family: system-ui, Arial, sans-serif; 
+    margin: 2rem; 
+}
+
+.intunecat { 
+    background: #1f2937; 
+    color: #f9fafb; 
+}
+
+.eroare { 
+    color: #b42318; 
+    font-weight: bold;
+}
+
+button {
+    margin-right: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    cursor: pointer;
+}
+
+input {
+    padding: 0.4rem;
+    margin-right: 0.5rem;
+}
