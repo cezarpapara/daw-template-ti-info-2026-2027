@@ -7,7 +7,7 @@ export default function ReviewSection({ productId }) {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  
+  const [fieldErrors, setFieldErrors] = useState({});
   const [form, setForm] = useState(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   
@@ -32,7 +32,10 @@ export default function ReviewSection({ productId }) {
     setSaving(true);
     setError('');
     setSuccessMsg('');
+    setFieldErrors({}); // Resetează erorile vechi
+
     try {
+      // Am pus inapoi codul pentru crearea recenziei
       const created = await createReview({
         author: form.author,
         rating: Number(form.rating),
@@ -42,14 +45,14 @@ export default function ReviewSection({ productId }) {
       setReviews((list) => [created, ...list]);
       setForm(EMPTY_FORM);
       
-      // Exercițiul 2: Arătăm mesajul de succes 3 secunde
       setSuccessMsg('Mulțumim pentru recenzie!');
       setTimeout(() => setSuccessMsg(''), 3000);
       
     } catch (err) {
-      setError(err.message);
+        setError(err.message);
+        setFieldErrors(err.fields || {}); // Salvează noile erori pe câmpuri
     } finally {
-      setSaving(false);
+        setSaving(false);
     }
   }
 
@@ -96,7 +99,7 @@ export default function ReviewSection({ productId }) {
         ))}
       </ul>
 
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', maxWidth: '400px', gap: '10px' }}>
+      <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', maxWidth: '400px', gap: '10px' }}>
         <h3>Adăugați o recenzie</h3>
         
         {/* Exercițiul 2: Afișarea mesajului temporar */}
@@ -105,22 +108,44 @@ export default function ReviewSection({ productId }) {
         <label>
           Numele vostru:
           <br />
-          <input name="author" value={form.author} onChange={handleChange} required style={{ width: '100%' }}/>
+          <input 
+            name="author" 
+            value={form.author} 
+            onChange={handleChange} 
+            style={{ width: '100%', borderColor: fieldErrors.author ? 'red' : '' }}
+          />
+          {fieldErrors.author && <span className="status-error" style={{ color: 'red', fontSize: '0.8rem', display: 'block', marginTop: '4px' }}>{fieldErrors.author}</span>}
         </label>
+        
         <label>
           Nota:
           <br />
-          <select name="rating" value={form.rating} onChange={handleChange} style={{ width: '100%' }}>
+          <select 
+            name="rating" 
+            value={form.rating} 
+            onChange={handleChange} 
+            style={{ width: '100%', borderColor: fieldErrors.rating ? 'red' : '' }}
+          >
             {[5, 4, 3, 2, 1].map((n) => (
               <option key={n} value={n}>{n}</option>
             ))}
           </select>
+          {fieldErrors.rating && <span className="status-error" style={{ color: 'red', fontSize: '0.8rem', display: 'block', marginTop: '4px' }}>{fieldErrors.rating}</span>}
         </label>
+        
         <label>
           Comentariu (opțional):
           <br />
-          <textarea name="comment" value={form.comment} onChange={handleChange} rows={3} style={{ width: '100%' }}/>
+          <textarea 
+            name="comment" 
+            value={form.comment} 
+            onChange={handleChange} 
+            rows={3} 
+            style={{ width: '100%', borderColor: fieldErrors.comment ? 'red' : '' }}
+          />
+          {fieldErrors.comment && <span className="status-error" style={{ color: 'red', fontSize: '0.8rem', display: 'block', marginTop: '4px' }}>{fieldErrors.comment}</span>}
         </label>
+        
         <button type="submit" disabled={saving}>
           {saving ? 'Se trimite...' : 'Trimite recenzia'}
         </button>
