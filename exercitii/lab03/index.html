@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laboratorul 03 - JavaScript</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main>
+    <h1 id="titlu">Laboratorul 03</h1>
+    <p>Miclaus Catalin Florin</p>
+
+    <button id="btn-tema" type="button">Schimba tema</button>
+    <button id="btn-reset" type="button">Reseteaza</button>
+
+    <section>
+      <h2>Formular</h2>
+
+      <form id="formular" novalidate>
+        <label for="nume">Numele vostru</label>
+
+        <input
+          id="nume"
+          name="nume"
+          type="text"
+          autocomplete="name"
+          aria-describedby="eroare-nume"
+        >
+
+        <p id="eroare-nume" class="eroare" aria-live="polite"></p>
+
+        <button type="submit">Trimite</button>
+      </form>
+
+      <p>
+        Previzualizare: Salut,
+        <strong id="previzualizare">...</strong>!
+      </p>
+    </section>
+
+    <section>
+      <h2>Vremea in Bacau</h2>
+      <button id="btn-vreme" type="button">Afiseaza vremea</button>
+      <p id="stare" role="status"></p>
+      <ul id="vreme"></ul>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
