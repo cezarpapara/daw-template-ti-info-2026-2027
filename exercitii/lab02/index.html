@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Libraria din cartier</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Antetul paginii: numele librariei si meniul -->
+  <header class="antet">
+    <a class="logo" href="#">Libraria din cartier</a>
+
+    <nav aria-label="Meniul principal">
+      <ul class="meniu">
+        <li><a href="#produse">Produse</a></li>
+        <li><a href="#despre">Despre noi</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Continutul principal al paginii -->
+  <main class="continut">
+    <section id="produse">
+      <h1>Recomandarile saptamanii</h1>
+
+      <div class="grila">
+        <article class="card">
+          <h2>Amintiri din copilarie</h2>
+          <p>Ion Creanga. Editie ilustrata.</p>
+          <p class="pret">45 lei</p>
+          <button type="button" class="buton">Adauga in cos</button>
+        </article>
+
+        <article class="card">
+          <h2>Poezii</h2>
+          <p>Mihai Eminescu. Antologie pentru liceu.</p>
+          <p class="pret">32 lei</p>
+          <button type="button" class="buton">Adauga in cos</button>
+        </article>
+
+        <article class="card">
+          <h2>Ion</h2>
+          <p>Liviu Rebreanu. Roman.</p>
+          <p class="pret">38 lei</p>
+          <button type="button" class="buton">Adauga in cos</button>
+        </article>
+
+        <article class="card">
+          <h2>Moara cu noroc</h2>
+          <p>Ioan Slavici. Nuvela.</p>
+          <p class="pret">25 lei</p>
+          <button type="button" class="buton">Adauga in cos</button>
+        </article>
+
+        <article class="card">
+          <h2>Baltagul</h2>
+          <p>Mihail Sadoveanu. Roman.</p>
+          <p class="pret">35 lei</p>
+          <button type="button" class="buton">Adauga in cos</button>
+        </article>
+
+        <article class="card">
+          <h2>Enigma Otiliei</h2>
+          <p>George Calinescu. Roman.</p>
+          <p class="pret">42 lei</p>
+          <button type="button" class="buton">Adauga in cos</button>
+        </article>
+      </div>
+    </section>
+
+    <!-- Informatii suplimentare despre librarie -->
+    <aside id="despre">
+      <h2>Despre noi</h2>
+      <p>
+        Suntem o librarie de cartier cu volume pentru toate varstele.
+        Oferim recomandari de lectura si livrare in oras.
+      </p>
+    </aside>
+
+    <section id="newsletter" class="newsletter">
+      <h2>Aboneaza-te la newsletter</h2>
+
+      <form method="get">
+        <label for="email">Adresa de e-mail</label>
+
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="email"
+          required
+        >
+
+        <button type="submit" class="buton">Ma abonez</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="subsol">
+    <p>&copy; 2026 Libraria din cartier - Miclaus Catalin Florin</p>
+    <p>Strada Cartilor nr. 10, Bacau. Program: luni-sambata, 09:00-19:00.</p>
+  </footer>
+</body>
+</html>

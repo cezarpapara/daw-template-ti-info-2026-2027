@@ -1,0 +1,184 @@
+/* Culorile si valorile folosite in pagina */
+:root {
+  --culoare-principala: #14532d;
+  --culoare-accent: #075985;
+  --fundal: #f3f4f6;
+  --text: #1f2937;
+  --raza: 8px;
+}
+
+/* Padding-ul si bordura sunt incluse in latimea elementului */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--fundal);
+}
+
+/* Telefon: logo deasupra meniului */
+.antet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--culoare-principala);
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.logo,
+.meniu a {
+  color: white;
+  text-decoration: none;
+}
+
+.meniu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.meniu a:hover {
+  text-decoration: underline;
+}
+
+/* Zona principala */
+.continut {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.continut > * {
+  min-width: 0;
+}
+
+/* Telefon: un produs pe rand */
+.grila {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.card {
+  padding: 1rem;
+  background: white;
+  border-radius: var(--raza);
+  box-shadow: 0 1px 4px rgb(0 0 0 / 12%);
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.pret {
+  font-weight: bold;
+  color: var(--culoare-principala);
+}
+
+.buton {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: var(--raza);
+  font: inherit;
+  color: white;
+  background: var(--culoare-accent);
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.buton:hover {
+  filter: brightness(0.85);
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--culoare-accent);
+  outline-offset: 3px;
+}
+
+.antet a:focus-visible {
+  outline-color: white;
+}
+
+/* Formularul de newsletter */
+.newsletter form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 420px;
+}
+
+.newsletter input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #9ca3af;
+  border-radius: var(--raza);
+  font: inherit;
+}
+
+/* Telefon: paragrafele din subsol sunt unul sub altul */
+.subsol {
+  padding: 1rem;
+  text-align: center;
+  color: white;
+  background: var(--culoare-principala);
+}
+
+.subsol p {
+  margin: 0.5rem 0;
+}
+
+/* Tableta: de la 600px */
+@media (min-width: 600px) {
+  .antet {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .grila {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .subsol {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .subsol p {
+    flex: 1;
+  }
+}
+
+/* Calculator: de la 900px */
+@media (min-width: 900px) {
+  .continut {
+    grid-template-columns: 3fr 1fr;
+  }
+
+  .grila {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .newsletter {
+    grid-column: 1 / -1;
+  }
+}
