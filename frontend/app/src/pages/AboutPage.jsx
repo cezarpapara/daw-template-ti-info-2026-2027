@@ -1,5 +1,5 @@
-
 import Card from '../components/Card';
+import { useState } from 'react';
 
 const sections = [
   {
@@ -27,9 +27,16 @@ const sections = [
 ];
 
 export default function AboutPage() {
+  const [count, setCount] = useState(0);
   return (
     <section>
       <h1>Despre proiect</h1>
+
+      <p>Contor: {count}</p>
+
+      <button onClick={() => setCount(count + 1)}>Adaugă</button>
+
+      <button onClick={() => setCount(0)}>Resetează</button>
 
       <p>Număr de secțiuni: {sections.length}</p>
 
