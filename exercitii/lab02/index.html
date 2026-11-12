@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Librăria din cartier – cărți și noutăți</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="antet">
+    <a class="logo" href="#">Librăria din cartier</a>
+    <nav aria-label="Meniul principal">
+      <ul class="meniu">
+        <li><a href="#produse">Produse</a></li>
+        <li><a href="#despre">Despre noi</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="continut">
+    <section id="produse">
+      <h1>Recomandările săptămânii</h1>
+      <div class="grila">
+        <article class="card">
+          <img src="img/amintiri.svg" alt="Coperta cărții Amintiri din copilărie de Ion Creangă">
+          <h2>Amintiri din copilărie</h2>
+          <p>Ion Creangă. Ediție ilustrată.</p>
+          <p class="pret">45 lei</p>
+          <button type="button" class="buton">Adaugă în coș</button>
+        </article>
+        <article class="card">
+          <img src="img/poezii.svg" alt="Coperta volumului Poezii de Mihai Eminescu">
+          <h2>Poezii</h2>
+          <p>Mihai Eminescu. Antologie pentru liceu.</p>
+          <p class="pret">32 lei</p>
+          <button type="button" class="buton">Adaugă în coș</button>
+        </article>
+        <!-- Exercițiul 1: încă patru carduri cu produse -->
+        <article class="card">
+          <img src="img/ion.svg" alt="Coperta romanului Ion de Liviu Rebreanu">
+          <h2>Ion</h2>
+          <p>Liviu Rebreanu. Roman, ediție de buzunar.</p>
+          <p class="pret">29 lei</p>
+          <button type="button" class="buton">Adaugă în coș</button>
+        </article>
+        <article class="card">
+          <img src="img/otilia.svg" alt="Coperta romanului Enigma Otiliei de George Călinescu">
+          <h2>Enigma Otiliei</h2>
+          <p>George Călinescu. Roman, ediție cartonată.</p>
+          <p class="pret">54 lei</p>
+          <button type="button" class="buton">Adaugă în coș</button>
+        </article>
+        <article class="card">
+          <img src="img/morometii.svg" alt="Coperta romanului Moromeții de Marin Preda">
+          <h2>Moromeții</h2>
+          <p>Marin Preda. Volumele I și II.</p>
+          <p class="pret">68 lei</p>
+          <button type="button" class="buton">Adaugă în coș</button>
+        </article>
+        <article class="card">
+          <img src="img/baltagul.svg" alt="Coperta romanului Baltagul de Mihail Sadoveanu">
+          <h2>Baltagul</h2>
+          <p>Mihail Sadoveanu. Ediție școlară.</p>
+          <p class="pret">25 lei</p>
+          <button type="button" class="buton">Adaugă în coș</button>
+        </article>
+      </div>
+    </section>
+
+    <aside id="despre">
+      <h2>Despre noi</h2>
+      <p>O librărie mică, deschisă zilnic între 9 și 19, cu livrare în oraș.</p>
+    </aside>
+
+    <section id="newsletter" class="newsletter">
+      <h2>Abonați-vă la newsletter</h2>
+      <form>
+        <label for="email">Adresa de e-mail</label>
+        <input id="email" name="email" type="email" required>
+        <button type="submit" class="buton">Mă abonez</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="subsol">
+    <p>&copy; 2026 Librăria din cartier · exercițiu de laborator PW/DAW</p>
+    <!-- Exercițiul 3: al doilea paragraf, cu adresa și programul -->
+    <p>Str. Exemplului nr. 1, Bacău · Luni–Duminică, 9:00–19:00</p>
+  </footer>
+</body>
+</html>

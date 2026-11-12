@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="400" height="240">
+  <rect width="400" height="240" fill="#fef3c7"/>
+  <rect x="140" y="20" width="120" height="200" rx="6" fill="#92400e"/>
+  <rect x="148" y="20" width="6" height="200" fill="#ffffff" opacity="0.25"/>
+  <circle cx="200" cy="80" r="22" fill="none" stroke="#ffffff" stroke-width="3" opacity="0.8"/>
+  <text x="200" y="135" font-family="Georgia, serif" font-size="16" fill="#ffffff" text-anchor="middle"><tspan x="200" dy="0">Moromeții</tspan></text>
+  <text x="200" y="160" font-family="Arial, sans-serif" font-size="10" fill="#ffffff" opacity="0.9" text-anchor="middle">Marin Preda</text>
+</svg>
