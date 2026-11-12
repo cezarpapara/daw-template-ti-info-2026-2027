@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[OA\Tag(name: 'Reviews')]
 final class ReviewController extends AbstractController
@@ -28,6 +29,7 @@ final class ReviewController extends AbstractController
         private EntityManagerInterface $em,
         private ReviewRepository $reviews,
         private ProductRepository $products,
+        private ValidatorInterface $validator,
     ) {
     }
 
@@ -41,7 +43,7 @@ final class ReviewController extends AbstractController
         return $this->json(array_map(fn (Review $r) => $r->toArray(), $items));
     }
 
-    #[Route('/api/reviews/{id<\d+>}', methods: ['GET'])] // {id<\d+>}: doar cifre
+    #[Route('/api/reviews/{id<\d+>}', methods: ['GET'])]
     public function show(int $id): JsonResponse
     {
         $review = $this->reviews->find($id);
@@ -67,7 +69,6 @@ final class ReviewController extends AbstractController
         return $this->json(array_map(fn (Review $r) => $r->toArray(), $items));
     }
 
-    // Ex. 2: /api/products/{id}/rating
     #[Route('/api/products/{id<\d+>}/rating', methods: ['GET'])]
     public function rating(int $id): JsonResponse
     {
@@ -106,8 +107,8 @@ final class ReviewController extends AbstractController
             return $this->json(['errors' => $errors], 400);
         }
 
-        $this->em->persist($review); // obiect nou, de salvat
-        $this->em->flush();          // trimite INSERT la PostgreSQL
+        $this->em->persist($review);
+        $this->em->flush();
 
         return $this->json($review->toArray(), 201);
     }
@@ -133,7 +134,6 @@ final class ReviewController extends AbstractController
         return $this->json($review->toArray());
     }
 
-    // Ex. 3 (opțional): PATCH modifică doar câmpurile prezente în JSON
     #[Route('/api/reviews/{id<\d+>}', methods: ['PATCH'])]
     #[OA\RequestBody(content: new OA\JsonContent(example: ['rating' => 3]))]
     public function patch(int $id, Request $request): JsonResponse
@@ -153,52 +153,25 @@ final class ReviewController extends AbstractController
             );
         }
 
-        $errors = [];
-        $author = null;
-        $rating = null;
-        $product = null;
-        $comment = null;
-
+        // Modificăm doar câmpurile prezente în JSON
         if (array_key_exists('author', $data)) {
-            $author = is_string($data['author']) ? trim($data['author']) : '';
-            if ($author === '' || mb_strlen($author) > 100) {
-                $errors['author'] = 'Autorul este obligatoriu (cel mult 100 de caractere).';
-            }
+            $review->setAuthor(is_string($data['author']) ? trim($data['author']) : '');
         }
-
         if (array_key_exists('rating', $data)) {
-            $rating = $data['rating'];
-            if (!is_int($rating) || $rating < 1 || $rating > 5) {
-                $errors['rating'] = 'Nota trebuie să fie un număr întreg între 1 și 5.';
-            }
+            $review->setRating(is_int($data['rating']) ? $data['rating'] : 0);
         }
-
-        if (array_key_exists('productId', $data)) {
-            $product = $this->products->find((int) $data['productId']);
-            if (!$product) {
-                $errors['productId'] = 'Produsul indicat nu există.';
-            }
-        }
-
         if (array_key_exists('comment', $data)) {
             $comment = is_string($data['comment']) ? trim($data['comment']) : '';
+            $review->setComment($comment === '' ? null : $comment);
         }
+        if (array_key_exists('productId', $data)) {
+            $review->setProduct($this->products->find((int) $data['productId']));
+        }
+
+        $errors = $this->validate($review);
 
         if ($errors) {
             return $this->json(['errors' => $errors], 400);
-        }
-
-        if (array_key_exists('author', $data)) {
-            $review->setAuthor($author);
-        }
-        if (array_key_exists('rating', $data)) {
-            $review->setRating($rating);
-        }
-        if (array_key_exists('productId', $data)) {
-            $review->setProduct($product);
-        }
-        if (array_key_exists('comment', $data)) {
-            $review->setComment($comment === '' ? null : $comment);
         }
 
         $this->em->flush();
@@ -221,9 +194,9 @@ final class ReviewController extends AbstractController
         return new Response(null, 204);
     }
 
-    // ---------- Validarea manuală, comună pentru POST și PUT ----------
+    // ---------- Validarea, pe baza regulilor din entitate ----------
 
-    // Verifică JSON-ul și completează recenzia; întoarce erorile (câmp => mesaj).
+    // Completează recenzia din JSON și o validează; întoarce erorile (câmp => mesaj).
     private function fill(Review $review, Request $request): array
     {
         try {
@@ -232,34 +205,27 @@ final class ReviewController extends AbstractController
             return ['body' => 'Corpul cererii trebuie să fie un obiect JSON valid.'];
         }
 
-        $errors = [];
-
         $author = is_string($data['author'] ?? null) ? trim($data['author']) : '';
-        if ($author === '' || mb_strlen($author) > 100) {
-            $errors['author'] = 'Autorul este obligatoriu (cel mult 100 de caractere).';
-        }
-
-        $rating = $data['rating'] ?? null;
-        if (!is_int($rating) || $rating < 1 || $rating > 5) {
-            $errors['rating'] = 'Nota trebuie să fie un număr întreg între 1 și 5.';
-        }
-
-        $product = $this->products->find((int) ($data['productId'] ?? 0));
-        if (!$product) {
-            $errors['productId'] = 'Produsul indicat nu există.';
-        }
-
-        if ($errors) {
-            return $errors;
-        }
-
         $comment = is_string($data['comment'] ?? null) ? trim($data['comment']) : '';
+        $rating = is_int($data['rating'] ?? null) ? $data['rating'] : 0; // 0 = invalid
 
         $review->setAuthor($author)
             ->setRating($rating)
             ->setComment($comment === '' ? null : $comment)
-            ->setProduct($product);
+            ->setProduct($this->products->find((int) ($data['productId'] ?? 0)));
 
-        return [];
+        return $this->validate($review);
+    }
+
+    // Rulează Validator-ul; păstrează primul mesaj pentru fiecare câmp.
+    private function validate(Review $review): array
+    {
+        $errors = [];
+
+        foreach ($this->validator->validate($review) as $violation) {
+            $errors[$violation->getPropertyPath()] ??= $violation->getMessage();
+        }
+
+        return $errors;
     }
 }

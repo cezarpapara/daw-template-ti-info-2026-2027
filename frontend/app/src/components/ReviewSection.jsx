@@ -7,12 +7,12 @@ export default function ReviewSection({ productId }) {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
   const [form, setForm] = useState(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
-  const [thanks, setThanks] = useState('');       // Ex. 2
-  const [editingId, setEditingId] = useState(null); // Ex. 4
+  const [thanks, setThanks] = useState('');
+  const [editingId, setEditingId] = useState(null);
 
-  // Se execută la afișare și ori de câte ori se schimbă productId.
   useEffect(() => {
     setLoading(true);
     setError('');
@@ -22,14 +22,12 @@ export default function ReviewSection({ productId }) {
       .finally(() => setLoading(false));
   }, [productId]);
 
-  // Ex. 2: mesajul dispare după 3 secunde
   useEffect(() => {
     if (!thanks) return;
     const timer = setTimeout(() => setThanks(''), 3000);
     return () => clearTimeout(timer);
   }, [thanks]);
 
-  // Ex. 1: nota medie, cu grijă la lista goală
   const average = reviews.length > 0
     ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1)
     : null;
@@ -42,6 +40,7 @@ export default function ReviewSection({ productId }) {
     e.preventDefault();
     setSaving(true);
     setError('');
+    setFieldErrors({});
     setThanks('');
     try {
       const payload = {
@@ -52,19 +51,19 @@ export default function ReviewSection({ productId }) {
       };
 
       if (editingId !== null) {
-        // Ex. 4: PUT, apoi înlocuim recenzia în listă
         const updated = await updateReview(editingId, payload);
         setReviews((list) => list.map((r) => (r.id === editingId ? updated : r)));
         setEditingId(null);
         setThanks('Recenzia a fost actualizată.');
       } else {
         const created = await createReview(payload);
-        setReviews((list) => [created, ...list]); // recenzia nouă apare prima
+        setReviews((list) => [created, ...list]);
         setThanks('Mulțumim pentru recenzie!');
       }
       setForm(EMPTY_FORM);
     } catch (err) {
       setError(err.message);
+      setFieldErrors(err.fields || {});
     } finally {
       setSaving(false);
     }
@@ -84,7 +83,6 @@ export default function ReviewSection({ productId }) {
     }
   }
 
-  // Ex. 4: încarcă recenzia în formular
   function handleEdit(r) {
     setEditingId(r.id);
     setForm({
@@ -93,12 +91,15 @@ export default function ReviewSection({ productId }) {
       comment: r.comment ?? '',
     });
     setError('');
+    setFieldErrors({});
     setThanks('');
   }
 
   function handleCancelEdit() {
     setEditingId(null);
     setForm(EMPTY_FORM);
+    setFieldErrors({});
+    setError('');
   }
 
   return (
@@ -128,24 +129,39 @@ export default function ReviewSection({ productId }) {
         ))}
       </ul>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <h3>{editingId !== null ? 'Editați recenzia' : 'Adăugați o recenzie'}</h3>
+
         <label>
           Numele vostru
           <input name="author" value={form.author} onChange={handleChange}
-                 required />
+                 aria-invalid={fieldErrors.author ? 'true' : 'false'} />
+          {fieldErrors.author && (
+            <span className="error field-error">{fieldErrors.author}</span>
+          )}
         </label>
+
         <label>
           Nota
-          <select name="rating" value={form.rating} onChange={handleChange}>
+          <select name="rating" value={form.rating} onChange={handleChange}
+                  aria-invalid={fieldErrors.rating ? 'true' : 'false'}>
             {[5, 4, 3, 2, 1].map((n) => <option key={n} value={n}>{n}</option>)}
           </select>
+          {fieldErrors.rating && (
+            <span className="error field-error">{fieldErrors.rating}</span>
+          )}
         </label>
+
         <label>
           Comentariu (opțional)
           <textarea name="comment" value={form.comment} onChange={handleChange}
-                    rows={3} />
+                    rows={3}
+                    aria-invalid={fieldErrors.comment ? 'true' : 'false'} />
+          {fieldErrors.comment && (
+            <span className="error field-error">{fieldErrors.comment}</span>
+          )}
         </label>
+
         <button type="submit" disabled={saving}>
           {saving
             ? 'Se trimite...'

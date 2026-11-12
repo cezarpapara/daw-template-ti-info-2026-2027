@@ -189,3 +189,16 @@ margin-bottom: 1rem; max-width: 480px;
 .form-error { color: #b42318; margin: 0; font-size: 0.9rem; }
 .form-success { color: #2e7d32; font-weight: bold; }
 button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.reviews .field-error {
+  display: block;
+  margin-top: 0.25rem;
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: 0.9rem;
+}
+
+.reviews [aria-invalid="true"] {
+  border: 2px solid #b00020;
+}
