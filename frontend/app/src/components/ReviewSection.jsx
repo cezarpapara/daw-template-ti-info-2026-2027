@@ -9,6 +9,7 @@ export default function ReviewSection({ productId }) {
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState("");
   const [editingId, setEditingId] = useState(null);
+  const [fieldErrors, setFieldErrors] = useState({});
   // Se execută la afișare și ori de câte ori se schimbă productId.
   useEffect(() => {
     setLoading(true);
@@ -38,6 +39,7 @@ export default function ReviewSection({ productId }) {
     e.preventDefault();
     setSaving(true);
     setError("");
+    setFieldErrors({});
     const data = {
       author: form.author,
       rating: Number(form.rating),
@@ -60,6 +62,7 @@ export default function ReviewSection({ productId }) {
       setTimeout(() => setSuccess(""), 3000);
     } catch (err) {
       setError(err.message);
+      setFieldErrors(err.fields || {});
     } finally {
       setSaving(false);
     }
@@ -104,35 +107,51 @@ export default function ReviewSection({ productId }) {
         ))}
       </ul>
       {success && <p className="form-success">{success}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <h3>{editingId ? "Editați recenzia" : "Adăugați o recenzie"}</h3>
         <label>
           Numele vostru
           <input
             name="author"
+            aria-invalid={fieldErrors.author ? "true" : undefined}
             value={form.author}
             onChange={handleChange}
             required
           />
+          {fieldErrors.author && (
+            <span className="error">{fieldErrors.author}</span>
+          )}
         </label>
         <label>
           Nota
-          <select name="rating" value={form.rating} onChange={handleChange}>
+          <select
+            name="rating"
+            value={form.rating}
+            onChange={handleChange}
+            aria-invalid={fieldErrors.rating ? "true" : undefined}
+          >
             {[5, 4, 3, 2, 1].map((n) => (
               <option key={n} value={n}>
                 {n}
               </option>
             ))}
           </select>
+          {fieldErrors.rating && (
+            <span className="error">{fieldErrors.rating}</span>
+          )}
         </label>
         <label>
           Comentariu (opțional)
           <textarea
             name="comment"
+            aria-invalid={fieldErrors.comment ? "true" : undefined}
             value={form.comment}
             onChange={handleChange}
             rows={3}
           />
+          {fieldErrors.comment && (
+            <span className="error">{fieldErrors.comment}</span>
+          )}
         </label>
         <button type="submit" disabled={saving}>
           {saving ? "Se trimite..." : "Trimite recenzia"}

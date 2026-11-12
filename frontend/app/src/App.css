@@ -214,3 +214,6 @@ button:disabled {
   border-radius: 6px;
   padding: 8px 12px;
 }
+[aria-invalid="true"] {
+  border: 2px solid #e12d39;
+}
