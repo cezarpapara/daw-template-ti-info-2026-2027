@@ -9,7 +9,7 @@ async function request(path, options = {}) {
     ...options,
   })
 
-  // 204 = "No Content" (de exemplu dupa stergere): nu exista JSON in raspuns
+  // 204 = "No Content"
   if (response.status === 204) {
     return null
   }
@@ -26,6 +26,9 @@ export const api = {
 
   // GET /api/health
   getHealth: () => request('/api/health'),
+
+  // GET /api/hello/{name}
+  getHello: (name) => request(`/api/hello/${encodeURIComponent(name)}`),
 
   // GET /api/categories
   getCategories: () => request('/api/categories'),
