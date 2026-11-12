@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import Card from '../components/Card';
 import PageTitle from '../components/PageTitle';
+
 const sections = [
  { id: 1, title: 'Backend', text: 'Symfony 8 și PHP 8.5 expun un API JSON.' },
  {
@@ -12,25 +14,42 @@ const sections = [
  { id: 3, title: 'Baza de date', text: 'PostgreSQL 18 păstrează datele.' },
  { id: 4, title: 'Docker', text: 'Docker pornește aplicația și serviciile ei într-un mediu reproductibil.' },
 ];
+
 export default function AboutPage() {
- return (
- <section>
- <PageTitle
-  title="Despre proiect"
-  subtitle="Componentele și tehnologiile care alcătuiesc aplicația."
- />
- <p>Număr de secțiuni: {sections.length}</p>
- <div className="info-card-grid">
- {sections.map((section) => (
- <Card
- key={section.id}
- title={section.title}
- text={section.text}
- image={section.image}
- imageAlt={section.imageAlt}
- />
- ))}
- </div>
- </section>
- );
+  const [counter, setCounter] = useState(0);
+
+  return (
+    <section>
+      <PageTitle
+        title="Despre proiect"
+        subtitle="Componentele și tehnologiile care alcătuiesc aplicația."
+      />
+      <p>Număr de secțiuni: {sections.length}</p>
+      <div className="info-card-grid">
+        {sections.map((section) => (
+          <Card
+            key={section.id}
+            title={section.title}
+            text={section.text}
+            image={section.image}
+            imageAlt={section.imageAlt}
+          >
+            {section.id === 2 && (
+              <>
+                <p>Contor: {counter}</p>
+                <div className="button-row">
+                  <button type="button" onClick={() => setCounter((current) => current + 1)}>
+                    +1
+                  </button>
+                  <button type="button" onClick={() => setCounter(0)}>
+                    Resetează
+                  </button>
+                </div>
+              </>
+            )}
+          </Card>
+        ))}
+      </div>
+    </section>
+  );
 }

@@ -9,6 +9,7 @@ function ProductsPage() {
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState(emptyForm)
+  const [search, setSearch] = useState('')
   const [error, setError] = useState(null)
 
   function loadProducts() {
@@ -58,6 +59,16 @@ function ProductsPage() {
     }
   }
 
+  const filteredProducts = products.filter((product) => {
+    const searchValue = search.trim().toLowerCase()
+
+    if (!searchValue) {
+      return true
+    }
+
+    return product.name.toLowerCase().includes(searchValue)
+  })
+
   return (
     <>
       <h1>Produse</h1>
@@ -91,6 +102,20 @@ function ProductsPage() {
 
       <section className="card">
         <h2>Lista produselor</h2>
+
+        <div className="form-inline">
+          <input
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            placeholder="Caută produs..."
+          />
+          {search.trim() !== '' && (
+            <button type="button" onClick={() => setSearch('')}>Șterge căutarea</button>
+          )}
+        </div>
+
+        <p>{filteredProducts.length} din {products.length} produse</p>
+
         <table>
           <thead>
             <tr>
@@ -101,7 +126,7 @@ function ProductsPage() {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <tr key={product.id}>
                 <td><Link to={`/produse/${product.id}`}>{product.name}</Link></td>
                 <td>{product.category.name}</td>
@@ -113,7 +138,7 @@ function ProductsPage() {
             ))}
           </tbody>
         </table>
-        {products.length === 0 && <p>Nu exista produse.</p>}
+        {filteredProducts.length === 0 && <p>Nu exista produse potrivite cautarii.</p>}
       </section>
     </>
   )
