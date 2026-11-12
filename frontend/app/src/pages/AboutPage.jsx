@@ -15,7 +15,7 @@ const sections = [
     id: 4,
     title: "Docker",
     text: "Folosim Docker pentru containerizare.",
-    image: "/team.jpg",
+    image: "/team.webp",
     imageAlt: "Logo Docker",
     children: <button>Vezi mai mult</button>,
   },
@@ -35,6 +35,7 @@ export default function AboutPage() {
 
   return (
     <section>
+      <title>Despre – Magazinul nostru</title>
       <PageTitle
         title="Despre proiect"
         subtitle="Află mai multe despre acest proiect."

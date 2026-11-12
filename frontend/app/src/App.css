@@ -137,7 +137,7 @@ button {
 }
 
 .button-danger {
-  background: #e12d39;
+  background: #c81e2b;
   padding: 4px 10px;
   font-size: 0.9rem;
 }
@@ -216,4 +216,10 @@ button:disabled {
 }
 [aria-invalid="true"] {
   border: 2px solid #e12d39;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }

@@ -18,6 +18,7 @@ function ProductDetailsPage() {
 
   return (
     <>
+      <title>Detalii produs – Magazinul nostru</title>
       <p>
         <Link to="/produse">&larr; Inapoi la produse</Link>
       </p>
