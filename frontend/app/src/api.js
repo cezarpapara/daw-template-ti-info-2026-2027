@@ -44,6 +44,52 @@ export const api = {
   createProduct: (product) =>
     request('/api/products', { method: 'POST', body: JSON.stringify(product) }),
 
+  getHello: (name) => request(`/api/hello/${name}`),
+
   // DELETE /api/products/{id}
   deleteProduct: (id) => request(`/api/products/${id}`, { method: 'DELETE' }),
+}
+
+// --- Recenzii (laboratorul 09) ---
+// Adresa backend-ului fără „/api” la final, oricum ar fi scrisă în .env.
+const REVIEWS_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:8080')
+  .replace(/\/+$/, '')
+  .replace(/\/api$/, '');
+// Transformă un răspuns cu eroare într-un obiect Error cu mesaj citibil.
+async function reviewError(res) {
+  const body = await res.json().catch(() => ({}));
+  const fields = body.errors || {};
+  const message = Object.values(fields).join(' ')
+    || body.error || `Eroare ${res.status}`;
+  const error = new Error(message);
+  error.fields = fields; // erorile pe câmpuri (le folosim în laboratorul 10)
+  return error;
+}
+export async function getReviews(productId) {
+  const res = await fetch(`${REVIEWS_BASE}/api/products/${productId}/reviews`);
+  if (!res.ok) throw await reviewError(res);
+  return res.json();
+}
+export async function createReview(data) {
+  const res = await fetch(`${REVIEWS_BASE}/api/reviews`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw await reviewError(res);
+  return res.json();
+}
+export async function updateReview(id, data) {
+  const res = await fetch(`${REVIEWS_BASE}/api/reviews/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw await reviewError(res);
+  return res.json();
+}
+export async function deleteReview(id) {
+  const url = `${REVIEWS_BASE}/api/reviews/${id}`;
+  const res = await fetch(url, { method: 'DELETE' });
+  if (!res.ok) throw await reviewError(res);
 }

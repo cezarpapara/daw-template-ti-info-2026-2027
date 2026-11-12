@@ -154,3 +154,49 @@ margin-bottom: 1rem; max-width: 480px;
 .form-error { color: #b42318; margin: 0; font-size: 0.9rem; }
 .form-success { color: #2e7d32; font-weight: bold; }
 button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.reviews {
+  margin-top: 24px;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #cbd2d9;
+  border-radius: 8px;
+  color: #1f2933;
+}
+
+.review-list {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  margin: 16px 0 24px;
+  list-style: none;
+}
+
+.review-list li {
+  padding: 12px 16px;
+  background: #f0f4f8;
+  border: 1px solid #9aa5b1;
+  border-radius: 6px;
+}
+
+.stars {
+  color: #8a4b00;
+  letter-spacing: 1px;
+}
+
+.error {
+  padding: 10px 12px;
+  color: #8a1c1c;
+  background: #ffe3e3;
+  border: 1px solid #e12d39;
+  border-radius: 6px;
+}
+
+.field-error {
+  border: 2px solid #b42318;
+}
+
+.field-error:focus {
+  outline: 2px solid #8a1c1c;
+  outline-offset: 1px;
+}

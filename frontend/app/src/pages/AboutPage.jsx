@@ -1,6 +1,7 @@
 import Card from '../components/Card';
 import PageTitle from '../components/PageTitle';
-import { useState } from 'react';
+import { api } from '../api.js';
+import { useEffect, useState } from 'react';
 
 const sections = [
     { id: 1, title: 'Backend', text: 'Symfony 8 și PHP 8.5 expun un API JSON.' },
@@ -12,6 +13,14 @@ const sections = [
 ];
 export default function AboutPage() {
     const [count, setCount] = useState(0);
+    const [hello, setHello] = useState(null);
+    const [helloError, setHelloError] = useState(null);
+
+    useEffect(() => {
+        api.getHello('Vizitator')
+            .then((data) => setHello(data))
+            .catch((error) => setHelloError(error.message));
+    }, []);
 
     return (
         <section>
@@ -19,6 +28,11 @@ export default function AboutPage() {
                 title="Despre proiect"
                 subtitle="Informații despre proiect și tehnologiile utilizate."
             />
+            <section className="card">
+                {!hello && !helloError && <p>Se încarcă...</p>}
+                {helloError && <p className="status-error">{helloError}</p>}
+                <h2>{hello && <p>{hello.message}</p>}</h2>
+            </section>
             <div className="info-card-grid">
                 {sections.map((section) => (
                     <Card

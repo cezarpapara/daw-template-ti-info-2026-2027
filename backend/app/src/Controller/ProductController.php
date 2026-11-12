@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+
 // Toate rutele din acest controller incep cu /api/products
 #[Route('/api/products')]
 #[OA\Tag(name: 'Produse')]
@@ -25,7 +26,7 @@ class ProductController extends AbstractController
     {
         $products = $productRepository->findAllWithCategory();
 
-        return $this->json(array_map(fn (Product $product) => $product->toArray(), $products));
+        return $this->json(array_map(fn(Product $product) => $product->toArray(), $products));
     }
 
     // GET /api/products/5 -> un singur produs, dupa id
