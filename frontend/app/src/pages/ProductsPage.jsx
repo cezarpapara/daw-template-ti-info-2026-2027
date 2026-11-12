@@ -1,22 +1,27 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { api } from '../api.js'
-
+ 
 const emptyForm = { name: '', description: '', price: '', categoryId: '' }
-
+ 
 // Pagina Produse: lista produselor, adaugare si stergere
 function ProductsPage() {
   const [products, setProducts] = useState([])
+  const [search, setSearch] = useState('')
+  const term = search.trim().toLowerCase()
+  const visibleProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(term)
+  )
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState(emptyForm)
   const [error, setError] = useState(null)
-
+ 
   function loadProducts() {
     api.getProducts()
       .then((data) => setProducts(data))
       .catch((err) => setError(err.message))
   }
-
+ 
   useEffect(() => {
     loadProducts()
     // categoriile sunt necesare pentru lista de selectie din formular
@@ -24,12 +29,12 @@ function ProductsPage() {
       .then((data) => setCategories(data))
       .catch((err) => setError(err.message))
   }, [])
-
+ 
   // Actualizeaza campul modificat din formular
   function handleChange(event) {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
-
+ 
   // POST /api/products
   async function handleSubmit(event) {
     event.preventDefault()
@@ -47,7 +52,7 @@ function ProductsPage() {
       setError(err.message)
     }
   }
-
+ 
   // DELETE /api/products/{id}
   async function handleDelete(id) {
     try {
@@ -57,13 +62,13 @@ function ProductsPage() {
       setError(err.message)
     }
   }
-
+ 
   return (
     <>
       <h1>Produse</h1>
-
+ 
       {error && <div className="status status-error">{error}</div>}
-
+ 
       <section className="card">
         <h2>Adauga un produs</h2>
         <form onSubmit={handleSubmit} className="form form-grid">
@@ -88,9 +93,22 @@ function ProductsPage() {
           <button type="submit">Adauga</button>
         </form>
       </section>
-
+ 
       <section className="card">
         <h2>Lista produselor</h2>
+        <div className="search">
+          <input
+            type="search"
+            placeholder="Caută după nume…"
+            aria-label="Caută produse"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+          {search !== '' && (
+            <button type="button" onClick={() => setSearch('')}>Șterge căutarea</button>
+          )}
+          <span className="muted">{visibleProducts.length} din {products.length} produse</span>
+        </div>
         <table>
           <thead>
             <tr>
@@ -101,7 +119,7 @@ function ProductsPage() {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {visibleProducts.map((product) => (
               <tr key={product.id}>
                 <td><Link to={`/produse/${product.id}`}>{product.name}</Link></td>
                 <td>{product.category.name}</td>
@@ -114,9 +132,12 @@ function ProductsPage() {
           </tbody>
         </table>
         {products.length === 0 && <p>Nu exista produse.</p>}
+        {products.length > 0 && visibleProducts.length === 0 && (
+          <p>Niciun produs nu corespunde căutării.</p>
+        )}
       </section>
     </>
   )
 }
-
+ 
 export default ProductsPage
