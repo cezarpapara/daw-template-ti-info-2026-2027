@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from '../components/Card';
 import PageTitle from '../components/PageTitle';
+import { api } from '../api';
 
 const sections = [
   { id: 1, title: 'Backend', text: 'Symfony 8 și PHP 8.5 expun un API JSON.' },
@@ -17,6 +18,14 @@ const sections = [
 
 export default function AboutPage() {
   const [count, setCount] = useState(0);
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    api
+      .getHello('Ana')
+      .then((data) => setMessage(data.message))
+      .catch(() => setMessage('Nu am putut încărca mesajul de la server.'));
+  }, []);
 
   return (
     <section className="container">
@@ -24,6 +33,8 @@ export default function AboutPage() {
         title="Despre proiect"
         subtitle={`Acest proiect are ${sections.length} secțiuni principale.`}
       />
+
+      <p>{message}</p>
 
       <div className="counter-box">
         <p>Ați apăsat de {count} ori.</p>
