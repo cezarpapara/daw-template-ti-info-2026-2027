@@ -1,6 +1,7 @@
 -- Laboratorul 07: tabela review
 -- Se deschide in DBeaver (SQL Editor) si se ruleaza interogarile pe rand, cu Ctrl + Enter.
--- Conexiune: localhost:5432, baza daw, utilizator daw, parola daw.
+-- Conexiune: localhost:5433 (in acest proiect portul este 5433, vezi backend/compose.yaml),
+-- baza daw, utilizator daw, parola daw.
 
 -- 1. Produsele existente (id-ul este folosit in product_id)
 SELECT id, name FROM product ORDER BY id;
