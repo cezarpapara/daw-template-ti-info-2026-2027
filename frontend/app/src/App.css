@@ -182,3 +182,35 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* Recenzii */
+.reviews {
+  background: #ffffff;
+  border: 1px solid #e4e7eb;
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin: 24px 0;
+  color: #1f2933;
+}
+.review-list {
+  list-style: none;
+  padding: 0;
+}
+.review-list li {
+  border-bottom: 1px solid #e4e7eb;
+  padding: 12px 0;
+}
+.review-list li button {
+  margin-right: 8px;
+}
+.stars {
+  color: #8d5b00;
+  letter-spacing: 2px;
+}
+.error {
+  background: #ffe3e3;
+  color: #8a1c1c;
+  border: 1px solid #e12d39;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
