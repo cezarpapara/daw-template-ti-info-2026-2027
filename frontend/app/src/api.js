@@ -47,3 +47,13 @@ export const api = {
   // DELETE /api/products/{id}
   deleteProduct: (id) => request(`/api/products/${id}`, { method: 'DELETE' }),
 }
+
+export async function getHello(name) {
+  const response = await fetch(`/api/hello/${name}`)
+
+  if (!response.ok) {
+    throw new Error(`Eroare la API: ${response.status}`)
+  }
+
+  return response.json()
+}
