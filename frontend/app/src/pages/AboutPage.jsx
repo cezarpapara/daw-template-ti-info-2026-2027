@@ -4,9 +4,28 @@ import Card from '../components/Card.jsx'
 import PageTitle from '../components/PageTitle.jsx'
 
 const sections = [
-  { id: 1, title: 'Backend', text: 'Symfony 8 și PHP 8.5 expun un API JSON.' },
-  { id: 2, title: 'Frontend', text: 'React 19 afișează datele primite de la API.', link: '/produse' },
-  { id: 3, title: 'Baza de date', text: 'PostgreSQL 18 păstrează datele.' },
+  {
+    id: 1,
+    title: 'Backend',
+    text: 'Symfony 8 și PHP 8.5 expun un API JSON.',
+    image: '/symfony.svg',
+    imageAlt: 'Logo-ul Symfony',
+  },
+  {
+    id: 2,
+    title: 'Frontend',
+    text: 'React 19 afișează datele primite de la API.',
+    image: '/react.svg',
+    imageAlt: 'Logo-ul React',
+    link: '/produse',
+  },
+  {
+    id: 3,
+    title: 'Baza de date',
+    text: 'PostgreSQL 18 păstrează datele.',
+    image: '/postgresql.svg',
+    imageAlt: 'Logo-ul PostgreSQL',
+  },
   {
     id: 4,
     title: 'Docker',
