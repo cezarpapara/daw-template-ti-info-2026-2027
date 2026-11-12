@@ -1,16 +1,33 @@
+
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { api } from '../api.js'
 
-const emptyForm = { name: '', description: '', price: '', categoryId: '' }
+const emptyForm = {
+  name: '',
+  description: '',
+  price: '',
+  categoryId: ''
+}
 
-// Pagina Produse: lista produselor, adaugare si stergere
+// Pagina Produse: lista, adaugare, stergere si cautare
 function ProductsPage() {
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState(emptyForm)
   const [error, setError] = useState(null)
 
+  // LABORATOR 5 - Starea cautarii
+  const [search, setSearch] = useState('')
+
+  // Filtrarea produselor dupa nume
+  const term = search.trim().toLowerCase()
+
+  const visibleProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(term)
+  )
+
+  // Incarcarea produselor din API
   function loadProducts() {
     api.getProducts()
       .then((data) => setProducts(data))
@@ -19,20 +36,25 @@ function ProductsPage() {
 
   useEffect(() => {
     loadProducts()
-    // categoriile sunt necesare pentru lista de selectie din formular
+
+    // Incarcarea categoriilor
     api.getCategories()
       .then((data) => setCategories(data))
       .catch((err) => setError(err.message))
   }, [])
 
-  // Actualizeaza campul modificat din formular
+  // Actualizarea formularului
   function handleChange(event) {
-    setForm({ ...form, [event.target.name]: event.target.value })
+    setForm({
+      ...form,
+      [event.target.name]: event.target.value
+    })
   }
 
-  // POST /api/products
+  // Adaugarea unui produs
   async function handleSubmit(event) {
     event.preventDefault()
+
     try {
       await api.createProduct({
         name: form.name,
@@ -40,6 +62,7 @@ function ProductsPage() {
         price: form.price,
         categoryId: Number(form.categoryId),
       })
+
       setForm(emptyForm)
       setError(null)
       loadProducts()
@@ -48,7 +71,7 @@ function ProductsPage() {
     }
   }
 
-  // DELETE /api/products/{id}
+  // Stergerea unui produs
   async function handleDelete(id) {
     try {
       await api.deleteProduct(id)
@@ -62,12 +85,28 @@ function ProductsPage() {
     <>
       <h1>Produse</h1>
 
-      {error && <div className="status status-error">{error}</div>}
+      {error && (
+        <div className="status status-error">
+          {error}
+        </div>
+      )}
 
+      {/* FORMULAR ADAUGARE PRODUSE */}
       <section className="card">
         <h2>Adauga un produs</h2>
-        <form onSubmit={handleSubmit} className="form form-grid">
-          <input name="name" value={form.name} onChange={handleChange} placeholder="Nume" required />
+
+        <form
+          onSubmit={handleSubmit}
+          className="form form-grid"
+        >
+          <input
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Nume"
+            required
+          />
+
           <input
             name="price"
             value={form.price}
@@ -78,19 +117,75 @@ function ProductsPage() {
             min="0"
             required
           />
-          <select name="categoryId" value={form.categoryId} onChange={handleChange} required>
+
+          <select
+            name="categoryId"
+            value={form.categoryId}
+            onChange={handleChange}
+            required
+          >
             <option value="">Alege categoria</option>
+
             {categories.map((category) => (
-              <option key={category.id} value={category.id}>{category.name}</option>
+              <option
+                key={category.id}
+                value={category.id}
+              >
+                {category.name}
+              </option>
             ))}
           </select>
-          <input name="description" value={form.description} onChange={handleChange} placeholder="Descriere (optional)" />
-          <button type="submit">Adauga</button>
+
+          <input
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            placeholder="Descriere (optional)"
+          />
+
+          <button type="submit">
+            Adauga
+          </button>
         </form>
       </section>
 
+      {/* LISTA PRODUSELOR */}
       <section className="card">
         <h2>Lista produselor</h2>
+
+        {/* LABORATOR 5 - CAUTARE */}
+        <div className="form-field">
+          <label htmlFor="search">
+            Cauta un produs
+          </label>
+
+          <input
+            id="search"
+            type="search"
+            placeholder="Cauta dupa nume..."
+            aria-label="Cauta produse"
+            value={search}
+            onChange={(event) =>
+              setSearch(event.target.value)
+            }
+          />
+        </div>
+
+        {/* EXERCITIUL OPTIONAL 4 */}
+        {search !== '' && (
+          <button
+            type="button"
+            onClick={() => setSearch('')}
+          >
+            Sterge cautarea
+          </button>
+        )}
+
+        {/* EXERCITIUL OPTIONAL 5 */}
+        <p>
+          {visibleProducts.length} din {products.length} produse
+        </p>
+
         <table>
           <thead>
             <tr>
@@ -100,20 +195,41 @@ function ProductsPage() {
               <th></th>
             </tr>
           </thead>
+
           <tbody>
-            {products.map((product) => (
+            {visibleProducts.map((product) => (
               <tr key={product.id}>
-                <td><Link to={`/produse/${product.id}`}>{product.name}</Link></td>
-                <td>{product.category.name}</td>
-                <td>{product.price}</td>
                 <td>
-                  <button className="button-danger" onClick={() => handleDelete(product.id)}>Sterge</button>
+                  <Link to={`/produse/${product.id}`}>
+                    {product.name}
+                  </Link>
+                </td>
+
+                <td>{product.category.name}</td>
+
+                <td>{product.price}</td>
+
+                <td>
+                  <button
+                    className="button-danger"
+                    onClick={() =>
+                      handleDelete(product.id)
+                    }
+                  >
+                    Sterge
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        {products.length === 0 && <p>Nu exista produse.</p>}
+
+        {/* MESAJ PENTRU LISTA GOALA */}
+        {visibleProducts.length === 0 && (
+          <p>
+            Niciun produs nu corespunde cautarii.
+          </p>
+        )}
       </section>
     </>
   )
