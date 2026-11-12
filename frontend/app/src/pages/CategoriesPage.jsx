@@ -38,6 +38,7 @@ function CategoriesPage() {
       {error && <div className="status status-error">{error}</div>}
 
       <section className="card">
+        
         <h2>Adauga o categorie</h2>
         <form onSubmit={handleSubmit} className="form">
           <input
