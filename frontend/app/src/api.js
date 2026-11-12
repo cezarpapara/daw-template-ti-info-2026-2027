@@ -24,6 +24,9 @@ async function request(path, options = {}) {
 export const api = {
   url: API_URL,
 
+  // GET /api/hello/{name}
+  getHello: (name) => request(`/api/hello/${encodeURIComponent(name)}`),
+
   // GET /api/health
   getHealth: () => request('/api/health'),
 

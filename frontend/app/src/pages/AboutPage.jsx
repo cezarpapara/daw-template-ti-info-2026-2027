@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Card from '../components/Card';
+import { api } from '../api.js';
 const sections = [
  { id: 1, title: 'Backend', text: 'Symfony 8 și PHP 8.5 expun un API JSON.' },
  { id: 2, title: 'Frontend', text: 'React 19 afișează datele primite de la API.' },
@@ -7,10 +8,20 @@ const sections = [
 ];
 export default function AboutPage() {
  const [count, setCount] = useState(0);
+ const [helloMessage, setHelloMessage] = useState('');
+ const [helloError, setHelloError] = useState('');
+
+ useEffect(() => {
+  api.getHello('Ana')
+   .then(({ message }) => setHelloMessage(message))
+   .catch((error) => setHelloError(error.message));
+ }, []);
 
  return (
  <section>
  <h1>Despre proiect</h1>
+ {helloMessage && <p>{helloMessage}</p>}
+ {helloError && <p className="form-error">{helloError}</p>}
  <div className="info-card-grid">
  {sections.map((section) => (
  <Card
