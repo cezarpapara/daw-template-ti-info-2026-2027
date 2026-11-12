@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Card from '../components/Card';
 import PageTitle from '../components/PageTitle';
 
@@ -22,6 +23,9 @@ const sections = [
 ];
 
 export default function AboutPage() {
+  // Laboratorul 05, exercitiul 1: butonul-contor si butonul Reseteaza
+  const [count, setCount] = useState(0);
+
   return (
     <section>
       {/* Exercitiul 3: componenta PageTitle */}
@@ -31,6 +35,14 @@ export default function AboutPage() {
       />
       {/* Exercitiul 5 (optional): numarul de sectiuni */}
       <p>Numărul de secțiuni: {sections.length}</p>
+      <div className="form">
+        <button type="button" onClick={() => setCount(count + 1)}>
+          Ați apăsat de {count} ori
+        </button>
+        <button type="button" onClick={() => setCount(0)}>
+          Resetează
+        </button>
+      </div>
       <div className="info-card-grid">
         {sections.map((section) => (
           <Card

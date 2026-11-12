@@ -147,3 +147,17 @@ button {
 .info-card { border: 1px solid #d1d5db; border-radius: 8px; padding: 1rem; }
 .info-card-title { margin: 0.5rem 0; font-size: 1.2rem; }
 .info-card-image { width: 100%; height: 140px; object-fit: cover; }
+
+/* Laboratorul 05: formularul de contact */
+.form-field {
+  display: flex; flex-direction: column; gap: 0.25rem;
+  margin-bottom: 1rem; max-width: 480px;
+}
+.form-error { color: #b42318; margin: 0; font-size: 0.9rem; }
+.form-success { color: #2e7d32; font-weight: bold; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+textarea { padding: 8px 10px; border: 1px solid #cbd2d9; border-radius: 6px; font: inherit; }
+
+/* Laboratorul 05: cautarea pe pagina de produse */
+.search-bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+.search-bar input { flex: 1; min-width: 200px; }
