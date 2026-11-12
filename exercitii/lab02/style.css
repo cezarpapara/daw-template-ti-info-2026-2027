@@ -1,8 +1,8 @@
 :root {
-    --culoare-principala: #1f3a73;
-    --culoare-accent: #b45309;
-    --fundal: #f6f7fb;
-    --text: #1f2937;
+    --culoare-principala: #134e4a;
+    --culoare-accent: #b91c1c;
+    --fundal: #f3f7f6;
+    --text: #1c2b2a;
     --raza: 8px;
 }
 
@@ -122,6 +122,12 @@ body {
 
     .grila {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .subsol {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
     }
 }
 
