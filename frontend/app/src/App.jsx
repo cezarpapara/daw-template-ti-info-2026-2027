@@ -1,39 +1,37 @@
-import { NavLink, Route, Routes } from 'react-router'
-import HomePage from './pages/HomePage.jsx'
-import CategoriesPage from './pages/CategoriesPage.jsx'
-import ProductsPage from './pages/ProductsPage.jsx'
-import ProductDetailsPage from './pages/ProductDetailsPage.jsx'
+import { Routes, Route, Link } from 'react-router'
+import ContactPage from './pages/ContactPage'
+import ProductsPage from './pages/ProductsPage'
+import ProductDetailsPage from './pages/ProductDetailsPage'
+import CategoriesPage from './pages/CategoriesPage' // Asigură-te că importul corespunde fișierului tău de categorii
+import AboutPage from './pages/AboutPage'
 import './App.css'
-import AboutPage from './pages/AboutPage';
-import ContactPage from './pages/ContactPage';
 
-// Structura comuna a tuturor paginilor: meniul de sus + pagina curenta
 function App() {
   return (
-    <>
-      <header className="header">
-        <span className="logo">PW / DAW</span>
-        <nav>
-          <NavLink to="/" end>Acasa</NavLink>
-          <NavLink to="/categorii">Categorii</NavLink>
-          <NavLink to="/produse">Produse</NavLink>
-          <NavLink to="/despre">Despre</NavLink>
+    <div className="app-container">
+      {/* Bara de navigare unificată sus */}
+      <header>
+        <nav className="nav-menu" style={{ display: 'flex', gap: '1.5rem', padding: '1rem', background: '#f5f5f5', marginBottom: '1rem', alignItems: 'center' }}>
+          <Link to="/">Acasă</Link>
+          <Link to="/produse">Produse</Link>
+          <Link to="/categorii">Categorii</Link> {/* <-- Adăugat aici sus */}
+          <Link to="/despre">Despre</Link>
+          <Link to="/contact">Contact</Link>
         </nav>
       </header>
 
-      <main className="container">
-        {/* Fiecare adresa (URL) afiseaza o alta pagina */}
+      {/* Rutele aplicației */}
+      <main style={{ padding: '0 1rem' }}>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/categorii" element={<CategoriesPage />} />
+          <Route path="/" element={<h1>Bun venit la aplicația DAW!</h1>} />
           <Route path="/produse" element={<ProductsPage />} />
           <Route path="/produse/:id" element={<ProductDetailsPage />} />
-          <Route path="*" element={<p>Pagina nu exista.</p>} />
+          <Route path="/categorii" element={<CategoriesPage />} /> {/* Ruta pentru categorii */}
           <Route path="/despre" element={<AboutPage />} />
-        <Route path="/contact" element={<ContactPage />} />
+          <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </main>
-    </>
+    </div>
   )
 }
 
