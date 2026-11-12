@@ -176,6 +176,229 @@
           }
         }
       ]
+    },
+    {
+      "name": "Laboratorul 06 - HelloController",
+      "item": [
+        {
+          "name": "Salut (GET /api/hello/{name})",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/hello/Ana",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "hello",
+                "Ana"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Ora serverului",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/time",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "time"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Numere pare n=10 (200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/numbers?n=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "numbers"
+              ],
+              "query": [
+                {
+                  "key": "n",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Numere n=0 (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/numbers?n=0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "numbers"
+              ],
+              "query": [
+                {
+                  "key": "n",
+                  "value": "0"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Numere n=abc (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/numbers?n=abc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "numbers"
+              ],
+              "query": [
+                {
+                  "key": "n",
+                  "value": "abc"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Suma a=3 b=4 (ex. 1)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/sum?a=3&b=4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sum"
+              ],
+              "query": [
+                {
+                  "key": "a",
+                  "value": "3"
+                },
+                {
+                  "key": "b",
+                  "value": "4"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Suma fara b (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/sum?a=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sum"
+              ],
+              "query": [
+                {
+                  "key": "a",
+                  "value": "3"
+                }
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Salut cu cifre (404, ex. 2)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/hello/123",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "hello",
+                "123"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Factorial 5 (ex. 4)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/factorial/5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "factorial",
+                "5"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Factorial 21 (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/factorial/21",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "factorial",
+                "21"
+              ]
+            },
+            "description": ""
+          }
+        }
+      ]
     }
   ]
 }

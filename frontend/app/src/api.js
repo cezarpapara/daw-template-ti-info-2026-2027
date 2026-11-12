@@ -46,4 +46,7 @@ export const api = {
 
   // DELETE /api/products/{id}
   deleteProduct: (id) => request(`/api/products/${id}`, { method: 'DELETE' }),
+
+  // GET /api/hello/{name} (laboratorul 06, exercitiul 5)
+  getHello: (name) => request(`/api/hello/${encodeURIComponent(name)}`),
 }

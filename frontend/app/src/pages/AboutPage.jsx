@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { api } from '../api.js';
 import Card from '../components/Card';
 import PageTitle from '../components/PageTitle';
 
@@ -26,6 +27,14 @@ export default function AboutPage() {
   // Laboratorul 05, exercitiul 1: butonul-contor si butonul Reseteaza
   const [count, setCount] = useState(0);
 
+  // Laboratorul 06, exercitiul 5: mesajul de la GET /api/hello/{name}
+  const [hello, setHello] = useState('');
+  useEffect(() => {
+    api.getHello('Yanis')
+      .then((data) => setHello(data.message))
+      .catch(() => setHello('Backend-ul nu a răspuns la /api/hello.'));
+  }, []);
+
   return (
     <section>
       {/* Exercitiul 3: componenta PageTitle */}
@@ -34,6 +43,7 @@ export default function AboutPage() {
         subtitle="Aplicație realizată la laboratorul de PW/DAW, 2026–2027."
       />
       {/* Exercitiul 5 (optional): numarul de sectiuni */}
+      {hello && <p className="muted">Mesaj de la backend: <strong>{hello}</strong></p>}
       <p>Numărul de secțiuni: {sections.length}</p>
       <div className="form">
         <button type="button" onClick={() => setCount(count + 1)}>
