@@ -416,6 +416,352 @@
           }
         }
       ]
+    },
+    {
+      "name": "Laborator 08 - Recenzii",
+      "item": [
+        {
+          "name": "Lista recenziilor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "O recenzie",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "1"
+              ]
+            },
+            "description": "404 daca recenzia nu exista."
+          }
+        },
+        {
+          "name": "Id invalid (abc)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews/abc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "abc"
+              ]
+            },
+            "description": "Exercitiul 1: 404, ruta cere cifre ({id<\\d+>}), deci cererea nu ajunge in show()."
+          }
+        },
+        {
+          "name": "Recenziile unui produs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1",
+                "reviews"
+              ]
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Nota medie a unui produs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1/rating",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1",
+                "rating"
+              ]
+            },
+            "description": "Exercitiul 2: count si average (null daca produsul nu are recenzii)."
+          }
+        },
+        {
+          "name": "Adauga recenzie (201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "Necesita autentificare: rulati intai Autentificare > Login.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ion\", \"rating\": 4, \"productId\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eroare: autor gol (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "Necesita autentificare: rulati intai Autentificare > Login.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"\", \"rating\": 4, \"productId\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eroare: nota ca text (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "\"4\" este text, nu numar. Necesita autentificare: rulati intai Autentificare > Login.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ion\", \"rating\": \"4\", \"productId\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eroare: produs inexistent (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "Necesita autentificare: rulati intai Autentificare > Login.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ion\", \"rating\": 4, \"productId\": 9999}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eroare: JSON incomplet (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "Necesita autentificare: rulati intai Autentificare > Login.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ion\", \"rating\": 4,",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Inlocuieste recenzia (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "1"
+              ]
+            },
+            "description": "Toate campurile sunt obligatorii. Doar autorul recenziei (utilizatorul care a creat-o) sau un admin; altfel 403.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ion Vasile\", \"rating\": 5, \"comment\": \"Modificat cu PUT\", \"productId\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Modifica nota (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "1"
+              ]
+            },
+            "description": "Exercitiul 3: schimba doar campurile trimise. Acelasi corp trimis cu PUT da 400. Doar autorul recenziei (utilizatorul care a creat-o) sau un admin; altfel 403.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"rating\": 3}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Sterge recenzia (204)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "1"
+              ]
+            },
+            "description": "Doar autorul recenziei (utilizatorul care a creat-o) sau un admin; altfel 403. Un GET dupa stergere da 404."
+          }
+        }
+      ]
     }
   ]
 }

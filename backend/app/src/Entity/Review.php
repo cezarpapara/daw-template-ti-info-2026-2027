@@ -38,6 +38,12 @@ class Review
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Product $product = null;
 
+    // Laboratorul 08: utilizatorul care a scris recenzia. Doar el (sau un admin) o poate
+    // modifica sau sterge. Recenziile introduse direct in baza de date nu au proprietar.
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
+    private ?User $owner = null;
+
     // data se completeaza automat, in momentul in care se creeaza obiectul
     public function __construct()
     {
@@ -50,6 +56,7 @@ class Review
     public function getComment(): ?string { return $this->comment; }
     public function getCreatedAt(): ?\DateTimeImmutable { return $this->createdAt; }
     public function getProduct(): ?Product { return $this->product; }
+    public function getOwner(): ?User { return $this->owner; }
 
     public function setAuthor(string $author): static
     {
@@ -79,6 +86,13 @@ class Review
         return $this;
     }
 
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
     // Datele trimise ca JSON catre frontend; operatorul ?-> intoarce null daca obiectul lipseste
     public function toArray(): array
     {
@@ -90,6 +104,7 @@ class Review
             'createdAt' => $this->createdAt?->format('Y-m-d H:i'),
             'productId' => $this->product?->getId(),
             'productName' => $this->product?->getName(),
+            'ownerId' => $this->owner?->getId(), // doar id-ul, nu si email-ul
         ];
     }
 }

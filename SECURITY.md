@@ -9,7 +9,7 @@ unde se afla codul fiecarei masuri si cum poate fi verificata.
 |---|---|---|
 | Acces fara cont la operatiile de modificare | Autentificare JWT; orice `POST`/`PUT`/`DELETE` pe `/api` cere un utilizator autentificat | `config/packages/security.yaml` |
 | Escaladarea drepturilor (un utilizator obisnuit face actiuni de admin) | Roluri `ROLE_USER` / `ROLE_ADMIN`; `#[IsGranted('ROLE_ADMIN')]`; rolul nu se poate trimite la inregistrare | `CategoryController`, `AuthController::register` |
-| IDOR (modificarea/stergerea produselor altcuiva schimband id-ul din URL) | Fiecare produs are un proprietar; `ProductVoter` permite modificarea doar proprietarului sau unui admin | `src/Security/ProductVoter.php`, `ProductController` |
+| IDOR (modificarea/stergerea produselor sau recenziilor altcuiva schimband id-ul din URL) | Fiecare produs si fiecare recenzie are un proprietar; `ProductVoter` si `ReviewVoter` permit modificarea doar proprietarului sau unui admin | `src/Security/`, `ProductController`, `ReviewController` |
 | Parole furate din baza de date | Parolele se salveaza doar ca hash (bcrypt/argon2id, algoritmul `auto`), cu rehash automat | `security.yaml`, `UserRepository::upgradePassword` |
 | Parole slabe | Minim 8 caractere + `PasswordStrength` (complexitate medie); max 4096 caractere (anti-DoS la hash) | `src/Dto/RegisterInput.php` |
 | Ghicirea parolei (brute force) | `login_throttling`: max 5 incercari gresite / 15 minute pentru acelasi email + IP, apoi `429` | `security.yaml` |
@@ -35,10 +35,13 @@ unde se afla codul fiecarei masuri si cum poate fi verificata.
 | `GET /api/health`, `GET /api/categories`, `GET /api/products[/{id}]` | da | da | da |
 | `GET /api/hello/{name}`, `/api/time`, `/api/numbers`, `/api/sum`, `/api/factorial/{n}` (laboratorul 06) | da | da | da |
 | `POST /api/auth/register`, `POST /api/auth/login`, `POST /api/auth/logout` | da | da | da |
+| `GET /api/reviews[/{id}]`, `GET /api/products/{id}/reviews`, `GET /api/products/{id}/rating` (laboratorul 08) | da | da | da |
 | `GET /api/auth/me` | nu (`401`) | da | da |
 | `POST /api/products` | nu (`401`) | da (devine proprietar) | da |
 | `PUT` / `DELETE /api/products/{id}` | nu (`401`) | doar produsele proprii (`403` altfel) | toate |
 | `POST /api/categories` | nu (`401`) | nu (`403`) | da |
+| `POST /api/reviews` | nu (`401`) | da (devine proprietar) | da |
+| `PUT` / `PATCH` / `DELETE /api/reviews/{id}` | nu (`401`) | doar recenziile proprii (`403` altfel) | toate |
 
 Interfata React ascunde butoanele pe care utilizatorul nu are voie sa le foloseasca, dar **aceasta nu este
 o masura de securitate**: toate regulile sunt verificate in backend, unde nu pot fi ocolite.
