@@ -176,6 +176,167 @@
           }
         }
       ]
+    },
+    {
+      "name": "Laboratorul 06 - HelloController",
+      "item": [
+        {
+          "name": "Salut",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/hello/Ana",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "hello",
+                "Ana"
+              ]
+            },
+            "description": "200: {\"message\":\"Salut, Ana!\"}. Cu cifre (/api/hello/123) => 404, din cauza requirements."
+          }
+        },
+        {
+          "name": "Ora serverului",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/time",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "time"
+              ]
+            },
+            "description": "200: data, ora si fusul orar."
+          }
+        },
+        {
+          "name": "Numere (n=10)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/numbers?n=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "numbers"
+              ],
+              "query": [
+                {
+                  "key": "n",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "200: numerele pare 1..n, suma si patratele."
+          }
+        },
+        {
+          "name": "Numere invalid (n=abc)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/numbers?n=abc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "numbers"
+              ],
+              "query": [
+                {
+                  "key": "n",
+                  "value": "abc"
+                }
+              ]
+            },
+            "description": "400 Bad Request."
+          }
+        },
+        {
+          "name": "Suma (a=3, b=4)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/sum?a=3&b=4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sum"
+              ],
+              "query": [
+                {
+                  "key": "a",
+                  "value": "3"
+                },
+                {
+                  "key": "b",
+                  "value": "4"
+                }
+              ]
+            },
+            "description": "200: {\"a\":3,\"b\":4,\"sum\":7}"
+          }
+        },
+        {
+          "name": "Suma invalid (lipseste b)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/sum?a=3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "sum"
+              ],
+              "query": [
+                {
+                  "key": "a",
+                  "value": "3"
+                }
+              ]
+            },
+            "description": "400 Bad Request."
+          }
+        },
+        {
+          "name": "Factorial (5)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/factorial/5",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "factorial",
+                "5"
+              ]
+            },
+            "description": "200: 120. In afara intervalului 0-20 => 400."
+          }
+        }
+      ]
     }
   ]
 }
