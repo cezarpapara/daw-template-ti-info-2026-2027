@@ -1,5 +1,6 @@
 import Card from "../components/Card";
 import PageTitle from "../components/PageTitle";
+import { useState } from "react";
 
 const sections = [
   {
@@ -21,6 +22,8 @@ const sections = [
 ];
 
 export default function AboutPage() {
+  const [contor, setContor] = useState(0);
+
   return (
     <section>
       <PageTitle
@@ -38,6 +41,13 @@ export default function AboutPage() {
           />
         ))}
       </div>
+      <p>Contor: {contor}</p>
+      <button type="button" onClick={() => setContor((valoare) => valoare + 1)}>
+        Click Me
+      </button>
+      <button type="button" onClick={() => setContor(0)}>
+        Reset
+      </button>
     </section>
   );
 }
