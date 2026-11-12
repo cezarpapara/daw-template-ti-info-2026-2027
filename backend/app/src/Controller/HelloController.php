@@ -10,14 +10,14 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class HelloController extends AbstractController
 {
-    // Rută cu parametru în cale și Exercițiul 2 (restrâns la litere)
+    // Exercițiul 2: Restricționat doar la litere ([A-Za-z]+) în cale
     #[Route('/api/hello/{name}', name: 'api_hello', requirements: ['name' => '[A-Za-z]+'], methods: ['GET'])]
     public function hello(string $name): JsonResponse
     {
         return $this->json(['message' => "Salut, $name!"]);
     }
 
-    // Rută pentru dată și oră
+    // Ruta pentru dată și oră
     #[Route('/api/time', name: 'api_time', methods: ['GET'])]
     public function time(): JsonResponse
     {
@@ -30,7 +30,7 @@ final class HelloController extends AbstractController
         ]);
     }
 
-    // Rută cu parametru în interogare (?n=5) și Exercițiul 3 (doar numere pare)
+    // Exercițiul 3: Returnează doar numerele pare de la 1 la n
     #[Route('/api/numbers', name: 'api_numbers', methods: ['GET'])]
     public function numbers(Request $request): JsonResponse
     {
@@ -46,7 +46,6 @@ final class HelloController extends AbstractController
         }
 
         $numbers = range(1, $n);
-        // Exercițiul 3: selectăm doar numerele pare
         $evenNumbers = array_values(array_filter($numbers, fn(int $x) => $x % 2 === 0));
 
         return $this->json([
@@ -75,6 +74,28 @@ final class HelloController extends AbstractController
             'a' => $a,
             'b' => $b,
             'sum' => $a + $b,
+        ]);
+    }
+
+    // Exercițiul 4 (opțional): Endpoint GET /api/factorial/{n} (n între 0 și 20)
+    #[Route('/api/factorial/{n}', name: 'api_factorial', requirements: ['n' => '\d+'], methods: ['GET'])]
+    public function factorial(int $n): JsonResponse
+    {
+        if ($n < 0 || $n > 20) {
+            return $this->json(
+                ['error' => 'n trebuie să fie un număr între 0 și 20.'],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+        $result = 1;
+        for ($i = 2; $i <= $n; $i++) {
+            $result *= $i;
+        }
+
+        return $this->json([
+            'n' => $n,
+            'factorial' => $result,
         ]);
     }
 }
