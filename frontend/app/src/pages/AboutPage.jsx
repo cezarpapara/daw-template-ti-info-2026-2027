@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { api } from '../api.js';
 import Card from '../components/Card';
 import PageTitle from '../components/PageTitle';
 
@@ -17,6 +18,13 @@ const sections = [
 
 export default function AboutPage() {
   const [counter, setCounter] = useState(0);
+  const [helloMessage, setHelloMessage] = useState('');
+
+  useEffect(() => {
+    api.getHello('Ana')
+      .then((data) => setHelloMessage(data.message))
+      .catch((error) => setHelloMessage(error.message));
+  }, []);
 
   return (
     <section>
@@ -25,6 +33,7 @@ export default function AboutPage() {
         subtitle="Componentele și tehnologiile care alcătuiesc aplicația."
       />
       <p>Număr de secțiuni: {sections.length}</p>
+      <p>{helloMessage}</p>
       <div className="info-card-grid">
         {sections.map((section) => (
           <Card
