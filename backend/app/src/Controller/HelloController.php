@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 final class HelloController extends AbstractController
 {
-    #[Route('/api/hello/{name}', name: 'api_hello', methods: ['GET'])]
+    #[Route('/api/hello/{name}', name: 'api_hello', requirements: ['name' => '[A-Za-z]+'], methods: ['GET'])]
     public function hello(string $name): JsonResponse
     {
         return $this->json(['message' => "Salut, $name!"]);
@@ -36,6 +36,8 @@ final class HelloController extends AbstractController
             );
         }
         $numbers = range(1, $n);
+        $numbers = array_filter($numbers, fn($x) => $x % 2 === 0);
+        $numbers = array_values($numbers);
         return $this->json([
             'n' => $n,
             'numbers' => $numbers,
