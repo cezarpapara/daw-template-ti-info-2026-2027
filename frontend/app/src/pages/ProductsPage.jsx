@@ -4,12 +4,18 @@ import { api } from '../api.js'
 
 const emptyForm = { name: '', description: '', price: '', categoryId: '' }
 
-// Pagina Produse: lista produselor, adaugare si stergere
+// Pagina Produse: lista produselor, adaugare, stergere si cautare
 function ProductsPage() {
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState(emptyForm)
   const [error, setError] = useState(null)
+  const [search, setSearch] = useState('')
+
+  const term = search.trim().toLowerCase()
+  const visibleProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(term)
+  )
 
   function loadProducts() {
     api.getProducts()
@@ -91,29 +97,58 @@ function ProductsPage() {
 
       <section className="card">
         <h2>Lista produselor</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Nume</th>
-              <th>Categorie</th>
-              <th>Pret (lei)</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product) => (
-              <tr key={product.id}>
-                <td><Link to={`/produse/${product.id}`}>{product.name}</Link></td>
-                <td>{product.category.name}</td>
-                <td>{product.price}</td>
-                <td>
-                  <button className="button-danger" onClick={() => handleDelete(product.id)}>Sterge</button>
-                </td>
+
+        {/* Zona de căutare și opționale (Ex. 4 & 5) */}
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap' }}>
+          <input
+            type="search"
+            placeholder="Caută după nume..."
+            aria-label="Caută produse"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+            style={{ flex: 1, minWidth: '200px', padding: '0.5rem' }}
+          />
+          {search && (
+            <button type="button" onClick={() => setSearch('')}>
+              Șterge căutarea
+            </button>
+          )}
+          {products.length > 0 && (
+            <span style={{ fontSize: '0.9rem', color: '#666' }}>
+              {visibleProducts.length} din {products.length} produse
+            </span>
+          )}
+        </div>
+
+        {/* Tabelul de produse sau mesajul de negăsire */}
+        {visibleProducts.length > 0 ? (
+          <table>
+            <thead>
+              <tr>
+                <th>Nume</th>
+                <th>Categorie</th>
+                <th>Pret (lei)</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        {products.length === 0 && <p>Nu exista produse.</p>}
+            </thead>
+            <tbody>
+              {visibleProducts.map((product) => (
+                <tr key={product.id}>
+                  <td><Link to={`/produse/${product.id}`}>{product.name}</Link></td>
+                  <td>{product.category.name}</td>
+                  <td>{product.price}</td>
+                  <td>
+                    <button className="button-danger" onClick={() => handleDelete(product.id)}>Sterge</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>
+            {products.length === 0 ? 'Nu exista produse.' : 'Niciun produs nu corespunde căutării.'}
+          </p>
+        )}
       </section>
     </>
   )

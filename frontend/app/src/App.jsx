@@ -5,6 +5,7 @@ import ProductsPage from './pages/ProductsPage.jsx'
 import ProductDetailsPage from './pages/ProductDetailsPage.jsx'
 import './App.css'
 import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 
 // Structura comuna a tuturor paginilor: meniul de sus + pagina curenta
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/produse/:id" element={<ProductDetailsPage />} />
           <Route path="*" element={<p>Pagina nu exista.</p>} />
           <Route path="/despre" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </main>
     </>
