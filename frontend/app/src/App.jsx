@@ -5,7 +5,7 @@ import ProductsPage from './pages/ProductsPage.jsx'
 import ProductDetailsPage from './pages/ProductDetailsPage.jsx'
 import './App.css'
 import AboutPage from './pages/AboutPage';
- import ContactPage from './pages/ContactPage';
+import ContactPage from './pages/ContactPage';
 
 
 
