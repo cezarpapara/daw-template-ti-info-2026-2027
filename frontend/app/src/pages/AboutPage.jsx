@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router'
 import Card from '../components/Card.jsx'
 import PageTitle from '../components/PageTitle.jsx'
@@ -16,6 +17,8 @@ const sections = [
 ]
 
 export default function AboutPage() {
+  const [count, setCount] = useState(0)
+
   return (
     <section>
       <PageTitle
@@ -35,6 +38,15 @@ export default function AboutPage() {
             {section.link && <Link to={section.link}>Vezi produsele</Link>}
           </Card>
         ))}
+      </div>
+
+      <div className="counter">
+        <button type="button" onClick={() => setCount(count + 1)}>
+          Ați apăsat de {count} ori
+        </button>
+        <button type="button" onClick={() => setCount(0)}>
+          Resetează
+        </button>
       </div>
     </section>
   )

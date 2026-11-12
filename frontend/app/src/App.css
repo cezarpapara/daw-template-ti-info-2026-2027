@@ -161,3 +161,50 @@ button {
   height: 140px;
   object-fit: cover;
 }
+
+/* Laboratorul 05: formulare, contor, cautare */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  max-width: 480px;
+}
+
+.form-error {
+  color: #b42318;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.form-success {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+.form-counter {
+  margin: 0;
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+textarea {
+  padding: 8px 10px;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  font: inherit;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.counter,
+.search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 1rem 0;
+}
