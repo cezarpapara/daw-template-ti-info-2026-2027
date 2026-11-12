@@ -136,3 +136,29 @@ button {
   padding: 4px 10px;
   font-size: 0.9rem;
 }
+
+/* Laboratorul 05: formularul de contact */
+.form-field {
+  display: flex; flex-direction: column; gap: 0.25rem;
+  margin-bottom: 1rem; max-width: 480px;
+}
+.form-field textarea {
+  padding: 8px 10px;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+.form-error { color: #b42318; margin: 0; font-size: 0.9rem; }
+.form-success { color: #2e7d32; font-weight: bold; }
+.form-counter { color: #52606d; margin: 0; font-size: 0.85rem; text-align: right; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Laboratorul 05: cautarea produselor */
+.search {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}

@@ -7,6 +7,12 @@ const emptyForm = { name: '', description: '', price: '', categoryId: '' }
 // Pagina Produse: lista produselor, adaugare si stergere
 function ProductsPage() {
   const [products, setProducts] = useState([])
+  // Cautarea: filtrarea se face in browser, pe datele deja primite
+  const [search, setSearch] = useState('')
+  const term = search.trim().toLowerCase()
+  const visibleProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(term)
+  )
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState(emptyForm)
   const [error, setError] = useState(null)
@@ -91,6 +97,21 @@ function ProductsPage() {
 
       <section className="card">
         <h2>Lista produselor</h2>
+        <div className="search">
+          <input
+            type="search"
+            placeholder="Caută după nume…"
+            aria-label="Caută produse"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+          {/* Ex. 4: butonul apare doar cand exista text in cautare */}
+          {search !== '' && (
+            <button type="button" onClick={() => setSearch('')}>Șterge căutarea</button>
+          )}
+          {/* Ex. 5: cate produse corespund cautarii */}
+          <span className="muted">{visibleProducts.length} din {products.length} produse</span>
+        </div>
         <table>
           <thead>
             <tr>
@@ -101,7 +122,7 @@ function ProductsPage() {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {visibleProducts.map((product) => (
               <tr key={product.id}>
                 <td><Link to={`/produse/${product.id}`}>{product.name}</Link></td>
                 <td>{product.category.name}</td>
@@ -114,6 +135,9 @@ function ProductsPage() {
           </tbody>
         </table>
         {products.length === 0 && <p>Nu exista produse.</p>}
+        {products.length > 0 && visibleProducts.length === 0 && (
+          <p>Niciun produs nu corespunde căutării.</p>
+        )}
       </section>
     </>
   )
