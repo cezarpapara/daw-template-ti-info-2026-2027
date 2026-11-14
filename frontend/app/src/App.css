@@ -226,3 +226,47 @@ button:disabled {
   gap: 0.75rem;
   margin: 1rem 0;
 }
+
+.reviews .review-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.reviews .review-list li {
+  padding: 1rem 0;
+  border-bottom: 1px solid #cbd5e1;
+}
+
+.reviews .stars {
+  color: #854d0e;
+  white-space: nowrap;
+}
+
+.reviews .form {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 32rem;
+}
+
+.reviews .form label {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.reviews .form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.6rem;
+  border: 1px solid #64748b;
+  border-radius: 6px;
+  font: inherit;
+  resize: vertical;
+}
+
+.reviews .review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}

@@ -100,3 +100,17 @@ export async function deleteReview(id) {
     throw await reviewError(response)
   }
 }
+
+export async function updateReview(id, data) {
+  const response = await fetch(`${REVIEWS_BASE}/api/reviews/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw await reviewError(response)
+  }
+
+  return response.json()
+}

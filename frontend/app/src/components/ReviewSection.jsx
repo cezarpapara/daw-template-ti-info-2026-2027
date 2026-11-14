@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getReviews, createReview, deleteReview } from '../api.js'
+import { getReviews, createReview, deleteReview, updateReview } from '../api.js'
 
 const EMPTY_FORM = { author: '', rating: '5', comment: '' }
 
@@ -12,6 +12,7 @@ export default function ReviewSection({ productId }) {
   const [saving, setSaving] = useState(false)
   const [deletingId, setDeletingId] = useState(null)
   const [lastCreatedId, setLastCreatedId] = useState(null)
+  const [editingId, setEditingId] = useState(null)
 
   useEffect(() => {
     let active = true
@@ -48,24 +49,52 @@ export default function ReviewSection({ productId }) {
     setForm((current) => ({ ...current, [name]: value }))
   }
 
+    function startEditing(review) {
+    setEditingId(review.id)
+    setForm({
+      author: review.author,
+      rating: String(review.rating),
+      comment: review.comment ?? '',
+    })
+    setActionError('')
+    setLastCreatedId(null)
+  }
+
+  function cancelEditing() {
+    setEditingId(null)
+    setForm(EMPTY_FORM)
+    setActionError('')
+  }
+
   async function handleSubmit(event) {
     event.preventDefault()
-    if (loading || loadError || saving) return
+    if (loading || loadError || saving || deletingId !== null) return
 
     setSaving(true)
     setActionError('')
     setLastCreatedId(null)
 
+    const data = {
+      author: form.author,
+      rating: Number(form.rating),
+      comment: form.comment,
+      productId: Number(productId),
+    }
+
     try {
-      const created = await createReview({
-        author: form.author,
-        rating: Number(form.rating),
-        comment: form.comment,
-        productId: Number(productId),
-      })
-      setReviews((current) => [created, ...current])
+      if (editingId === null) {
+        const created = await createReview(data)
+        setReviews((current) => [created, ...current])
+        setLastCreatedId(created.id)
+      } else {
+        const updated = await updateReview(editingId, data)
+        setReviews((current) =>
+          current.map((review) => review.id === updated.id ? updated : review),
+        )
+      }
+
+      setEditingId(null)
       setForm(EMPTY_FORM)
-      setLastCreatedId(created.id)
     } catch (error) {
       setActionError(error.message)
     } finally {
@@ -119,21 +148,31 @@ export default function ReviewSection({ productId }) {
                   <small> · {new Date(review.createdAt).toLocaleString('ro-RO')}</small>
                 )}
                 {review.comment && <p>{review.comment}</p>}
-                <button
-                  type="button"
-                  className="button-danger"
-                  disabled={deletingId !== null}
-                  onClick={() => handleDelete(review.id)}
-                >
-                  {deletingId === review.id ? 'Se șterge…' : 'Șterge'}
-                </button>
+                <div className="review-actions">
+                  <button
+                    type="button"
+                    disabled={saving || deletingId !== null}
+                    onClick={() => startEditing(review)}
+                  >
+                    Editează
+                  </button>
+
+                  <button
+                    type="button"
+                    className="button-danger"
+                    disabled={saving || deletingId !== null || editingId === review.id}
+                    onClick={() => handleDelete(review.id)}
+                  >
+                    {deletingId === review.id ? 'Se șterge…' : 'Șterge'}
+                  </button>
+                </div>
               </li>
             )
           })}
         </ul>
       )}
 
-      <h3>Adaugă o recenzie</h3>
+      <h3>{editingId === null ? 'Adaugă o recenzie' : 'Editează recenzia'}</h3>
       <form className="form" onSubmit={handleSubmit}>
         <label>
           Nume
@@ -151,9 +190,24 @@ export default function ReviewSection({ productId }) {
           Comentariu (opțional)
           <textarea name="comment" value={form.comment} onChange={handleChange} rows={3} />
         </label>
-        <button type="submit" disabled={loading || Boolean(loadError) || saving}>
-          {saving ? 'Se trimite…' : 'Trimite recenzia'}
-        </button>
+        <div className="review-actions">
+          <button
+            type="submit"
+            disabled={loading || Boolean(loadError) || saving || deletingId !== null}
+          >
+            {saving
+              ? 'Se salvează…'
+              : editingId === null
+                ? 'Trimite recenzia'
+                : 'Salvează modificările'}
+          </button>
+
+          {editingId !== null && (
+            <button type="button" disabled={saving} onClick={cancelEditing}>
+              Anulează
+            </button>
+          )}
+        </div>
       </form>
     </section>
   )
