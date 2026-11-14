@@ -8,6 +8,7 @@ export default function ReviewSection({ productId }) {
   const [loading, setLoading] = useState(true)
   const [loadError, setLoadError] = useState('')
   const [actionError, setActionError] = useState('')
+  const [fieldErrors, setFieldErrors] = useState({})
   const [form, setForm] = useState(EMPTY_FORM)
   const [saving, setSaving] = useState(false)
   const [deletingId, setDeletingId] = useState(null)
@@ -57,6 +58,7 @@ export default function ReviewSection({ productId }) {
       comment: review.comment ?? '',
     })
     setActionError('')
+    setFieldErrors({})
     setLastCreatedId(null)
   }
 
@@ -64,6 +66,7 @@ export default function ReviewSection({ productId }) {
     setEditingId(null)
     setForm(EMPTY_FORM)
     setActionError('')
+    setFieldErrors({})
   }
 
   async function handleSubmit(event) {
@@ -72,6 +75,7 @@ export default function ReviewSection({ productId }) {
 
     setSaving(true)
     setActionError('')
+    setFieldErrors({})
     setLastCreatedId(null)
 
     const data = {
@@ -96,7 +100,12 @@ export default function ReviewSection({ productId }) {
       setEditingId(null)
       setForm(EMPTY_FORM)
     } catch (error) {
-      setActionError(error.message)
+      const fields = error.fields ?? {}
+      setFieldErrors(fields)
+      setActionError(
+        fields.body || fields.product || fields.productId ||
+        (Object.keys(fields).length === 0 ? error.message : ''),
+      )
     } finally {
       setSaving(false)
     }
@@ -173,22 +182,60 @@ export default function ReviewSection({ productId }) {
       )}
 
       <h3>{editingId === null ? 'Adaugă o recenzie' : 'Editează recenzia'}</h3>
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit} noValidate>
         <label>
           Nume
-          <input name="author" value={form.author} onChange={handleChange} maxLength={100} required />
+          <input
+            name="author"
+            value={form.author}
+            onChange={handleChange}
+            maxLength={100}
+            required
+            aria-invalid={Boolean(fieldErrors.author)}
+            aria-describedby={fieldErrors.author ? 'review-author-error' : undefined}
+          />
+          {fieldErrors.author && (
+            <span id="review-author-error" className="review-field-error" role="alert">
+              {fieldErrors.author}
+            </span>
+          )}
         </label>
+
         <label>
           Nota
-          <select name="rating" value={form.rating} onChange={handleChange}>
+          <select
+            name="rating"
+            value={form.rating}
+            onChange={handleChange}
+            aria-invalid={Boolean(fieldErrors.rating)}
+            aria-describedby={fieldErrors.rating ? 'review-rating-error' : undefined}
+          >
             {[5, 4, 3, 2, 1].map((rating) => (
               <option key={rating} value={rating}>{rating}</option>
             ))}
           </select>
+          {fieldErrors.rating && (
+            <span id="review-rating-error" className="review-field-error" role="alert">
+              {fieldErrors.rating}
+            </span>
+          )}
         </label>
+
         <label>
           Comentariu (opțional)
-          <textarea name="comment" value={form.comment} onChange={handleChange} rows={3} />
+          <textarea
+            name="comment"
+            value={form.comment}
+            onChange={handleChange}
+            rows={3}
+            aria-invalid={Boolean(fieldErrors.comment)}
+            aria-describedby={fieldErrors.comment ? 'review-comment-error' : undefined}
+          />
+          {fieldErrors.comment && (
+            <span id="review-comment-error" className="review-field-error" role="alert">
+              {fieldErrors.comment}
+            </span>
+          )}
         </label>
         <div className="review-actions">
           <button

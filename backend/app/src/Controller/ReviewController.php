@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[OA\Tag(name: 'Reviews')]
 final class ReviewController extends AbstractController
@@ -27,6 +28,7 @@ final class ReviewController extends AbstractController
         private EntityManagerInterface $em,
         private ReviewRepository $reviews,
         private ProductRepository $products,
+        private ValidatorInterface $validator,
     ) {
     }
 
@@ -162,43 +164,31 @@ final class ReviewController extends AbstractController
             return ['body' => 'Corpul cererii trebuie să fie un obiect JSON valid.'];
         }
 
-        $errors = [];
-
         $author = is_string($data->author ?? null) ? trim($data->author) : '';
-        if ($author === '' || mb_strlen($author) > 100) {
-            $errors['author'] = 'Autorul este obligatoriu și poate avea cel mult 100 de caractere.';
-        }
-
         $rating = $data->rating ?? null;
-        if (!is_int($rating) || $rating < 1 || $rating > 5) {
-            $errors['rating'] = 'Nota trebuie să fie un număr întreg între 1 și 5.';
-        }
-
         $productId = $data->productId ?? null;
+        $comment = $data->comment ?? null;
+
         $product = is_int($productId) && $productId > 0
             ? $this->products->find($productId)
             : null;
 
-        if ($product === null) {
-            $errors['productId'] = 'Produsul indicat nu există sau ID-ul este invalid.';
-        }
-
-        $comment = $data->comment ?? null;
+        $errors = [];
         if ($comment !== null && !is_string($comment)) {
             $errors['comment'] = 'Comentariul trebuie să fie text sau null.';
         }
 
-        if ($errors !== []) {
-            return $errors;
-        }
-
-        $comment = trim($comment ?? '');
+        $comment = is_string($comment) ? trim($comment) : '';
 
         $review->setAuthor($author)
-            ->setRating($rating)
+            ->setRating(is_int($rating) ? $rating : 0)
             ->setComment($comment === '' ? null : $comment)
             ->setProduct($product);
 
-        return [];
+        foreach ($this->validator->validate($review) as $violation) {
+            $errors[$violation->getPropertyPath()] ??= $violation->getMessage();
+        }
+
+        return $errors;
     }
 }

@@ -270,3 +270,14 @@ button:disabled {
   gap: 0.5rem;
   margin-top: 0.75rem;
 }
+
+.reviews [aria-invalid="true"] {
+  border-color: #b42318;
+}
+
+.reviews .review-field-error {
+  display: block;
+  color: #b42318;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
