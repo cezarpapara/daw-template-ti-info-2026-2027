@@ -38,6 +38,11 @@ class Review
         max: 1000,
         maxMessage: 'Comentariul are cel mult {{ limit }} caractere.',
     )]
+    #[Assert\Regex(
+        pattern: '/\bspam\b/iu',
+        match: false,
+        message: 'Comentariul nu poate conține cuvântul „spam”.',
+    )]
     private ?string $comment = null;
 
     #[ORM\Column]
