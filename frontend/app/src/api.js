@@ -50,3 +50,53 @@ export const api = {
   // DELETE /api/products/{id}
   deleteProduct: (id) => request(`/api/products/${id}`, { method: 'DELETE' }),
 }
+
+const REVIEWS_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:8080')
+  .replace(/\/+$/, '')
+  .replace(/\/api$/, '')
+
+async function reviewError(response) {
+  const body = await response.json().catch(() => ({}))
+  const fields = body.errors || {}
+  const message = Object.values(fields).join(' ')
+    || body.error
+    || `Eroare ${response.status}`
+
+  const error = new Error(message)
+  error.fields = fields
+  return error
+}
+
+export async function getReviews(productId) {
+  const response = await fetch(`${REVIEWS_BASE}/api/products/${productId}/reviews`)
+
+  if (!response.ok) {
+    throw await reviewError(response)
+  }
+
+  return response.json()
+}
+
+export async function createReview(data) {
+  const response = await fetch(`${REVIEWS_BASE}/api/reviews`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw await reviewError(response)
+  }
+
+  return response.json()
+}
+
+export async function deleteReview(id) {
+  const response = await fetch(`${REVIEWS_BASE}/api/reviews/${id}`, {
+    method: 'DELETE',
+  })
+
+  if (!response.ok) {
+    throw await reviewError(response)
+  }
+}
