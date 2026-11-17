@@ -337,6 +337,333 @@
           }
         }
       ]
+    },
+    {
+      "name": "Laboratorul 08 - Recenzii (Reviews)",
+      "item": [
+        {
+          "name": "Lista recenziilor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "200: toate recenziile, cele mai noi primele."
+          }
+        },
+        {
+          "name": "O recenzie dupa id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "1"
+              ]
+            },
+            "description": "200 sau 404 daca nu exista. /api/reviews/abc => 404 (nu se potriveste ruta)."
+          }
+        },
+        {
+          "name": "Recenziile unui produs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1",
+                "reviews"
+              ]
+            },
+            "description": "200; 404 daca produsul nu exista."
+          }
+        },
+        {
+          "name": "Nota medie a unui produs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/1/rating",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1",
+                "rating"
+              ]
+            },
+            "description": "Ex. 2: {\"productId\":1,\"count\":3,\"average\":3}"
+          }
+        },
+        {
+          "name": "Adauga recenzie (201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "201 Created.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ion\", \"rating\": 4, \"productId\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eroare: author gol (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "400: errors.author",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"\", \"rating\": 4, \"productId\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eroare: rating text (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "400: \"4\" este text, nu numar.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ion\", \"rating\": \"4\", \"productId\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eroare: produs inexistent (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "400: errors.productId",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ion\", \"rating\": 4, \"productId\": 9999}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Eroare: JSON incomplet (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "400: errors.body",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ion\", \"rating\": 4,",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Modifica recenzia (PUT)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "1"
+              ]
+            },
+            "description": "200 cu datele noi. PUT cere toate campurile.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ana Popescu\", \"rating\": 4, \"comment\": \"Actualizat\", \"productId\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Modifica doar nota (PATCH)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "1"
+              ]
+            },
+            "description": "Ex. 3: 200, schimba doar campurile trimise. Acelasi corp la PUT => 400.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"rating\": 3}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Sterge recenzia",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews",
+                "1"
+              ]
+            },
+            "description": "204 No Content; a doua oara => 404."
+          }
+        }
+      ]
     }
   ]
 }
