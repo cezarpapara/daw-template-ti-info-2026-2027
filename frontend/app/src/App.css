@@ -154,6 +154,100 @@ button {
 .form-counter { color: #52606d; margin: 0; font-size: 0.85rem; text-align: right; }
 button:disabled { opacity: 0.5; cursor: not-allowed; }
 
+/* Laboratorul 09: recenziile (ex. 3). Culorile au contrast de cel putin 4.5:1 pe fundal alb. */
+.reviews {
+  background: #ffffff;
+  border: 1px solid #e4e7eb;
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin: 16px 0;
+}
+
+.review-average {
+  font-weight: 600;
+  margin-top: 0;
+}
+
+.review-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+}
+
+.review-list li {
+  border-bottom: 1px solid #e4e7eb;
+  padding: 12px 0;
+}
+
+.review-list li.editing {
+  background: #f0f4ff;
+  margin: 0 -12px;
+  padding: 12px;
+  border-radius: 6px;
+}
+
+.review-list p {
+  margin: 6px 0;
+}
+
+.review-list small {
+  color: #52606d;
+}
+
+/* stele aurii inchise: galbenul deschis (#f5a623) ar avea contrast prea mic pe alb */
+.stars {
+  color: #b45309;
+  letter-spacing: 2px;
+}
+
+.review-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.button-secondary {
+  background: #e4e7eb;
+  color: #1f2933;
+}
+
+.error {
+  background: #ffe3e3;
+  border: 1px solid #e12d39;
+  color: #8a1c1c;
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+
+.success {
+  background: #e3f9e5;
+  border: 1px solid #57ae5b;
+  color: #1e5e22;
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px;
+}
+
+.review-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.review-form textarea {
+  padding: 8px 10px;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+}
+
 /* Laboratorul 05: cautarea produselor */
 .search {
   display: flex;
