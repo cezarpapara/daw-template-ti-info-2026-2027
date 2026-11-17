@@ -47,12 +47,24 @@ export default function ReviewSection({ productId }) {
  setError(err.message);
  }
  }
+
+ // Calculul notei medii cu o zecimală (cu verificare pentru lista goală)
+ const averageRating = reviews.length > 0 
+   ? (reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length).toFixed(1) 
+   : '0.0';
+
  return (
  <section className="reviews">
  <h2>Recenzii ({reviews.length})</h2>
  {loading && <p>Se încarcă recenziile...</p>}
  {error && <p className="error">{error}</p>}
  {!loading && reviews.length === 0 && <p>Nu există încă recenzii.</p>}
+
+ {/* Afișarea notei medii deasupra listei */}
+ {reviews.length > 0 && (
+   <p>Nota medie: {averageRating} din 5</p>
+ )}
+
  <ul className="review-list">
  {reviews.map((r) => (
  <li key={r.id}>
