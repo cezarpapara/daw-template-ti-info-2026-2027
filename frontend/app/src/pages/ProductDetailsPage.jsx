@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { api } from '../api.js'
-
+import ReviewSection from '../components/ReviewSection';
 // Pagina de detalii pentru un produs: /produse/:id
 function ProductDetailsPage() {
   const { id } = useParams() // id-ul din adresa (URL)
@@ -20,6 +20,8 @@ function ProductDetailsPage() {
 
       {error && <div className="status status-error">{error}</div>}
       {!product && !error && <p>Se incarca...</p>}
+      <ReviewSection productId={id} />
+
 
       {product && (
         <section className="card">
@@ -29,6 +31,7 @@ function ProductDetailsPage() {
           <p><strong>Descriere:</strong> {product.description || '-'}</p>
           <p className="muted">Date primite de la <code>GET {api.url}/api/products/{product.id}</code></p>
         </section>
+        
       )}
     </>
   )
