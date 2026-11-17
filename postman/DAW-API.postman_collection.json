@@ -664,6 +664,172 @@
           }
         }
       ]
+    },
+    {
+      "name": "Laboratorul 10 - Validare si securitate",
+      "item": [
+        {
+          "name": "Trei erori de validare (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "400: errors.author, errors.rating, errors.product (Symfony Validator).",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"\", \"rating\": 7, \"productId\": 9999}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Ex. 1: autor prea scurt (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "400: cel putin 2 caractere.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"A\", \"rating\": 4, \"productId\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Ex. 3: comentariu cu spam (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "400: Assert\\Regex cu match: false.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Ion\", \"rating\": 4, \"comment\": \"Cumpara spam ieftin\", \"productId\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Test XSS (201, se afiseaza ca text)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/reviews",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "reviews"
+              ]
+            },
+            "description": "Se salveaza ca text; React il afiseaza escapat, nu il executa. Stergeti recenzia dupa demonstratie.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"author\": \"Test XSS\", \"rating\": 3, \"comment\": \"<img src=x onerror=alert(1)>\", \"productId\": 1}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Hash pentru parola",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/demo/parola",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "demo",
+                "parola"
+              ]
+            },
+            "description": "hash bcrypt ($2y$...), parolaCorecta: true, parolaGresita: false. De doua ori => hash diferit (sarea).",
+            "body": {
+              "mode": "raw",
+              "raw": "{\"password\": \"parola123\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
     }
   ]
 }

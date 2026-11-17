@@ -12,6 +12,7 @@ export default function ReviewSection({ productId }) {
   const [saving, setSaving] = useState(false);
   const [notice, setNotice] = useState('');        // Ex. 2: mesajul de multumire
   const [editingId, setEditingId] = useState(null); // Ex. 4: id-ul recenziei editate
+  const [fieldErrors, setFieldErrors] = useState({}); // Lab. 10: erorile de la server, pe campuri
 
   // Se execută la afișare și ori de câte ori se schimbă productId.
   useEffect(() => {
@@ -44,6 +45,7 @@ export default function ReviewSection({ productId }) {
     e.preventDefault();
     setSaving(true);
     setError('');
+    setFieldErrors({});
     const data = {
       author: form.author,
       rating: Number(form.rating),
@@ -65,6 +67,7 @@ export default function ReviewSection({ productId }) {
       setEditingId(null);
     } catch (err) {
       setError(err.message);
+      setFieldErrors(err.fields || {}); // ex.: { author: 'Autorul este obligatoriu.' }
     } finally {
       setSaving(false);
     }
@@ -75,11 +78,13 @@ export default function ReviewSection({ productId }) {
     setEditingId(r.id);
     setForm({ author: r.author, rating: String(r.rating), comment: r.comment ?? '' });
     setError('');
+    setFieldErrors({});
   }
 
   function handleCancelEdit() {
     setEditingId(null);
     setForm(EMPTY_FORM);
+    setFieldErrors({});
   }
 
   async function handleDelete(id) {
@@ -120,24 +125,34 @@ export default function ReviewSection({ productId }) {
         ))}
       </ul>
 
-      <form onSubmit={handleSubmit} className="review-form">
+      {/* noValidate: browserul nu mai blocheaza trimiterea, ca sa se vada regulile serverului */}
+      <form onSubmit={handleSubmit} className="review-form" noValidate>
         <h3>{editingId ? 'Editați recenzia' : 'Adăugați o recenzie'}</h3>
         {notice && <p className="success" role="status">{notice}</p>}
+        {/* Ex. 2: aria-invalid marcheaza campul gresit (chenar rosu in CSS),
+            aria-describedby leaga campul de mesajul lui, pentru cititoarele de ecran */}
         <label>
           Numele vostru
           <input name="author" value={form.author} onChange={handleChange}
-            required />
+            required aria-invalid={Boolean(fieldErrors.author)}
+            aria-describedby={fieldErrors.author ? 'review-author-error' : undefined} />
+          {fieldErrors.author && <span id="review-author-error" className="error">{fieldErrors.author}</span>}
         </label>
         <label>
           Nota
-          <select name="rating" value={form.rating} onChange={handleChange}>
+          <select name="rating" value={form.rating} onChange={handleChange}
+            aria-invalid={Boolean(fieldErrors.rating)}
+            aria-describedby={fieldErrors.rating ? 'review-rating-error' : undefined}>
             {[5, 4, 3, 2, 1].map((n) => <option key={n} value={n}>{n}</option>)}
           </select>
+          {fieldErrors.rating && <span id="review-rating-error" className="error">{fieldErrors.rating}</span>}
         </label>
         <label>
           Comentariu (opțional)
           <textarea name="comment" value={form.comment} onChange={handleChange}
-            rows={3} />
+            rows={3} aria-invalid={Boolean(fieldErrors.comment)}
+            aria-describedby={fieldErrors.comment ? 'review-comment-error' : undefined} />
+          {fieldErrors.comment && <span id="review-comment-error" className="error">{fieldErrors.comment}</span>}
         </label>
         <div className="review-actions">
           <button type="submit" disabled={saving}>

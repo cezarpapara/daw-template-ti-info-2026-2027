@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ReviewRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 // Tabela "review": recenziile produselor
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
@@ -15,13 +16,27 @@ class Review
     #[ORM\Column]
     private ?int $id = null;
 
+    // Regulile de validare (laboratorul 10) stau pe entitate, intr-un singur loc;
+    // ReviewController le verifica cu ValidatorInterface. Tabela nu se schimba, deci nu e nevoie de migrare.
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(message: 'Autorul este obligatoriu.')]
+    // Ex. 1: cel putin 2 caractere
+    #[Assert\Length(min: 2, max: 100,
+        minMessage: 'Numele trebuie să aibă cel puțin {{ limit }} caractere.',
+        maxMessage: 'Cel mult {{ limit }} caractere.')]
     private ?string $author = null;
 
     #[ORM\Column]
+    #[Assert\Range(min: 1, max: 5,
+        notInRangeMessage: 'Nota trebuie să fie între {{ min }} și {{ max }}.')]
     private ?int $rating = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Length(max: 1000,
+        maxMessage: 'Comentariul are cel mult {{ limit }} caractere.')]
+    // Ex. 3: match: false => eroare cand textul SE POTRIVESTE cu modelul (contine cuvantul "spam")
+    #[Assert\Regex(pattern: '/\bspam\b/iu', match: false,
+        message: 'Comentariul nu poate conține cuvântul „spam”.')]
     private ?string $comment = null;
 
     #[ORM\Column]
@@ -31,6 +46,7 @@ class Review
     // onDelete: 'CASCADE' => stergerea unui produs ii sterge si recenziile.
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
+    #[Assert\NotNull(message: 'Produsul indicat nu există.')]
     private ?Product $product = null;
 
     public function __construct()

@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 // API REST pentru recenzii: GET, POST, PUT, PATCH, DELETE
 #[OA\Tag(name: 'Reviews')]
@@ -26,6 +27,7 @@ final class ReviewController extends AbstractController
         private EntityManagerInterface $em,
         private ReviewRepository $reviews,
         private ProductRepository $products,
+        private ValidatorInterface $validator,
     ) {
     }
 
@@ -175,7 +177,7 @@ final class ReviewController extends AbstractController
         return new Response(null, 204); // 204 No Content: fara corp
     }
 
-    // Citeste JSON-ul cererii si completeaza recenzia (POST si PUT).
+    // Citeste JSON-ul cererii, completeaza recenzia si o valideaza (POST si PUT).
     // Intoarce erorile (camp => mesaj); lista goala inseamna ca totul e in regula.
     private function fill(Review $review, Request $request): array
     {
@@ -188,37 +190,26 @@ final class ReviewController extends AbstractController
         return $this->apply($review, $data);
     }
 
-    // Validarea manuala, comuna pentru POST, PUT si PATCH
+    // Completează recenzia din date și o validează cu regulile #[Assert\...] din entitate.
+    // Comuna pentru POST, PUT si PATCH (laboratorul 10: verificarile scrise de mana au disparut).
     private function apply(Review $review, array $data): array
     {
-        $errors = [];
-
         $author = is_string($data['author'] ?? null) ? trim($data['author']) : '';
-        if ($author === '' || mb_strlen($author) > 100) {
-            $errors['author'] = 'Autorul este obligatoriu (cel mult 100 de caractere).';
-        }
-
-        // is_int: "4" (text) nu este acceptat, doar 4 (numar)
-        $rating = $data['rating'] ?? null;
-        if (!is_int($rating) || $rating < 1 || $rating > 5) {
-            $errors['rating'] = 'Nota trebuie să fie un număr întreg între 1 și 5.';
-        }
-
-        $product = $this->products->find((int) ($data['productId'] ?? 0));
-        if (!$product) {
-            $errors['productId'] = 'Produsul indicat nu există.';
-        }
-
-        if ($errors) {
-            return $errors;
-        }
-
         $comment = is_string($data['comment'] ?? null) ? trim($data['comment']) : '';
+        $rating = is_int($data['rating'] ?? null) ? $data['rating'] : 0; // 0 = invalid ("4" text nu e acceptat)
+
         $review->setAuthor($author)
             ->setRating($rating)
             ->setComment($comment === '' ? null : $comment)
-            ->setProduct($product);
+            ->setProduct($this->products->find((int) ($data['productId'] ?? 0)));
 
-        return [];
+        $errors = [];
+        foreach ($this->validator->validate($review) as $violation) {
+            // ??= pastreaza PRIMA eroare a fiecarui camp: pentru autorul gol ramane
+            // "Autorul este obligatoriu." (NotBlank), nu si mesajul de lungime minima.
+            $errors[$violation->getPropertyPath()] ??= $violation->getMessage();
+        }
+
+        return $errors;
     }
 }

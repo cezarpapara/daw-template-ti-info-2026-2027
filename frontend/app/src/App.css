@@ -248,6 +248,20 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
   font-family: inherit;
 }
 
+/* Laboratorul 10: eroarea de sub un camp (text rosu, fara caseta) */
+.review-form label .error {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #b42318;
+  font-size: 0.9rem;
+}
+
+/* Ex. 2: chenar rosu pentru campurile marcate cu aria-invalid="true" */
+.review-form [aria-invalid="true"] {
+  border: 2px solid #b42318;
+}
+
 /* Laboratorul 05: cautarea produselor */
 .search {
   display: flex;
