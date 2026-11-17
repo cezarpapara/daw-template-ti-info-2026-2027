@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
+use App\Repository\ReviewRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,7 +26,7 @@ class ProductController extends AbstractController
     {
         $products = $productRepository->findAllWithCategory();
 
-        return $this->json(array_map(fn (Product $product) => $product->toArray(), $products));
+        return $this->json(array_map(static fn (Product $product) => $product->toArray(), $products));
     }
 
     // GET /api/products/5 -> un singur produs, dupa id
@@ -41,6 +42,38 @@ class ProductController extends AbstractController
         }
 
         return $this->json($product->toArray());
+    }
+
+    // GET /api/products/{id}/rating -> media notelor pentru produsul respectiv
+    #[Route('/{id}/rating', name: 'product_rating', methods: ['GET'], requirements: ['id' => '\d+'])]
+    #[OA\Response(response: 200, description: 'Rating-ul produsului')]
+    #[OA\Response(response: 404, description: 'Produsul nu exista')]
+    public function getProductRating(
+        int $id,
+        ProductRepository $productRepository,
+        ReviewRepository $reviewRepository
+    ): JsonResponse {
+        $product = $productRepository->find($id);
+
+        if ($product === null) {
+            return $this->json(['error' => 'Produsul nu a fost găsit'], Response::HTTP_NOT_FOUND);
+        }
+
+        $reviews = $reviewRepository->findBy(['product' => $product]);
+        $count = count($reviews);
+        $sum = 0.0;
+
+        foreach ($reviews as $review) {
+            $sum += $review->getRating();
+        }
+
+        $average = $count > 0 ? round($sum / $count, 2) : 0.0;
+
+        return $this->json([
+            'productId' => $id,
+            'count' => $count,
+            'average' => $average,
+        ]);
     }
 
     // POST /api/products -> adauga un produs nou
@@ -70,13 +103,14 @@ class ProductController extends AbstractController
         $price = $data['price'] ?? null;
         $category = $categoryRepository->find($data['categoryId'] ?? 0);
 
-        // Validari simple
         if ($name === '') {
             return $this->json(['error' => 'Numele produsului este obligatoriu.'], Response::HTTP_BAD_REQUEST);
         }
+
         if (!is_numeric($price) || $price < 0) {
             return $this->json(['error' => 'Pretul trebuie sa fie un numar pozitiv.'], Response::HTTP_BAD_REQUEST);
         }
+
         if ($category === null) {
             return $this->json(['error' => 'Categoria aleasa nu exista.'], Response::HTTP_BAD_REQUEST);
         }
