@@ -138,19 +138,63 @@ button {
 }
 
 .info-card-grid {
- display: grid;
- grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
- gap: 1rem;
- margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }
-.info-card { border: 1px solid #d1d5db; border-radius: 8px; padding: 1rem; }
-.info-card-title { margin: 0.5rem 0; font-size: 1.2rem; }
-.info-card-image { width: 100%; height: 140px; object-fit: cover; }
+
+.info-card {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.info-card-title {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+.info-card-image {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
 
 .form-field {
- display: flex; flex-direction: column; gap: 0.25rem;
- margin-bottom: 1rem; max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+  max-width: 480px;
 }
-.form-error { color: #b42318; margin: 0; font-size: 0.9rem; }
-.form-success { color: #2e7d32; font-weight: bold; }
-button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.form-error {
+  color: #b42318;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.form-success {
+  color: #2e7d32;
+  font-weight: bold;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.reviews input[aria-invalid="true"],
+.reviews select[aria-invalid="true"],
+.reviews textarea[aria-invalid="true"] {
+  border: 2px solid red;
+  outline: none;
+}
+
+.field-error {
+  display: block;
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+}
