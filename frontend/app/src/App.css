@@ -1,3 +1,4 @@
+
 :root {
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   color: #1f2933;
@@ -135,4 +136,91 @@ button {
   background: #e12d39;
   padding: 4px 10px;
   font-size: 0.9rem;
+}
+
+/* Pagina Despre - fundal pe tot ecranul */
+html:has(.info-card-grid) {
+  background:
+    linear-gradient(
+      rgba(10, 18, 38, 0.38),
+      rgba(10, 18, 38, 0.48)
+    ),
+    url('/wow-background.png') center center / cover fixed no-repeat;
+  min-height: 100%;
+}
+
+body:has(.info-card-grid) {
+  min-height: 100vh;
+  background: transparent;
+}
+
+/* Containerul paginii Despre */
+.container:has(.info-card-grid) {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1400px;
+  min-height: calc(100vh - 54px);
+  margin: 0 auto;
+  padding: 48px 36px;
+  background: transparent;
+  border-radius: 0;
+}
+
+/* Titlul si descrierea */
+.container:has(.info-card-grid) h1,
+.container:has(.info-card-grid) > section > p {
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* Grila cardurilor */
+.info-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+/* Carduri cu efect de sticla */
+.info-card {
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.90);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 14px;
+  padding: 22px;
+  backdrop-filter: blur(12px);
+}
+
+/* Titlurile cardurilor */
+.info-card-title {
+  margin: 0.5rem 0;
+  font-size: 1.2rem;
+}
+
+/* Imaginile cardurilor */
+.info-card-image {
+  display: block;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Tablete */
+@media (max-width: 800px) {
+  .info-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Telefoane */
+@media (max-width: 550px) {
+  .container:has(.info-card-grid) {
+    padding: 32px 16px;
+  }
+
+  .info-card-grid {
+    grid-template-columns: 1fr;
+  }
 }
