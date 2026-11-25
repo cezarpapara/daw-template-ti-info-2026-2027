@@ -1,0 +1,224 @@
+
+:root {
+    --culoare-principala: #344e41;
+    --culoare-accent: #8a542f;
+    --fundal: #f5f1e8;
+    --suprafata: #ffffff;
+    --text: #29352d;
+    --text-secundar: #68736b;
+    --raza: 12px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: system-ui, Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--fundal);
+    transition: background 0.3s, color 0.3s;
+}
+
+.antet {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 8%;
+    background: var(--culoare-principala);
+    color: white;
+}
+
+.logo {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.container {
+    width: min(900px, 90%);
+    margin: 2rem auto;
+}
+
+.intro {
+    padding: 2rem 0;
+}
+
+.eticheta {
+    color: var(--culoare-accent);
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin: 0.5rem 0;
+    color: var(--culoare-principala);
+}
+
+h2 {
+    color: var(--culoare-principala);
+    margin-top: 0;
+}
+
+.card {
+    background: var(--suprafata);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border-radius: var(--raza);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+}
+
+.descriere {
+    color: var(--text-secundar);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+label {
+    font-weight: 600;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #cbd1cb;
+    border-radius: 7px;
+    font: inherit;
+    background: var(--suprafata);
+    color: var(--text);
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid var(--culoare-accent);
+    border-color: transparent;
+}
+
+.buton {
+    padding: 0.75rem 1.2rem;
+    border: none;
+    border-radius: 7px;
+    background: var(--culoare-accent);
+    color: white;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.buton:hover {
+    background: #704326;
+    transform: translateY(-2px);
+}
+
+.buton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.buton-secundar {
+    background: var(--culoare-principala);
+}
+
+.buton-secundar:hover {
+    background: #263b31;
+}
+
+.eroare {
+    color: #b42318;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.previzualizare {
+    margin-top: 1.5rem;
+}
+
+.actiuni {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+}
+
+.stare {
+    font-weight: 600;
+    color: var(--culoare-accent);
+}
+
+.lista-vreme {
+    padding-left: 1.3rem;
+}
+
+.lista-vreme li {
+    margin: 0.6rem 0;
+}
+
+.subsol {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    text-align: center;
+    background: var(--culoare-principala);
+    color: white;
+}
+
+.subsol p {
+    margin: 0.3rem;
+}
+
+/* Tema întunecată */
+.intunecat {
+    --fundal: #1f2937;
+    --suprafata: #303b49;
+    --text: #f9fafb;
+    --text-secundar: #c4cbd2;
+    --culoare-principala: #a5b9a9;
+    --culoare-accent: #c28b60;
+}
+
+.intunecat h1,
+.intunecat h2 {
+    color: var(--culoare-principala);
+}
+
+/* Tabletă */
+@media (max-width: 700px) {
+    .antet {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+
+    .container {
+        width: 92%;
+    }
+
+    .card {
+        padding: 1.3rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+}
+
+/* Telefon */
+@media (max-width: 450px) {
+    .actiuni {
+        flex-direction: column;
+    }
+
+    .actiuni .buton {
+        width: 100%;
+    }
+}
