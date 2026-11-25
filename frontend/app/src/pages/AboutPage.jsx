@@ -1,5 +1,6 @@
 import Card from '../components/Card';
 import PageTitle from '../components/PageTitle';
+import { useState } from 'react';
 
 const sections = [
   { 
@@ -28,6 +29,8 @@ const sections = [
 ];
 
 export default function AboutPage() {
+  const [count, setCount] = useState(0);
+
   return (
     <section>
       <PageTitle 
@@ -46,9 +49,22 @@ export default function AboutPage() {
             text={section.text}
             image={section.image}
             imageAlt={section.imageAlt}
-          />
+          >
+            {section.id === 2 && (
+              <div>
+                <p>Contor: {count}</p>
+                <button type="button" onClick={() => setCount(count + 1)}>
+                  Incrementează
+                </button>
+                <button type="button" onClick={() => setCount(0)}>
+                  Resetează
+                </button>
+              </div>
+            )}
+          </Card>
         ))}
       </div>
     </section>
   );
 }
+
