@@ -1,15 +1,17 @@
+
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import { api } from '../api.js'
 
 const emptyForm = { name: '', description: '', price: '', categoryId: '' }
 
-// Pagina Produse: lista produselor, adaugare si stergere
+// Pagina Produse: lista produselor, adaugare, stergere si cautare
 function ProductsPage() {
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [form, setForm] = useState(emptyForm)
   const [error, setError] = useState(null)
+  const [search, setSearch] = useState('')
 
   function loadProducts() {
     api.getProducts()
@@ -19,11 +21,17 @@ function ProductsPage() {
 
   useEffect(() => {
     loadProducts()
-    // categoriile sunt necesare pentru lista de selectie din formular
+
     api.getCategories()
       .then((data) => setCategories(data))
       .catch((err) => setError(err.message))
   }, [])
+
+  // Filtrarea produselor dupa nume
+  const term = search.trim().toLowerCase()
+  const visibleProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(term)
+  )
 
   // Actualizeaza campul modificat din formular
   function handleChange(event) {
@@ -33,6 +41,7 @@ function ProductsPage() {
   // POST /api/products
   async function handleSubmit(event) {
     event.preventDefault()
+
     try {
       await api.createProduct({
         name: form.name,
@@ -40,6 +49,7 @@ function ProductsPage() {
         price: form.price,
         categoryId: Number(form.categoryId),
       })
+
       setForm(emptyForm)
       setError(null)
       loadProducts()
@@ -66,8 +76,16 @@ function ProductsPage() {
 
       <section className="card">
         <h2>Adauga un produs</h2>
+
         <form onSubmit={handleSubmit} className="form form-grid">
-          <input name="name" value={form.name} onChange={handleChange} placeholder="Nume" required />
+          <input
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Nume"
+            required
+          />
+
           <input
             name="price"
             value={form.price}
@@ -78,19 +96,58 @@ function ProductsPage() {
             min="0"
             required
           />
-          <select name="categoryId" value={form.categoryId} onChange={handleChange} required>
+
+          <select
+            name="categoryId"
+            value={form.categoryId}
+            onChange={handleChange}
+            required
+          >
             <option value="">Alege categoria</option>
             {categories.map((category) => (
-              <option key={category.id} value={category.id}>{category.name}</option>
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
             ))}
           </select>
-          <input name="description" value={form.description} onChange={handleChange} placeholder="Descriere (optional)" />
+
+          <input
+            name="description"
+            value={form.description}
+            onChange={handleChange}
+            placeholder="Descriere (optional)"
+          />
+
           <button type="submit">Adauga</button>
         </form>
       </section>
 
       <section className="card">
         <h2>Lista produselor</h2>
+
+        <div className="search-container">
+          <input
+            type="search"
+            placeholder="Cauta dupa nume..."
+            aria-label="Cauta produse"
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
+          />
+
+          {search.trim() !== '' && (
+            <button
+              type="button"
+              onClick={() => setSearch('')}
+            >
+              Sterge cautarea
+            </button>
+          )}
+        </div>
+
+        <p className="search-count">
+          {visibleProducts.length} din {products.length} produse
+        </p>
+
         <table>
           <thead>
             <tr>
@@ -100,20 +157,37 @@ function ProductsPage() {
               <th></th>
             </tr>
           </thead>
+
           <tbody>
-            {products.map((product) => (
+            {visibleProducts.map((product) => (
               <tr key={product.id}>
-                <td><Link to={`/produse/${product.id}`}>{product.name}</Link></td>
+                <td>
+                  <Link to={`/produse/${product.id}`}>
+                    {product.name}
+                  </Link>
+                </td>
                 <td>{product.category.name}</td>
                 <td>{product.price}</td>
                 <td>
-                  <button className="button-danger" onClick={() => handleDelete(product.id)}>Sterge</button>
+                  <button
+                    className="button-danger"
+                    onClick={() => handleDelete(product.id)}
+                  >
+                    Sterge
+                  </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        {products.length === 0 && <p>Nu exista produse.</p>}
+
+        {visibleProducts.length === 0 && (
+          <p>
+            {products.length === 0
+              ? 'Nu exista produse.'
+              : 'Niciun produs nu corespunde cautarii.'}
+          </p>
+        )}
       </section>
     </>
   )

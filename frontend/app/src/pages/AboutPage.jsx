@@ -1,4 +1,5 @@
 
+import { useState } from 'react'
 import Card from '../components/Card.jsx'
 import PageTitle from '../components/PageTitle.jsx'
 
@@ -28,6 +29,8 @@ const sections = [
 ]
 
 export default function AboutPage() {
+  const [count, setCount] = useState(0)
+
   return (
     <section>
       <PageTitle
@@ -46,6 +49,25 @@ export default function AboutPage() {
           />
         ))}
       </div>
+
+      <section className="counter-panel">
+        <h2>Contor interactiv</h2>
+        <p>Numărul apăsărilor: <strong>{count}</strong></p>
+
+        <div className="counter-actions">
+          <button type="button" onClick={() => setCount(count + 1)}>
+            Incrementează
+          </button>
+
+          <button
+            type="button"
+            className="counter-reset"
+            onClick={() => setCount(0)}
+          >
+            Resetează
+          </button>
+        </div>
+      </section>
     </section>
   )
 }

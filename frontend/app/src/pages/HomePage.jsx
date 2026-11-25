@@ -1,7 +1,7 @@
+
 import { useEffect, useState } from 'react'
 import { api } from '../api.js'
 
-// Pagina de start: verifica daca backend-ul si baza de date raspund
 function HomePage() {
   const [health, setHealth] = useState(null)
   const [error, setError] = useState(null)
@@ -13,26 +13,40 @@ function HomePage() {
   }, [])
 
   return (
-    <>
-      <h1>Aplicatie PW / DAW</h1>
-      <p className="subtitle">Frontend React conectat la un backend Symfony</p>
+    <div className="home-layout">
+      <section className="home-hero">
+        <div className="alliance-emblem">♌</div>
+        <div>
+          <h1>Aplicatie PW / DAW</h1>
+          <p>Frontend React conectat la un backend Symfony</p>
+        </div>
+      </section>
 
-      <section className="card">
-        <h2>Starea backend-ului</h2>
-        <p>Cerere: <code>GET {api.url}/api/health</code></p>
+      <section className="glass-panel home-backend">
+        <h2><span className="panel-icon">▤</span> Starea backend-ului</h2>
 
-        {!health && !error && <p>Se verifica...</p>}
+        <p className="request-line">
+          Cerere: <code>GET {api.url}/api/health</code>
+        </p>
+
+        {!health && !error && (
+          <p className="loading-text">Se verifica conexiunea...</p>
+        )}
 
         {error && (
           <div className="status status-error">
             <strong>Backend-ul nu raspunde.</strong>
             <p>{error}</p>
-            <p>Porniti backend-ul: din folderul principal al proiectului rulati <code>docker compose -f backend/compose.yaml up -d</code>.</p>
+            <p>
+              Porniti backend-ul din folderul principal:
+              <code> docker compose -f backend/compose.yaml up -d</code>
+            </p>
           </div>
         )}
 
         {health && (
           <div className="status status-ok">
+            <p><strong>● Conectat</strong></p>
             <p><strong>Mesaj:</strong> {health.message}</p>
             <p><strong>Baza de date:</strong> {health.database}</p>
             <p><strong>Ora serverului:</strong> {health.time}</p>
@@ -40,16 +54,19 @@ function HomePage() {
         )}
       </section>
 
-      <section className="card">
-        <h2>Link-uri utile</h2>
-        <ul>
-          <li>
-            Documentatia API (Swagger):{' '}
-            <a href={`${api.url}/api/doc`} target="_blank" rel="noreferrer">{api.url}/api/doc</a>
-          </li>
-        </ul>
+      <section className="glass-panel home-links">
+        <h2><span className="panel-icon">↗</span> Link-uri utile</h2>
+        <p>Documentatia API (Swagger)</p>
+        <a
+          href={`${api.url}/api/doc`}
+          target="_blank"
+          rel="noreferrer"
+          className="gold-link"
+        >
+          Deschide documentatia API ↗
+        </a>
       </section>
-    </>
+    </div>
   )
 }
 

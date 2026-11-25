@@ -1,226 +1,933 @@
 
 :root {
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  color: #1f2933;
-  background: #f5f7fa;
+  color: #ffffff;
+  background: #081221;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
 }
 
 body {
   margin: 0;
+  min-height: 100vh;
+  background: transparent;
 }
 
-/* Meniul de sus */
+/* NAVIGATIE */
+
 .header {
+  position: relative;
+  z-index: 20;
   display: flex;
   align-items: center;
-  gap: 24px;
-  padding: 12px 24px;
-  background: #1f2933;
+  gap: 32px;
+  min-height: 58px;
+  padding: 12px 30px;
+  background: rgba(7, 17, 34, 0.94);
+  border-bottom: 1px solid rgba(226, 174, 61, 0.7);
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.3);
 }
 
 .logo {
-  color: #ffffff;
-  font-weight: 700;
+  color: #f4c65e;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
 }
 
 .header nav {
   display: flex;
-  gap: 16px;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
 }
 
 .header a {
-  color: #cbd2d9;
+  color: #e8edf7;
   text-decoration: none;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
+.header a:hover,
 .header a.active {
-  color: #ffffff;
-  font-weight: 600;
+  color: #ffd36c;
+  text-shadow: 0 0 12px rgba(255, 190, 65, 0.65);
 }
 
-/* Continutul paginii */
+/* FUNDALURI */
+
+html:has(.page-home) {
+  background: url('/home-background.png') center center / cover fixed no-repeat;
+}
+
+html:has(.page-categories) {
+  background: url('/categories-background.png') center center / cover fixed no-repeat;
+}
+
+html:has(.page-products) {
+  background: url('/products-background.png') center center / cover fixed no-repeat;
+}
+
+html:has(.page-about) {
+  background: url('/wow-background.png') center center / cover fixed no-repeat;
+}
+
+html:has(.page-contact) {
+  background: url('/contact-background.png') center center / cover fixed no-repeat;
+}
+
+body:has(.page-home),
+body:has(.page-categories),
+body:has(.page-products),
+body:has(.page-about),
+body:has(.page-contact) {
+  background: transparent;
+  min-height: 100vh;
+}
+
+/* CONTAINER PRINCIPAL */
+
 .container {
-  max-width: 860px;
-  margin: 32px auto;
-  padding: 0 16px;
+  width: 100%;
+  max-width: 1600px;
+  min-height: calc(100vh - 58px);
+  margin: 0 auto;
+  padding: 36px;
+  background: transparent;
 }
 
-h1 {
-  margin-bottom: 4px;
+/* PANOURI GLASS */
+
+.glass-panel,
+.info-card {
+  color: #ffffff;
+  background: rgba(8, 18, 35, 0.25);
+  border: 1px solid rgba(241, 184, 69, 0.7);
+  border-radius: 22px;
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.2),
+    inset 0 0 18px rgba(255, 255, 255, 0.025),
+    0 0 12px rgba(230, 165, 45, 0.08);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
-.subtitle,
-.muted {
-  color: #52606d;
+.glass-panel:hover,
+.info-card:hover {
+  background: rgba(8, 18, 35, 0.38);
+  border-color: rgba(255, 204, 91, 0.95);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.28),
+    0 0 18px rgba(255, 187, 61, 0.2);
+  transform: translateY(-3px);
 }
 
-.card {
-  background: #ffffff;
-  border: 1px solid #e4e7eb;
+.glass-panel {
+  padding: 22px;
+}
+
+.glass-panel h2 {
+  margin: 0 0 18px;
+  color: #ffffff;
+  font-size: 1.25rem;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+}
+
+.panel-icon {
+  color: #f6c65c;
+  margin-right: 8px;
+  font-size: 1.4rem;
+}
+
+/* TITLURI */
+
+.page-heading h1,
+.home-hero h1 {
+  margin: 0;
+  color: #ffd36c;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.85);
+}
+
+.page-heading p,
+.home-hero p {
+  color: #ffffff;
+  text-shadow: 0 2px 7px rgba(0, 0, 0, 0.9);
+}
+
+.page-heading {
+  margin-bottom: 20px;
+}
+
+/* ACASA */
+
+.home-layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) minmax(320px, 390px);
+  grid-template-rows: auto 1fr;
+  gap: 24px;
+  min-height: calc(100vh - 130px);
+  align-content: start;
+}
+
+.home-hero {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  align-self: start;
+  padding: 18px 20px;
+  max-width: 700px;
+  background: rgba(8, 18, 35, 0.16);
+  border-left: 3px solid #e9b84d;
   border-radius: 8px;
-  padding: 20px 24px;
-  margin: 16px 0;
+}
+
+.alliance-emblem {
+  color: #ffc84f;
+  font-size: 3.5rem;
+  text-shadow: 0 0 18px rgba(255, 187, 55, 0.55);
+}
+
+.home-hero p {
+  margin: 8px 0 0;
+  font-size: 1.05rem;
+}
+
+.home-backend {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+}
+
+.home-links {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: end;
+  width: min(100%, 400px);
+}
+
+.request-line {
+  color: #ffffff;
+  overflow-wrap: anywhere;
+}
+
+.loading-text {
+  color: #ffffff;
 }
 
 code {
-  background: #f0f4f8;
-  padding: 2px 6px;
-  border-radius: 4px;
+  color: #ffe09a;
+  background: rgba(5, 13, 27, 0.55);
+  border: 1px solid rgba(255, 205, 110, 0.25);
+  border-radius: 5px;
+  padding: 3px 6px;
+  overflow-wrap: anywhere;
 }
 
-/* Mesaje de stare */
+.gold-link {
+  display: inline-block;
+  color: #ffcf63;
+  text-decoration: none;
+  border: 1px solid rgba(255, 195, 75, 0.8);
+  border-radius: 8px;
+  padding: 9px 12px;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gold-link:hover {
+  color: #ffffff;
+  background: rgba(226, 160, 40, 0.2);
+  box-shadow: 0 0 14px rgba(255, 190, 65, 0.35);
+}
+
+/* STATUS BACKEND */
+
 .status {
-  border-radius: 6px;
-  padding: 12px 16px;
-  margin: 16px 0;
+  border-radius: 9px;
+  padding: 12px 14px;
+  margin: 14px 0 0;
+  color: #ffffff;
 }
 
 .status p {
-  margin: 4px 0;
+  margin: 5px 0;
 }
 
 .status-ok {
-  background: #e3f9e5;
-  border: 1px solid #57ae5b;
+  background: rgba(12, 94, 51, 0.32);
+  border: 1px solid rgba(73, 220, 130, 0.8);
+}
+
+.status-ok strong {
+  color: #8dffad;
 }
 
 .status-error {
-  background: #ffe3e3;
-  border: 1px solid #e12d39;
+  background: rgba(130, 22, 30, 0.55);
+  border: 1px solid #ff737b;
 }
 
-/* Tabele */
-table {
+/* CATEGORII */
+
+.categories-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 350px) minmax(420px, 1fr);
+  grid-template-rows: auto 1fr;
+  gap: 20px;
+  min-height: calc(100vh - 130px);
+  align-content: start;
+}
+
+.categories-layout .page-heading {
+  grid-column: 1 / -1;
+}
+
+.category-form {
+  grid-column: 1;
+  grid-row: 2;
+  align-self: start;
+}
+
+.category-list {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
+}
+
+/* PRODUSE */
+
+.products-layout {
+  display: grid;
+  grid-template-columns: minmax(320px, 650px);
+  gap: 20px;
+  align-content: start;
+  min-height: calc(100vh - 130px);
+}
+
+.products-layout .page-heading {
+  margin-bottom: 0;
+}
+
+.product-form-panel,
+.product-list-panel {
   width: 100%;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  text-align: left;
-  padding: 8px;
-  border-bottom: 1px solid #e4e7eb;
-}
-
-/* Formulare */
-.form {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
 }
 
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
+.form-submit {
+  grid-column: 1 / -1;
+}
+
+/* INPUTURI */
+
 input,
-select {
-  padding: 8px 10px;
-  border: 1px solid #cbd2d9;
-  border-radius: 6px;
-  font-size: 1rem;
+select,
+textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  color: #202a39;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(220, 225, 235, 0.9);
+  border-radius: 7px;
+  font: inherit;
+  outline: none;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #e9b84d;
+  box-shadow: 0 0 0 3px rgba(233, 184, 77, 0.2);
 }
 
 button {
-  background: #2f5fd0;
+  padding: 10px 16px;
   color: #ffffff;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 16px;
-  font-size: 1rem;
+  background: linear-gradient(135deg, #17447e, #102b55);
+  border: 1px solid rgba(255, 199, 79, 0.8);
+  border-radius: 8px;
+  font: inherit;
   cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #2864a8, #153966);
+  box-shadow: 0 0 14px rgba(255, 190, 65, 0.3);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .button-danger {
-  background: #e12d39;
-  padding: 4px 10px;
-  font-size: 0.9rem;
+  padding: 5px 10px;
+  background: #a52d35;
+  border-color: #ff8888;
+  font-size: 0.85rem;
 }
 
-/* Pagina Despre - fundal pe tot ecranul */
-html:has(.info-card-grid) {
-  background:
-    linear-gradient(
-      rgba(10, 18, 38, 0.38),
-      rgba(10, 18, 38, 0.48)
-    ),
-    url('/wow-background.png') center center / cover fixed no-repeat;
-  min-height: 100%;
+.button-danger:hover:not(:disabled) {
+  background: #d12f3c;
 }
 
-body:has(.info-card-grid) {
-  min-height: 100vh;
-  background: transparent;
-}
+/* TABELE */
 
-/* Containerul paginii Despre */
-.container:has(.info-card-grid) {
-  box-sizing: border-box;
+.table-wrapper {
   width: 100%;
-  max-width: 1400px;
-  min-height: calc(100vh - 54px);
-  margin: 0 auto;
-  padding: 48px 36px;
-  background: transparent;
-  border-radius: 0;
+  overflow-x: auto;
 }
 
-/* Titlul si descrierea */
-.container:has(.info-card-grid) h1,
-.container:has(.info-card-grid) > section > p {
+table {
+  width: 100%;
+  border-collapse: collapse;
   color: #ffffff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
-/* Grila cardurilor */
-.info-card-grid {
+th,
+td {
+  padding: 10px 9px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+th {
+  color: #ffd36c;
+  font-weight: 700;
+  background: rgba(6, 16, 31, 0.25);
+}
+
+td {
+  background: rgba(7, 17, 32, 0.12);
+}
+
+tbody tr {
+  transition: background 0.2s ease;
+}
+
+tbody tr:hover td {
+  background: rgba(255, 195, 75, 0.12);
+}
+
+table a {
+  color: #ffcf63;
+  text-decoration: none;
+}
+
+table a:hover {
+  text-decoration: underline;
+}
+
+.product-search {
+  max-width: 280px;
+  margin-bottom: 12px;
+}
+
+.empty-message {
+  color: #ffffff;
+}
+
+/* DESPRE */
+
+.about-layout {
+  width: 100%;
+}
+
+.about-layout .page-title,
+.about-layout h1 {
+  color: #ffd36c;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.8);
+}
+
+.about-layout .info-card-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: start;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 18px;
-  margin-top: 24px;
+  margin-top: 30px;
 }
 
-/* Carduri cu efect de sticla */
 .info-card {
-  box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.90);
-  border: 1px solid rgba(255, 255, 255, 0.65);
-  border-radius: 14px;
-  padding: 22px;
-  backdrop-filter: blur(12px);
+  min-width: 0;
+  padding: 20px;
+  color: #ffffff;
 }
 
-/* Titlurile cardurilor */
+.info-card h2,
+.info-card h3,
 .info-card-title {
-  margin: 0.5rem 0;
-  font-size: 1.2rem;
+  color: #ffd36c;
 }
 
-/* Imaginile cardurilor */
+.info-card p {
+  color: #ffffff;
+  line-height: 1.55;
+}
+
 .info-card-image {
   display: block;
   width: 100%;
   height: 150px;
+  margin-top: 12px;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 201, 90, 0.6);
 }
 
-/* Tablete */
-@media (max-width: 800px) {
-  .info-card-grid {
+/* CONTACT */
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 1fr) minmax(320px, 460px);
+  align-items: start;
+  gap: 30px;
+  min-height: calc(100vh - 130px);
+}
+
+.contact-layout .page-heading {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
+  margin-top: 20px;
+}
+
+.contact-panel {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.contact-panel form {
+  width: 100%;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.form-field label {
+  color: #ffffff;
+  font-weight: 600;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.8);
+}
+
+.form-field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-field small {
+  color: #ffffff;
+  text-align: right;
+}
+
+.form-error {
+  margin: 0;
+  color: #ffaaaa;
+  font-size: 0.9rem;
+  text-shadow: 0 1px 4px #000000;
+}
+
+.form-success {
+  color: #9affb6;
+  font-weight: 700;
+}
+
+/* RESPONSIVE - TABLETE */
+
+@media (max-width: 1000px) {
+  .container {
+    padding: 26px;
+  }
+
+  .about-layout .info-card-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-}
 
-/* Telefoane */
-@media (max-width: 550px) {
-  .container:has(.info-card-grid) {
-    padding: 32px 16px;
+  .categories-layout {
+    grid-template-columns: 1fr;
   }
 
-  .info-card-grid {
+  .category-form,
+  .category-list {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .contact-layout {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* RESPONSIVE - TELEFOANE */
+
+@media (max-width: 650px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px 18px;
+  }
+
+  .header nav {
+    gap: 14px;
+  }
+
+  .container {
+    padding: 18px 14px;
+  }
+
+  .home-layout,
+  .categories-layout,
+  .contact-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .home-hero {
+    width: 100%;
+  }
+
+  .home-backend,
+  .home-links,
+  .category-form,
+  .category-list,
+  .product-form-panel,
+  .product-list-panel,
+  .contact-panel {
+    width: 100%;
+  }
+
+  .home-links {
+    align-self: stretch;
+  }
+
+  .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .form-submit {
+    grid-column: auto;
+  }
+
+  .about-layout .info-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .glass-panel {
+    padding: 17px;
+  }
+
+  .alliance-emblem {
+    font-size: 2.5rem;
+  }
+
+  th,
+  td {
+    padding: 8px 6px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Contor interactiv - pagina Despre */
+.counter-panel {
+  max-width: 420px;
+  margin: 28px auto 10px;
+  padding: 22px;
+  text-align: center;
+  color: #ffffff;
+  background: rgba(10, 22, 42, 0.48);
+  border: 1px solid rgba(255, 190, 75, 0.75);
+  border-radius: 16px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 0 18px rgba(255, 174, 50, 0.18);
+}
+
+.counter-panel h2 {
+  margin-top: 0;
+  color: #ffd477;
+}
+
+.counter-panel p {
+  font-size: 1.1rem;
+}
+
+.counter-panel strong {
+  color: #ffd477;
+  font-size: 1.5rem;
+}
+
+.counter-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.counter-reset {
+  background: #8b3030;
+}
+
+.counter-reset:hover {
+  background: #a83b3b;
+}
+
+/* ========================================
+   MENIU LATERAL EXPANDABIL - ALLIANCE
+======================================== */
+
+/* Bara superioara */
+.header {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  min-height: 58px;
+  padding: 12px 30px;
+  background: rgba(7, 17, 34, 0.90);
+  border-bottom: 1px solid rgba(226, 174, 61, 0.55);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  color: #f4c65e;
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+/* Meniul fix din dreapta */
+.sidebar-nav {
+  position: fixed;
+  z-index: 100;
+  top: 50%;
+  right: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  transform: translateY(-50%);
+}
+
+/* Butoanele restranse */
+.sidebar-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+
+  width: 64px;
+  height: 58px;
+  padding: 0 17px;
+
+  overflow: hidden;
+  white-space: nowrap;
+
+  color: #f3e6c5;
+  text-decoration: none;
+
+  background: rgba(7, 18, 36, 0.48);
+  border: 1px solid rgba(224, 177, 78, 0.55);
+  border-right: 2px solid rgba(244, 195, 91, 0.8);
+  border-radius: 12px 0 0 12px;
+
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+
+  transition:
+    width 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Extindere spre stanga */
+.sidebar-link:hover,
+.sidebar-link:focus-visible {
+  width: 300px;
+  color: #ffffff;
+  background: rgba(7, 18, 36, 0.76);
+  border-color: rgba(255, 205, 105, 0.95);
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.28),
+    0 0 12px rgba(224, 177, 78, 0.15);
+  outline: none;
+}
+
+/* Pagina activa */
+.sidebar-link.active {
+  color: #ffd36c;
+  background: rgba(7, 18, 36, 0.65);
+  border-color: rgba(255, 205, 105, 0.85);
+}
+
+/* Simboluri */
+.sidebar-icon {
+  display: flex;
+  flex: 0 0 28px;
+  align-items: center;
+  justify-content: center;
+
+  width: 28px;
+  font-size: 1.55rem;
+  color: #f3c45d;
+  text-shadow: 0 0 10px rgba(255, 190, 65, 0.3);
+}
+
+/* Textul meniului */
+.sidebar-label {
+  opacity: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+
+  transform: translateX(12px);
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.25s ease;
+}
+
+.sidebar-link:hover .sidebar-label,
+.sidebar-link:focus-visible .sidebar-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sidebar-link.active .sidebar-label {
+  color: #ffd36c;
+}
+
+/* Lasam spatiu pentru meniul lateral */
+.container {
+  padding-right: 110px;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+/* Laptopuri si tablete */
+@media (max-width: 900px) {
+  .sidebar-nav {
+    right: 10px;
+    gap: 8px;
+  }
+
+  .sidebar-link {
+    width: 56px;
+    height: 54px;
+    padding: 0 13px;
+  }
+
+  .sidebar-link:hover,
+  .sidebar-link:focus-visible {
+    width: 250px;
+  }
+
+  .container {
+    padding-right: 85px;
+  }
+}
+
+/* Telefoane - meniu orizontal */
+@media (max-width: 650px) {
+  .header {
+    min-height: 54px;
+    padding: 10px 16px;
+  }
+
+  .sidebar-nav {
+    top: auto;
+    right: 50%;
+    bottom: 12px;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    padding: 7px;
+
+    background: rgba(7, 18, 36, 0.82);
+    border: 1px solid rgba(224, 177, 78, 0.65);
+    border-radius: 14px;
+
+    transform: translateX(50%);
+  }
+
+  .sidebar-link,
+  .sidebar-link:hover,
+  .sidebar-link:focus-visible {
+    justify-content: center;
+    width: 48px;
+    height: 46px;
+    padding: 0;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+  }
+
+  .sidebar-link.active {
+    background: rgba(224, 177, 78, 0.15);
+  }
+
+  .sidebar-icon {
+    flex-basis: auto;
+    width: auto;
+  }
+
+  .sidebar-label {
+    display: none;
+  }
+
+  .container {
+    padding: 18px 14px 90px;
+  }
+}
+
+/* Respectam preferinta pentru animatii reduse */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-link,
+  .sidebar-label {
+    transition: none;
   }
 }
