@@ -7,6 +7,7 @@ const sections = [
 export default function AboutPage() {
 return (
 <section>
+<title>Despre – Magazinul nostru</title>
 <h1>Despre proiect</h1>
 <div className="info-card-grid">
 {sections.map((section) => (

@@ -18,6 +18,7 @@ function App() {
           <NavLink to="/produse">Produse</NavLink>
           <NavLink to="/despre">Despre</NavLink>
           <NavLink to="/contact">Contact</NavLink>
+        </nav>
       </header>
 
       <main className="container">

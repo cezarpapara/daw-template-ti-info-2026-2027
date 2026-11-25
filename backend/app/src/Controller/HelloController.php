@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 final class HelloController extends AbstractController
 {
-#[Route('/api/hello/{name}', name: 'api_hello', methods: ['GET'])]
+#[Route('/api/hello/{name}', name: 'api_hello', methods: ['GET'], requirements: ['name' => '[A-Za-z]+'])]
 public function hello(string $name): JsonResponse
 {
 return $this->json(['message' => "Salut, $name!"]);
@@ -35,12 +35,45 @@ return $this->json(
 Response::HTTP_BAD_REQUEST
 );
 }
-$numbers = range(1, $n);
+$numbers = array_values(array_filter(
+range(1, $n),
+fn (int $number): bool => $number % 2 === 0
+));
 return $this->json([
 'n' => $n,
 'numbers' => $numbers,
 'sum' => array_sum($numbers),
 'squares' => array_map(fn (int $x) => $x * $x, $numbers),
 ]);
+}
+
+#[Route('/api/sum', name: 'api_sum', methods: ['GET'])]
+public function sum(Request $request): JsonResponse
+{
+$a = filter_var($request->query->get('a'), FILTER_VALIDATE_INT);
+$b = filter_var($request->query->get('b'), FILTER_VALIDATE_INT);
+if ($a === false || $b === false) {
+return $this->json(
+['error' => 'a și b trebuie să fie numere întregi.'],
+Response::HTTP_BAD_REQUEST
+);
+}
+return $this->json(['a' => $a, 'b' => $b, 'sum' => $a + $b]);
+}
+
+#[Route('/api/factorial/{n}', name: 'api_factorial', methods: ['GET'], requirements: ['n' => '\d+'])]
+public function factorial(int $n): JsonResponse
+{
+if ($n < 0 || $n > 20) {
+return $this->json(
+['error' => 'n trebuie să fie între 0 și 20.'],
+Response::HTTP_BAD_REQUEST
+);
+}
+$factorial = 1;
+for ($i = 2; $i <= $n; ++$i) {
+$factorial *= $i;
+}
+return $this->json(['n' => $n, 'factorial' => $factorial]);
 }
 }

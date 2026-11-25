@@ -14,6 +14,7 @@ function HomePage() {
 
   return (
     <>
+      <title>Acasă – Magazinul nostru</title>
       <h1>Aplicatie PW / DAW</h1>
       <p className="subtitle">Frontend React conectat la un backend Symfony</p>
 

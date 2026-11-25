@@ -37,6 +37,7 @@ setTouched({});
 }
 return (
 <section>
+<title>Contact – Magazinul nostru</title>
 <h1>Contact</h1>
 {sent && <p className="form-success">Mesajul a fost trimis. Mulțumim!</p>}
 <form onSubmit={handleSubmit} noValidate>

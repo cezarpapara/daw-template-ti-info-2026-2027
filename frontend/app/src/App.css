@@ -154,3 +154,57 @@ margin-bottom: 1rem; max-width: 480px;
 .form-error { color: #b42318; margin: 0; font-size: 0.9rem; }
 .form-success { color: #2e7d32; font-weight: bold; }
 button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.reviews {
+  margin-top: 24px;
+  padding: 20px 24px;
+  border: 1px solid #b8c2cc;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1f2933;
+}
+
+.review-list {
+  list-style: none;
+  padding: 0;
+}
+
+.review-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid #d9e2ec;
+}
+
+.stars {
+  color: #8a5a00;
+}
+
+.error {
+  color: #b42318;
+  font-weight: 700;
+}
+
+.success {
+  color: #1b5e20;
+  font-weight: 700;
+}
+
+input[aria-invalid='true'],
+select[aria-invalid='true'],
+textarea[aria-invalid='true'] {
+  border: 2px solid #b42318;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 12px;
+  max-width: 480px;
+}
+
+textarea {
+  padding: 8px 10px;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  font-size: 1rem;
+}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { api } from '../api.js'
+import ReviewSection from '../components/ReviewSection'
 
 // Pagina de detalii pentru un produs: /produse/:id
 function ProductDetailsPage() {
@@ -22,13 +23,17 @@ function ProductDetailsPage() {
       {!product && !error && <p>Se incarca...</p>}
 
       {product && (
-        <section className="card">
-          <h1>{product.name}</h1>
-          <p><strong>Categorie:</strong> {product.category.name}</p>
-          <p><strong>Pret:</strong> {product.price} lei</p>
-          <p><strong>Descriere:</strong> {product.description || '-'}</p>
-          <p className="muted">Date primite de la <code>GET {api.url}/api/products/{product.id}</code></p>
-        </section>
+        <>
+          <title>{`${product.name} – Magazinul nostru`}</title>
+          <section className="card">
+            <h1>{product.name}</h1>
+            <p><strong>Categorie:</strong> {product.category.name}</p>
+            <p><strong>Pret:</strong> {product.price} lei</p>
+            <p><strong>Descriere:</strong> {product.description || '-'}</p>
+            <p className="muted">Date primite de la <code>GET {api.url}/api/products/{product.id}</code></p>
+          </section>
+          <ReviewSection productId={id} />
+        </>
       )}
     </>
   )
