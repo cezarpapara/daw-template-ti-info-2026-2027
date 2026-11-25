@@ -1,0 +1,158 @@
+
+:root {
+    --culoare-principala: #344e41;
+    --culoare-accent: #8a542f;
+    --fundal: #f5f1e8;
+    --text: #29352d;
+    --alb: #ffffff;
+    --raza: 8px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    line-height: 1.5;
+    font-family: system-ui, Arial, sans-serif;
+    color: var(--text);
+    background: var(--fundal);
+}
+
+/* Antet si navigatie */
+.antet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--culoare-principala);
+}
+
+.logo {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.logo,
+.meniu a {
+    color: var(--alb);
+    text-decoration: none;
+}
+
+.meniu {
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.meniu li {
+    list-style: none;
+}
+
+.meniu a:hover {
+    text-decoration: underline;
+}
+
+/* Continut principal */
+.continut {
+    display: grid;
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Grila de produse */
+.grila {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.card {
+    background: var(--alb);
+    color: var(--text);
+    border-radius: var(--raza);
+    padding: 1rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+.pret {
+    font-weight: bold;
+    color: var(--culoare-principala);
+}
+
+/* Butoane */
+.buton {
+    background: var(--culoare-accent);
+    color: var(--alb);
+    border: none;
+    border-radius: var(--raza);
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.buton:hover,
+.buton:focus-visible {
+    background: #704326;
+}
+
+/* Newsletter */
+.newsletter form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-width: 420px;
+}
+
+.newsletter input {
+    padding: 0.6rem;
+    border: 1px solid #9ca3af;
+    border-radius: 4px;
+}
+
+/* Subsol */
+.subsol {
+    text-align: center;
+    padding: 1rem;
+    color: var(--alb);
+    background: var(--culoare-principala);
+}
+
+/* Tableta: de la 600px in sus */
+@media (min-width: 600px) {
+    .antet {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .grila {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .subsol {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+    }
+}
+
+/* Desktop: de la 900px in sus */
+@media (min-width: 900px) {
+    .continut {
+        grid-template-columns: 3fr 1fr;
+    }
+
+    .newsletter {
+        grid-column: 1 / -1;
+    }
+
+    .grila {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
