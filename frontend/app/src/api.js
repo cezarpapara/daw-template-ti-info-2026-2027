@@ -1,3 +1,4 @@
+
 // Toate cererile catre backend sunt grupate aici, intr-un singur loc.
 // Adresa backend-ului vine din fisierul .env (VITE_API_URL).
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8080'
@@ -9,7 +10,7 @@ async function request(path, options = {}) {
     ...options,
   })
 
-  // 204 = "No Content" (de exemplu dupa stergere): nu exista JSON in raspuns
+  // 204 = "No Content": nu exista JSON in raspuns
   if (response.status === 204) {
     return null
   }
@@ -26,6 +27,9 @@ export const api = {
 
   // GET /api/health
   getHealth: () => request('/api/health'),
+
+  // GET /api/hello/{name}
+  getHello: (name) => request(`/api/hello/${encodeURIComponent(name)}`),
 
   // GET /api/categories
   getCategories: () => request('/api/categories'),

@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import Card from '../components/Card.jsx'
 import PageTitle from '../components/PageTitle.jsx'
+import { api } from '../api.js'
 
 const sections = [
   {
@@ -30,6 +31,33 @@ const sections = [
 
 export default function AboutPage() {
   const [count, setCount] = useState(0)
+  const [name, setName] = useState('')
+  const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  async function handleHello() {
+    const trimmedName = name.trim()
+
+    if (!/^[A-Za-z]+$/.test(trimmedName)) {
+      setError('Introdu un nume format doar din litere englezești.')
+      setMessage('')
+      return
+    }
+
+    setLoading(true)
+    setError('')
+    setMessage('')
+
+    try {
+      const response = await api.getHello(trimmedName)
+      setMessage(response.message)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <section>
@@ -49,6 +77,31 @@ export default function AboutPage() {
           />
         ))}
       </div>
+
+      <section className="counter-panel">
+        <h2>Salut din backend!</h2>
+        <p>Introdu numele pentru a primi un mesaj de la Symfony.</p>
+
+        <div className="counter-actions">
+          <input
+            type="text"
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            placeholder="Numele tau"
+          />
+
+          <button
+            type="button"
+            onClick={handleHello}
+            disabled={loading}
+          >
+            {loading ? 'Se încarcă...' : 'Trimite'}
+          </button>
+        </div>
+
+        {message && <p>{message}</p>}
+        {error && <p role="alert">{error}</p>}
+      </section>
 
       <section className="counter-panel">
         <h2>Contor interactiv</h2>
