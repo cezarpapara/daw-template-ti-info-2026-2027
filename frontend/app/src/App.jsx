@@ -16,12 +16,16 @@ function App() {
           <NavLink to="/categorii">Categorii</NavLink>
           <NavLink to="/produse">Produse</NavLink>
           <NavLink to="/despre">Despre</NavLink>
-        </nav>
+          <NavLink to="/contact">Contact</NavLink>
+          </nav>
+  
       </header>
 
       <main className="container">
         {/* Fiecare adresa (URL) afiseaza o alta pagina */}
         <Routes>
+         <Route path="/contact"
+element={<ContactPage />} />.
           <Route path="/" element={<HomePage />} />
           <Route path="/categorii" element={<CategoriesPage />} />
           <Route path="/produse" element={<ProductsPage />} />

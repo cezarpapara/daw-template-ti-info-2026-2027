@@ -8,6 +8,11 @@ const emptyForm = { name: '', description: '', price: '', categoryId: '' }
 function ProductsPage() {
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
+  const [search, setSearch] = useState('');
+  const term = search.trim().toLowerCase();
+  const visibleProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(term)
+      );
   const [form, setForm] = useState(emptyForm)
   const [error, setError] = useState(null)
 
@@ -60,6 +65,13 @@ function ProductsPage() {
 
   return (
     <>
+    <input
+ type="search"
+ placeholder="Caută după nume…"
+ aria-label="Caută produse"
+ value={search}
+ onChange={(event) => setSearch(event.target.value)}
+/>
       <h1>Produse</h1>
 
       {error && <div className="status status-error">{error}</div>}
@@ -101,7 +113,7 @@ function ProductsPage() {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {visibleProducts.map((product) => (
               <tr key={product.id}>
                 <td><Link to={`/produse/${product.id}`}>{product.name}</Link></td>
                 <td>{product.category.name}</td>
@@ -113,7 +125,7 @@ function ProductsPage() {
             ))}
           </tbody>
         </table>
-        {products.length === 0 && <p>Nu exista produse.</p>}
+        {visibleProducts.length === 0 && <p>Nu exista produse.</p>}
       </section>
     </>
   )
