@@ -115,7 +115,7 @@ function ReviewSection({ productId }) {
 
   return (
     <section className="reviews">
-      <h2>Recenzii ({reviews.length})</h2>
+      <h2>Ce spun cumpărătorii ({reviews.length})</h2>
 
       {loading && (
         <p className="muted">Se încarcă recenziile...</p>
