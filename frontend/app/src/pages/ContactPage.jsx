@@ -53,6 +53,7 @@ export default function ContactPage() {
 
   return (
     <section className="lab-page">
+      <title>Contact – PW / DAW</title>
       <PageTitle
         title="Contact"
         subtitle="Formular de exercițiu cu validare în browser. Toate câmpurile sunt obligatorii."

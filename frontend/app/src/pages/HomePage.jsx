@@ -14,6 +14,7 @@ function HomePage() {
 
   return (
     <>
+      <title>Acasă – PW / DAW · Alexandru Anchidin</title>
       <h1>Aplicație PW / DAW — Alexandru Anchidin</h1>
       <p className="subtitle">Frontend React conectat la un backend Symfony</p>
 

@@ -11,9 +11,10 @@ import './App.css'
 function App() {
   return (
     <>
+      <a className="skip-link" href="#continut">Sari la conținut</a>
       <header className="header">
         <span className="logo">PW / DAW</span>
-        <nav>
+        <nav aria-label="Meniul principal">
           <NavLink to="/" end>Acasa</NavLink>
           <NavLink to="/categorii">Categorii</NavLink>
           <NavLink to="/produse">Produse</NavLink>
@@ -22,7 +23,7 @@ function App() {
         </nav>
       </header>
 
-      <main className="container">
+      <main className="container" id="continut" tabIndex={-1}>
         {/* Fiecare adresa (URL) afiseaza o alta pagina */}
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -31,7 +32,7 @@ function App() {
           <Route path="/produse/:id" element={<ProductDetailsPage />} />
           <Route path="/despre" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="*" element={<p>Pagina nu exista.</p>} />
+          <Route path="*" element={<><title>Pagina nu există – PW / DAW</title><h1>Pagina nu există.</h1><p>Alegeți o pagină din meniu.</p></>} />
         </Routes>
       </main>
     </>

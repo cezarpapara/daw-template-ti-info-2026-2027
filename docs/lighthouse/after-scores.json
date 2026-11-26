@@ -1,0 +1,214 @@
+[
+  {
+    "name": "acasa",
+    "url": "http://localhost:5173/",
+    "timestamp": "2026-11-26T13:29:24.275Z",
+    "version": "13.6.0",
+    "scores": {
+      "performance": 95,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "issues": [
+      {
+        "id": "speed-index",
+        "title": "Speed Index",
+        "score": 0.96,
+        "displayValue": "1.1 s"
+      },
+      {
+        "id": "total-blocking-time",
+        "title": "Total Blocking Time",
+        "score": 0.83,
+        "displayValue": "180 ms"
+      },
+      {
+        "id": "max-potential-fid",
+        "title": "Max Potential First Input Delay",
+        "score": 0.75,
+        "displayValue": "180 ms"
+      },
+      {
+        "id": "interactive",
+        "title": "Time to Interactive",
+        "score": 0.16,
+        "displayValue": "7.1 s"
+      },
+      {
+        "id": "total-byte-weight",
+        "title": "Avoid enormous network payloads",
+        "score": 0.5,
+        "displayValue": "Total size was 5,346 KiB"
+      },
+      {
+        "id": "unminified-javascript",
+        "title": "Minify JavaScript",
+        "score": 0.5,
+        "displayValue": "Est savings of 4,087 KiB"
+      },
+      {
+        "id": "unused-javascript",
+        "title": "Reduce unused JavaScript",
+        "score": 0.5,
+        "displayValue": "Est savings of 807 KiB"
+      },
+      {
+        "id": "bf-cache",
+        "title": "Page prevented back/forward cache restoration",
+        "score": 0,
+        "displayValue": "2 failure reasons"
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0
+      }
+    ]
+  },
+  {
+    "name": "produse",
+    "url": "http://localhost:5173/produse",
+    "timestamp": "2026-11-26T13:29:48.397Z",
+    "version": "13.6.0",
+    "scores": {
+      "performance": 98,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "issues": [
+      {
+        "id": "speed-index",
+        "title": "Speed Index",
+        "score": 0.98,
+        "displayValue": "0.9 s"
+      },
+      {
+        "id": "total-blocking-time",
+        "title": "Total Blocking Time",
+        "score": 0.94,
+        "displayValue": "130 ms"
+      },
+      {
+        "id": "max-potential-fid",
+        "title": "Max Potential First Input Delay",
+        "score": 0.77,
+        "displayValue": "170 ms"
+      },
+      {
+        "id": "interactive",
+        "title": "Time to Interactive",
+        "score": 0.08,
+        "displayValue": "8.5 s"
+      },
+      {
+        "id": "total-byte-weight",
+        "title": "Avoid enormous network payloads",
+        "score": 0.5,
+        "displayValue": "Total size was 5,348 KiB"
+      },
+      {
+        "id": "unminified-javascript",
+        "title": "Minify JavaScript",
+        "score": 0.5,
+        "displayValue": "Est savings of 4,087 KiB"
+      },
+      {
+        "id": "unused-javascript",
+        "title": "Reduce unused JavaScript",
+        "score": 0.5,
+        "displayValue": "Est savings of 793 KiB"
+      },
+      {
+        "id": "bf-cache",
+        "title": "Page prevented back/forward cache restoration",
+        "score": 0,
+        "displayValue": "2 failure reasons"
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0
+      }
+    ]
+  },
+  {
+    "name": "produs",
+    "url": "http://localhost:5173/produse/1",
+    "timestamp": "2026-11-26T13:30:16.153Z",
+    "version": "13.6.0",
+    "scores": {
+      "performance": 74,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "issues": [
+      {
+        "id": "largest-contentful-paint",
+        "title": "Largest Contentful Paint",
+        "score": 0,
+        "displayValue": "11.3 s"
+      },
+      {
+        "id": "speed-index",
+        "title": "Speed Index",
+        "score": 0.93,
+        "displayValue": "1.2 s"
+      },
+      {
+        "id": "total-blocking-time",
+        "title": "Total Blocking Time",
+        "score": 0.98,
+        "displayValue": "80 ms"
+      },
+      {
+        "id": "max-potential-fid",
+        "title": "Max Potential First Input Delay",
+        "score": 0.89,
+        "displayValue": "130 ms"
+      },
+      {
+        "id": "interactive",
+        "title": "Time to Interactive",
+        "score": 0.02,
+        "displayValue": "11.3 s"
+      },
+      {
+        "id": "total-byte-weight",
+        "title": "Avoid enormous network payloads",
+        "score": 0.5,
+        "displayValue": "Total size was 5,346 KiB"
+      },
+      {
+        "id": "unminified-javascript",
+        "title": "Minify JavaScript",
+        "score": 0,
+        "displayValue": "Est savings of 4,087 KiB"
+      },
+      {
+        "id": "unused-javascript",
+        "title": "Reduce unused JavaScript",
+        "score": 0,
+        "displayValue": "Est savings of 791 KiB"
+      },
+      {
+        "id": "bf-cache",
+        "title": "Page prevented back/forward cache restoration",
+        "score": 0,
+        "displayValue": "2 failure reasons"
+      },
+      {
+        "id": "lcp-breakdown-insight",
+        "title": "LCP breakdown",
+        "score": 0
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0
+      }
+    ]
+  }
+]

@@ -75,6 +75,7 @@ function ProductsPage() {
 
   return (
     <>
+      <title>Produse – PW / DAW</title>
       <h1>Produse</h1>
 
       {error && <div className="status status-error">{error}</div>}
@@ -83,7 +84,10 @@ function ProductsPage() {
       <section className="card">
         <h2>Adauga un produs</h2>
         <form onSubmit={handleSubmit} className="form form-grid">
+          <label className="field-label">Nume
           <input name="name" value={form.name} onChange={handleChange} placeholder="Nume" required />
+          </label>
+          <label className="field-label">Preț (lei)
           <input
             name="price"
             value={form.price}
@@ -94,13 +98,18 @@ function ProductsPage() {
             min="0"
             required
           />
+          </label>
+          <label className="field-label">Categorie
           <select name="categoryId" value={form.categoryId} onChange={handleChange} required>
             <option value="">Alege categoria</option>
             {categories.map((category) => (
               <option key={category.id} value={category.id}>{category.name}</option>
             ))}
           </select>
+          </label>
+          <label className="field-label">Descriere (opțional)
           <input name="description" value={form.description} onChange={handleChange} placeholder="Descriere (optional)" />
+          </label>
           <button type="submit">Adauga</button>
         </form>
       </section>
@@ -125,10 +134,10 @@ function ProductsPage() {
           <table>
             <thead>
               <tr>
-                <th>Nume</th>
-                <th>Categorie</th>
-                <th>Pret (lei)</th>
-                <th></th>
+                <th scope="col">Nume</th>
+                <th scope="col">Categorie</th>
+                <th scope="col">Pret (lei)</th>
+                <th scope="col">Acțiuni</th>
               </tr>
             </thead>
             <tbody>
@@ -138,7 +147,7 @@ function ProductsPage() {
                   <td>{product.category.name}</td>
                   <td>{product.price}</td>
                   <td>
-                    <button className="button-danger" onClick={() => handleDelete(product.id)}>Sterge</button>
+                    <button className="button-danger" onClick={() => handleDelete(product.id)} aria-label={`Șterge produsul ${product.name}`}>Șterge</button>
                   </td>
                 </tr>
               ))}

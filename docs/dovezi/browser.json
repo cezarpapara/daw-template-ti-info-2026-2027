@@ -1,0 +1,18 @@
+{
+  "startedAt": "2026-11-26T13:38:00.270Z",
+  "backend": "real API",
+  "passed": [
+    "Sample product: 3 persisted reviews and average visible",
+    "Server validation: short author and long comment shown next to fields",
+    "Create persists, XSS stays text, form resets, success clears after 3 seconds",
+    "Edit persists after reload; confirmed delete updates count and average",
+    "Mobile pages fit; no JavaScript exceptions or XSS dialogs"
+  ],
+  "pageErrors": [],
+  "dialogs": [
+    "confirm"
+  ],
+  "success": true,
+  "cleanup": "Removed own temporary product and its reviews",
+  "finishedAt": "2026-11-26T13:40:32.976Z"
+}

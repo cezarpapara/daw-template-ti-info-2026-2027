@@ -1,0 +1,51 @@
+{
+  "test": "SQL migrations in a disposable empty database; seed SQL twice in real database",
+  "startedAt": "2026-11-26T13:28:22.576Z",
+  "realCounts": {
+    "categories": 4,
+    "products": 6,
+    "reviews": 6
+  },
+  "seedProducts": [
+    {
+      "id": 8,
+      "name": "DAW Demo - Agenda",
+      "count": 3,
+      "average": "3.67"
+    },
+    {
+      "id": 9,
+      "name": "DAW Demo - Caiet",
+      "count": 3,
+      "average": "4.00"
+    }
+  ],
+  "migrations": [
+    {
+      "file": "Version20261003120000.php",
+      "statements": 4
+    },
+    {
+      "file": "Version20261003120100.php",
+      "statements": 2
+    },
+    {
+      "file": "Version20261126090000.php",
+      "statements": 3
+    }
+  ],
+  "cleanCounts": {
+    "categories": 4,
+    "products": 6,
+    "reviews": 6
+  },
+  "foreignKey": [
+    {
+      "conname": "fk_794381c64584665a",
+      "confdeltype": "c"
+    }
+  ],
+  "success": true,
+  "temporaryDatabaseRemoved": true,
+  "finishedAt": "2026-11-26T13:28:29.696Z"
+}

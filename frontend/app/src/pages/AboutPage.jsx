@@ -34,6 +34,7 @@ export default function AboutPage() {
 
   return (
     <section className="lab-page">
+      <title>Despre proiect – PW / DAW</title>
       <PageTitle
         title="Despre proiect"
         subtitle="Exerciții pentru laboratoarele PW/DAW, anul universitar 2026–2027."

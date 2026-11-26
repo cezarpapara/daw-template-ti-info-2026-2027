@@ -1,23 +1,57 @@
-# Template de proiect – Programare Web / Dezvoltarea Aplicațiilor Web
+# PW/DAW — Produse și recenzii
 
-Proiect de pornire pentru laboratorul disciplinelor **Programare Web** (Tehnologia Informației, anul IV) și **Dezvoltarea Aplicațiilor Web** (Informatică, anul II, învățământ cu frecvență), Universitatea „Vasile Alecsandri” din Bacău, anul universitar 2026–2027.
+Alexandru Anchidin · branch `alexandru.anchidin`
 
-Titular: Ș.l. dr. ing. Eusebiu Pruteanu · Laborator: Asist. univ. drd. asoc. Cezar-Marian Papară
+Aplicație de laborator pentru categorii, produse și recenzii. Recenziile pot fi adăugate, editate și șterse, cu validare și afișarea mediei notelor.
 
-Proiectul este format din două aplicații separate, care comunică prin API:
+**Tehnologii:** Symfony 8, PHP 8.5, PostgreSQL 18, Doctrine, React 19, Vite, Docker Compose.
 
-- **backend** – PHP Symfony, cu bază de date PostgreSQL;
-- **frontend** – React.
+## Pornire
 
-Totul rulează în containere Docker; nu este nevoie să instalați PHP, Node.js sau PostgreSQL pe calculator.
+Necesită Git și Docker Desktop pornit. Comenzi PowerShell:
 
-## Pornire rapidă
-
-```bash
-git clone https://github.com/cezarpapara/daw-template-ti-info-2026-2027.git
+```powershell
+git clone --branch alexandru.anchidin --single-branch https://github.com/cezarpapara/daw-template-ti-info-2026-2027.git
 cd daw-template-ti-info-2026-2027
-git checkout -b nume.prenume
-git push -u origin nume.prenume
+docker compose -f backend/compose.yaml up -d --build
+docker exec daw-php composer install --no-interaction
+docker exec daw-php php bin/console doctrine:database:create --if-not-exists
+docker exec daw-php php bin/console doctrine:migrations:migrate --no-interaction
+docker exec daw-php php bin/console doctrine:schema:validate
+Get-Content -Raw -Encoding UTF8 backend/app/sql/date-exemplu.sql | docker exec -i daw-postgres psql -U daw -d daw -v ON_ERROR_STOP=1
+docker compose -f frontend/compose.yaml up -d --build
 ```
 
-Pașii pentru prima pornire a containerelor, modul de lucru cu Git și structura proiectului sunt descriși în documentul **Metodologie de lucru și template de proiect** și în îndrumarele de laborator, disponibile pe platforma disciplinei ([examene.pe.ub.ro](http://examene.pe.ub.ro/)) și pe grupul Microsoft Teams al disciplinei.
+[Aplicație](http://localhost:5173/) · [Swagger](http://localhost:8080/api/doc)
+
+La pornirile următoare sunt suficiente cele două comenzi `compose ... up -d`. Pentru oprire, înlocuiește `up -d` cu `stop`. Porturi: 5173, 8080, 5432. Configurația privată se păstrează în `.env.local`.
+
+## Verificare
+
+```powershell
+node tests/api.mjs
+docker exec daw-react npm run build
+```
+
+Testele HTTP necesită Node ≥ 20 și API-ul pornit. Colecția Postman este în `postman/`. CRUD-ul este demonstrativ, fără autentificare.
+
+## Lighthouse Desktop
+
+Scoruri înainte → după:
+
+| Pagină | Performance | Accessibility | Best Practices | SEO |
+| --- | --- | --- | --- | --- |
+| Acasă | 100 → 95 | 100 → 100 | 100 → 100 | 82 → 100 |
+| Produse | 100 → 98 | 94 → 100 | 100 → 100 | 82 → 100 |
+| Detalii | 72 → 74 | 100 → 100 | 100 → 100 | 82 → 100 |
+
+[Rapoarte HTML](docs/lighthouse/). Audit pe servere de dezvoltare: înainte Vite local, după Vite în Docker; Performance este orientativ. Îmbunătățiri: titluri/descriere, etichete, antete de tabel, contrast și focus vizibil.
+
+## Capturi
+
+![Produse](docs/capturi/produse.png)
+![Recenzii](docs/capturi/produs.png)
+
+## Contribuții
+
+Template: Cezar-Marian Papară. Extensiile de pe branch: exerciții HTML/CSS/JavaScript, componente React, recenzii, validare și teste. [Plan](docs/PLAN.md) · [Verificări](docs/lab12-calitate-predare.md).

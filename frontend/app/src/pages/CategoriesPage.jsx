@@ -33,6 +33,7 @@ function CategoriesPage() {
 
   return (
     <>
+      <title>Categorii – PW / DAW</title>
       <h1>Categorii</h1>
 
       {error && <div className="status status-error">{error}</div>}
@@ -40,12 +41,15 @@ function CategoriesPage() {
       <section className="card">
         <h2>Adauga o categorie</h2>
         <form onSubmit={handleSubmit} className="form">
+          <label className="field-label">
+            Numele categoriei
           <input
             value={name}
             onChange={(event) => setName(event.target.value)}
             placeholder="Numele categoriei"
             required
           />
+          </label>
           <button type="submit">Adauga</button>
         </form>
       </section>
@@ -55,9 +59,9 @@ function CategoriesPage() {
         <table>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Nume</th>
-              <th>Numar produse</th>
+              <th scope="col">ID</th>
+              <th scope="col">Nume</th>
+              <th scope="col">Numar produse</th>
             </tr>
           </thead>
           <tbody>

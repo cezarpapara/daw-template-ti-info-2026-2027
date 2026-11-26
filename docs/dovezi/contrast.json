@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-26T13:51:00.433Z",
+  "source": "WebAIM Contrast Checker",
+  "results": [
+    {
+      "foreground": "#2F5FD0",
+      "background": "#FFFFFF",
+      "ratio": 5.72,
+      "normalTextAA": true,
+      "url": "https://webaim.org/resources/contrastchecker/?fcolor=2F5FD0&bcolor=FFFFFF"
+    },
+    {
+      "foreground": "#815300",
+      "background": "#FFFFFF",
+      "ratio": 6.62,
+      "normalTextAA": true,
+      "url": "https://webaim.org/resources/contrastchecker/?fcolor=815300&bcolor=FFFFFF"
+    },
+    {
+      "foreground": "#52606D",
+      "background": "#FFFFFF",
+      "ratio": 6.45,
+      "normalTextAA": true,
+      "url": "https://webaim.org/resources/contrastchecker/?fcolor=52606D&bcolor=FFFFFF"
+    }
+  ]
+}

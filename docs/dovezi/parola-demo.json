@@ -1,0 +1,17 @@
+{
+  "executedAt": "2026-11-26T13:31:57.642Z",
+  "testPassword": "parola123 (demonstration only)",
+  "results": [
+    {
+      "hash": "$2y$12$Cg6TjRto5VfMiBaNq3nOher9EP6SHwm46DVNlxgCpIs9T/.VcBw0i",
+      "parolaCorecta": true,
+      "parolaGresita": false
+    },
+    {
+      "hash": "$2y$12$Z3a4/YVWSBJtqfvzuxPnd.7JzryW8UFmrrqCW8Og6ozXOwM77e/Kq",
+      "parolaCorecta": true,
+      "parolaGresita": false
+    }
+  ],
+  "differentHashes": true
+}

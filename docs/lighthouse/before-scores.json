@@ -1,0 +1,227 @@
+[
+  {
+    "name": "acasa",
+    "url": "http://localhost:5177/",
+    "timestamp": "2026-11-26T13:27:18.358Z",
+    "version": "13.6.0",
+    "scores": {
+      "performance": 100,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 82
+    },
+    "issues": [
+      {
+        "id": "speed-index",
+        "title": "Speed Index",
+        "score": 0.99,
+        "displayValue": "0.8 s"
+      },
+      {
+        "id": "total-blocking-time",
+        "title": "Total Blocking Time",
+        "score": 0.99,
+        "displayValue": "80 ms"
+      },
+      {
+        "id": "max-potential-fid",
+        "title": "Max Potential First Input Delay",
+        "score": 0.9,
+        "displayValue": "130 ms"
+      },
+      {
+        "id": "total-byte-weight",
+        "title": "Avoid enormous network payloads",
+        "score": 0.5,
+        "displayValue": "Total size was 5,319 KiB"
+      },
+      {
+        "id": "unminified-javascript",
+        "title": "Minify JavaScript",
+        "score": 0.5,
+        "displayValue": "Est savings of 4,075 KiB"
+      },
+      {
+        "id": "unused-javascript",
+        "title": "Reduce unused JavaScript",
+        "score": 0.5,
+        "displayValue": "Est savings of 812 KiB"
+      },
+      {
+        "id": "meta-description",
+        "title": "Document does not have a meta description",
+        "score": 0
+      },
+      {
+        "id": "robots-txt",
+        "title": "robots.txt is not valid",
+        "score": 0,
+        "displayValue": "18 errors found"
+      },
+      {
+        "id": "bf-cache",
+        "title": "Page prevented back/forward cache restoration",
+        "score": 0,
+        "displayValue": "2 failure reasons"
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0
+      }
+    ]
+  },
+  {
+    "name": "produse",
+    "url": "http://localhost:5177/produse",
+    "timestamp": "2026-11-26T13:27:35.039Z",
+    "version": "13.6.0",
+    "scores": {
+      "performance": 100,
+      "accessibility": 94,
+      "best-practices": 100,
+      "seo": 82
+    },
+    "issues": [
+      {
+        "id": "max-potential-fid",
+        "title": "Max Potential First Input Delay",
+        "score": 0.92,
+        "displayValue": "120 ms"
+      },
+      {
+        "id": "select-name",
+        "title": "Select elements do not have associated label elements.",
+        "score": 0
+      },
+      {
+        "id": "td-has-header",
+        "title": "`<td>` elements in a large `<table>` do not have table headers.",
+        "score": 0
+      },
+      {
+        "id": "total-byte-weight",
+        "title": "Avoid enormous network payloads",
+        "score": 0.5,
+        "displayValue": "Total size was 5,321 KiB"
+      },
+      {
+        "id": "unminified-javascript",
+        "title": "Minify JavaScript",
+        "score": 0.5,
+        "displayValue": "Est savings of 4,075 KiB"
+      },
+      {
+        "id": "unused-javascript",
+        "title": "Reduce unused JavaScript",
+        "score": 0.5,
+        "displayValue": "Est savings of 798 KiB"
+      },
+      {
+        "id": "meta-description",
+        "title": "Document does not have a meta description",
+        "score": 0
+      },
+      {
+        "id": "robots-txt",
+        "title": "robots.txt is not valid",
+        "score": 0,
+        "displayValue": "18 errors found"
+      },
+      {
+        "id": "bf-cache",
+        "title": "Page prevented back/forward cache restoration",
+        "score": 0,
+        "displayValue": "2 failure reasons"
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0
+      }
+    ]
+  },
+  {
+    "name": "produs",
+    "url": "http://localhost:5177/produse/1",
+    "timestamp": "2026-11-26T13:28:09.489Z",
+    "version": "13.6.0",
+    "scores": {
+      "performance": 72,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 82
+    },
+    "issues": [
+      {
+        "id": "largest-contentful-paint",
+        "title": "Largest Contentful Paint",
+        "score": 0,
+        "displayValue": "12.1 s"
+      },
+      {
+        "id": "total-blocking-time",
+        "title": "Total Blocking Time",
+        "score": 0.9,
+        "displayValue": "150 ms"
+      },
+      {
+        "id": "max-potential-fid",
+        "title": "Max Potential First Input Delay",
+        "score": 0.7,
+        "displayValue": "190 ms"
+      },
+      {
+        "id": "interactive",
+        "title": "Time to Interactive",
+        "score": 0.01,
+        "displayValue": "12.1 s"
+      },
+      {
+        "id": "total-byte-weight",
+        "title": "Avoid enormous network payloads",
+        "score": 0.5,
+        "displayValue": "Total size was 5,319 KiB"
+      },
+      {
+        "id": "unminified-javascript",
+        "title": "Minify JavaScript",
+        "score": 0,
+        "displayValue": "Est savings of 4,075 KiB"
+      },
+      {
+        "id": "unused-javascript",
+        "title": "Reduce unused JavaScript",
+        "score": 0,
+        "displayValue": "Est savings of 807 KiB"
+      },
+      {
+        "id": "meta-description",
+        "title": "Document does not have a meta description",
+        "score": 0
+      },
+      {
+        "id": "robots-txt",
+        "title": "robots.txt is not valid",
+        "score": 0,
+        "displayValue": "18 errors found"
+      },
+      {
+        "id": "bf-cache",
+        "title": "Page prevented back/forward cache restoration",
+        "score": 0,
+        "displayValue": "2 failure reasons"
+      },
+      {
+        "id": "lcp-breakdown-insight",
+        "title": "LCP breakdown",
+        "score": 0
+      },
+      {
+        "id": "network-dependency-tree-insight",
+        "title": "Network dependency tree",
+        "score": 0
+      }
+    ]
+  }
+]
