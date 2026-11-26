@@ -1,0 +1,29 @@
+{
+  "startedAt": "2026-11-26T13:43:10.100Z",
+  "checks": [
+    "Intentional backend typo: HTTP 500, actual Monolog entry, restored HTTP 200",
+    "Intentional wrong URL: browser response 404, useful error, restored reviews",
+    "Mobile product fits; keyboard skip link focuses main content (#continut)",
+    "Simulated connection refusal shows error; retry recovers against real API",
+    "POST /api/demo/parola removed: HTTP 404",
+    "Swagger HTTP 200 includes review endpoints and excludes password demo"
+  ],
+  "backend": {
+    "url": "/api/products/9/reviews",
+    "status": 500,
+    "responseContains": "toArrray",
+    "logExcerpt": "[2026-11-26T15:43:35.559454+02:00] request.CRITICAL: Uncaught PHP Exception Error: \"Call to undefined method App\\Entity\\Review::toArrray()\" at ReviewController.php line 62 {\"exception\":\"[object] (Error(code: 0): Call to undefined method App\\\\Entity\\\\Review::toArrray() at /var/www/app/src/Controller/ReviewController.php:62)\"} []",
+    "restoredStatus": 200
+  },
+  "frontend": {
+    "url": "http://localhost:8080/api/products/9/reviews-inexistent",
+    "status": 404,
+    "response": {
+      "error": "Resursa cerută nu există."
+    },
+    "visibleError": "Resursa cerută nu există.\n\nReîncearcă",
+    "restoredStatus": 200
+  },
+  "finishedAt": "2026-11-26T13:46:07.399Z",
+  "success": true
+}

@@ -1,0 +1,18 @@
+SIMULARE LOCALA, doua clone pe acelasi calculator, acelasi autor.
+Nu reprezinta participarea unui coleg. Origin este un repository bare local, nu GitHub.
+
+*   211de0b Simulare locala: rezolva conflictul pastrand titlul Recenzii
+|\  
+| * 887ab3f Simulare A: schimba titlul recenziilor
+* | 52216b6 Simulare B: schimba acelasi titlu
+|/  
+* 94974ef Simulare locala: baza pentru exercitiul de conflict
+
+Conflict observat:
+<<<<<<< HEAD
+      <h2 id="reviews-heading">Ce spun cumpărătorii{!loading && !loadError && ` (${reviews.length})`}</h2>
+=======
+      <h2 id="reviews-heading">Părerile clienților{!loading && !loadError && ` (${reviews.length})`}</h2>
+>>>>>>> 887ab3f54266ea4f4f24d58005ab6fb9a5c7dc5f
+
+Rezultat: push respins, pull cu conflict, commit de merge, cele doua clone sincronizate.
