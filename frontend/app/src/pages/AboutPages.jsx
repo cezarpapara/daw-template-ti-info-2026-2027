@@ -1,12 +1,13 @@
 
 import Card from '../components/card';
 import PageTitle from '../components/PageTitle';
+import { useState } from 'react';
 
 const sections = [
   {
     id: 1,
     title: 'Backend',
-    text: 'Symfony 8 și PHP 8.5 expun un API JSON.',
+    text: 'Symfony & PHP 8.5 expun un API JSON.',
     image: '/echipa.jpg',
     imageAlt: 'Echipa de programatori'
   },
@@ -28,12 +29,14 @@ const sections = [
 ];
 
 export default function AboutPage() {
+  const [count, setCount] = useState(0);
+
   return (
     <section>
-        <PageTitle
-            title="Despre proiect"
-            subtitle="Aplicație realizată la laboratorul de PW/DAW, 2026–2027."
-        />
+      <PageTitle
+        title="Despre proiect"
+        subtitle="Aplicație realizată la laboratorul de PW/DAW."
+      />
 
       <div className="info-card-grid">
         {sections.map((section) => (
@@ -45,6 +48,22 @@ export default function AboutPage() {
             imageAlt={section.imageAlt}
           />
         ))}
+      </div>
+
+      <div className="counter">
+        <h2>Contor: {count}</h2>
+
+        <button onClick={() => setCount(count + 1)}>
+          +
+        </button>
+
+        <button onClick={() => setCount(count - 1)}>
+          -
+        </button>
+
+        <button onClick={() => setCount(0)}>
+          Reset
+        </button>
       </div>
     </section>
   );
