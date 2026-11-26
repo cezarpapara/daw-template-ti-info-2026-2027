@@ -53,7 +53,7 @@ export default function ReviewSection({ productId }) {
     }
     return (
         <section className="reviews">
-            <h2>Recenzii ({reviews.length})</h2>
+            <h2>Părerile clienților ({reviews.length})</h2>
             {loading && <p>Se încarcă recenziile...</p>}
             {error && <p className="error">{error}</p>}
             {!loading && reviews.length === 0 && <p>Nu există încă recenzii.</p>}
