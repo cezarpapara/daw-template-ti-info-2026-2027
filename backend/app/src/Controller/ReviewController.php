@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[OA\Tag(name: 'Reviews')]
 final class ReviewController extends AbstractController
@@ -28,6 +29,7 @@ final class ReviewController extends AbstractController
         private EntityManagerInterface $em,
         private ReviewRepository $reviews,
         private ProductRepository $products,
+        private ValidatorInterface $validator,
     ) {
     }
 
@@ -100,6 +102,7 @@ final class ReviewController extends AbstractController
         $this->em->flush();
         return new Response(null, 204);
     }
+
     #[Route('/api/products/{id<\d+>}/rating', methods: ['GET'])]
     public function rating(int $id): JsonResponse
     {
@@ -123,7 +126,8 @@ final class ReviewController extends AbstractController
             'average' => $average,
         ]);
     }
-    // Verifică JSON-ul și completează recenzia; întoarce erorile (câmp => mesaj).
+
+    // Completează recenzia din JSON și o validează; întoarce erorile (câmp => mesaj).
     private function fill(Review $review, Request $request): array
     {
         try {
@@ -132,33 +136,20 @@ final class ReviewController extends AbstractController
             return ['body' => 'Corpul cererii trebuie să fie un obiect JSON valid.'];
         }
 
-        $errors = [];
-
         $author = is_string($data['author'] ?? null) ? trim($data['author']) : '';
-        if ($author === '' || mb_strlen($author) > 100) {
-            $errors['author'] = 'Autorul este obligatoriu (cel mult 100 de caractere).';
-        }
-
-        $rating = $data['rating'] ?? null;
-        if (!is_int($rating) || $rating < 1 || $rating > 5) {
-            $errors['rating'] = 'Nota trebuie să fie un număr întreg între 1 și 5.';
-        }
-
-        $product = $this->products->find((int) ($data['productId'] ?? 0));
-        if (!$product) {
-            $errors['productId'] = 'Produsul indicat nu există.';
-        }
-
-        if ($errors) {
-            return $errors;
-        }
-
         $comment = is_string($data['comment'] ?? null) ? trim($data['comment']) : '';
+        $rating = is_int($data['rating'] ?? null) ? $data['rating'] : 0; // 0 = invalid
+
         $review->setAuthor($author)
             ->setRating($rating)
             ->setComment($comment === '' ? null : $comment)
-            ->setProduct($product);
+            ->setProduct($this->products->find((int) ($data['productId'] ?? 0)));
 
-        return [];
+        $errors = [];
+        foreach ($this->validator->validate($review) as $violation) {
+            $errors[$violation->getPropertyPath()] = $violation->getMessage();
+        }
+
+        return $errors;
     }
 }
