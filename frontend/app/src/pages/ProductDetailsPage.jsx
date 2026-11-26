@@ -1,3 +1,4 @@
+import ReviewSection from '../components/ReviewSection';
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { api } from '../api.js'
@@ -14,22 +15,24 @@ function ProductDetailsPage() {
       .catch((err) => setError(err.message))
   }, [id])
 
+  if (error) return <div className="status status-error">{error}</div>
+  if (!product) return <p>Se incarca...</p>
+
   return (
     <>
-      <p><Link to="/produse">&larr; Inapoi la produse</Link></p>
+      <Link to="/produse">← Inapoi la produse</Link>
 
-      {error && <div className="status status-error">{error}</div>}
-      {!product && !error && <p>Se incarca...</p>}
+      <section className="card">
+        <h1>{product.name}</h1>
+        <p><strong>Categorie:</strong> {product.category.name}</p>
+        <p><strong>Pret:</strong> {product.price} lei</p>
+        {product.description && <p><strong>Descriere:</strong> {product.description}</p>}
+        <p className="endpoint">
+          Date primite de la <code>GET http://localhost:8080/api/products/{id}</code>
+        </p>
+      </section>
 
-      {product && (
-        <section className="card">
-          <h1>{product.name}</h1>
-          <p><strong>Categorie:</strong> {product.category.name}</p>
-          <p><strong>Pret:</strong> {product.price} lei</p>
-          <p><strong>Descriere:</strong> {product.description || '-'}</p>
-          <p className="muted">Date primite de la <code>GET {api.url}/api/products/{product.id}</code></p>
-        </section>
-      )}
+      <ReviewSection productId={id} />
     </>
   )
 }
