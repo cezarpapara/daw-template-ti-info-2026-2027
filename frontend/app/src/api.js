@@ -47,3 +47,63 @@ export const api = {
   // DELETE /api/products/{id}
   deleteProduct: (id) => request(`/api/products/${id}`, { method: 'DELETE' }),
 }
+
+
+// --- Recenzii (laboratorul 09) ---
+
+// Adresa backend-ului
+const REVIEWS_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:8080')
+  .replace(/\/+$/, '')
+  .replace(/\/api$/, '');
+
+// Transformă erorile serverului în erori JavaScript
+async function reviewError(res) {
+  const body = await res.json().catch(() => ({}));
+  const fields = body.errors || {};
+
+  const message = Object.values(fields).join(' ')
+    || body.error
+    || `Eroare ${res.status}`;
+
+  const error = new Error(message);
+  error.fields = fields;
+
+  return error;
+}
+
+// GET - preluarea recenziilor unui produs
+export async function getReviews(productId) {
+  const res = await fetch(
+    `${REVIEWS_BASE}/api/products/${productId}/reviews`
+  );
+
+  if (!res.ok) throw await reviewError(res);
+
+  return res.json();
+}
+
+// POST - adăugarea unei recenzii
+export async function createReview(data) {
+  const res = await fetch(`${REVIEWS_BASE}/api/reviews`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) throw await reviewError(res);
+
+  return res.json();
+}
+
+// DELETE - ștergerea unei recenzii
+export async function deleteReview(id) {
+  const url = `${REVIEWS_BASE}/api/reviews/${id}`;
+
+  const res = await fetch(url, {
+    method: 'DELETE'
+  });
+
+  if (!res.ok) throw await reviewError(res);
+}
