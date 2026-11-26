@@ -25,10 +25,11 @@ Scorul Lighthouse 100 la accesibilitate acoperă verificările automate disponib
 
 ## Build și verificări efectuate
 
-- **57 verificări HTTP trecute** pe Symfony/PostgreSQL reale: [api.txt](dovezi/api.txt). Se pot repeta cu `node tests/api.mjs`.
+- **65 verificări HTTP trecute** pe Symfony/PostgreSQL reale: [api-reverificare.txt](dovezi/api-reverificare.txt). Se pot repeta cu `node tests/api.mjs`.
 - **Browser:** creare, validare pe câmpuri, XSS afișat ca text, mesaj de succes 3 secunde, persistență după reload, editare și ștergere, mobil: [browser.json](dovezi/browser.json). Înregistrările temporare au fost eliminate.
 - **SQL:** instrucțiunile `up()` ale celor trei migrări au rulat într-o bază temporară goală; relația și CASCADE au fost verificate. Seed-ul a fost rulat de două ori fără dubluri: [baza-date.json](dovezi/baza-date.json). Baza de probă a fost eliminată. Aceasta este o probă SQL, nu o execuție a comenzii Doctrine într-un mediu nou.
-- **Build Vite 8.3.2 local și în container; lint oxlint local:** [build.txt](dovezi/build.txt). 103 module, JS 278,70 kB / gzip 87,40 kB, CSS 4,83 kB / gzip 1,63 kB. `dist` este generat și ignorat de Git. Fișierul JavaScript produs de build-ul din Docker are același SHA-256 cu build-ul local.
+- **Build inițial Vite 8.3.2 local și în container; lint oxlint local:** [build.txt](dovezi/build.txt). 103 module, JS 278,70 kB / gzip 87,40 kB, CSS 4,83 kB / gzip 1,63 kB. Build-urile inițiale au produs același SHA-256 pentru fișierul JavaScript.
+- **Build local după reverificare:** [build-reverificare.txt](dovezi/build-reverificare.txt). Include corecțiile pentru texte lungi și starea de încărcare: JS 278,95 kB / gzip 87,46 kB, CSS 4,85 kB / gzip 1,63 kB. `dist` a fost actualizat și este ignorat de Git.
 - **Doctrine pe baza curentă:** ambele mesaje `[OK]`: mapping corect și schemă sincronizată; [ieșirea terminalului](dovezi/docker-student.txt).
 - **Depanare:** 500 și 404 provocate intenționat, apoi revenire la funcționare normală; probă de conexiune refuzată și reîncercare: [depanare.json](dovezi/depanare.json).
 - **Curățenie:** `PasswordDemoController` este scos din `src/Controller`; rămâne numai exemplul `.php.example` pentru explicații. Nu au rămas greșelile deliberate. `.env.local`, `vendor`, `node_modules`, `dist` și datele PostgreSQL sunt ignorate.
@@ -40,7 +41,7 @@ docker exec daw-php php bin/console doctrine:schema:validate
 docker exec daw-react npm run build
 ```
 
-Rezultatele comenzilor Docker sunt în `dovezi/docker-student.txt`.
+Rezultatele comenzilor din container sunt în `dovezi/docker-student.txt`. Verificările HTTP, PostgreSQL, Chrome și build-ul local sunt consemnate separat în fișierele de mai sus.
 
 `VITE_API_URL` se fixează în cod la build; pentru un server real, construiți cu adresa API potrivită. `dist` nu se publică în Git. Aplicația curentă este pentru laborator, cu CRUD local fără autentificare.
 
@@ -65,6 +66,6 @@ Pentru proba cu un coleg notați numele, data, sistemul și problemele găsite. 
 
 Laboratoarele extind template-ul. Proiectul final cere o temă din lista disciplinei sau aprobată, minimum două entități proprii legate, CRUD validat, interfață React și documentație conform îndrumarului „template PSW + PWEB”. Entitățile preexistente din template nu se prezintă automat ca entități proprii.
 
-Tema finală se tratează separat. Pentru laboratoare, vezi [planul](PLAN.md).
+Tema finală este amânată. Pentru etapa curentă folosiți [PLAN.md](PLAN.md), [verificarea cerințelor](VERIFICARE-CERINTE.md) și [ghidul de prezentare](PREZENTARE-06-12.md).
 
 Sursă a cerințelor: fișa DAW — Laboratorul 12 și metodologia disciplinei. Dovezile de execuție sunt fișierele legate mai sus.

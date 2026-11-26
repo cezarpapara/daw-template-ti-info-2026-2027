@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-26T14:04:30.958Z",
+  "intentionalStatus": 500,
+  "log": "[2026-11-26T16:04:33.269647+02:00] request.CRITICAL: Uncaught PHP Exception Error: \"Call to undefined method DateTimeImmutable::formatt()\" at HelloController.php line 29 {\"exception\":\"[object] (Error(code: 0): Call to undefined method DateTimeImmutable::formatt() at /var/www/app/src/Controller/HelloController.php:29)\"} []",
+  "restoredStatus": 200,
+  "lab03Fetch": {
+    "status": 200,
+    "count": 6,
+    "url": "http://localhost:8080/api/products"
+  },
+  "success": true
+}

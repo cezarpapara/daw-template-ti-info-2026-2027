@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router'
 import { api } from '../api.js'
 import ReviewSection from '../components/ReviewSection.jsx'
 
-// Pagina de detalii pentru un produs: /produse/:id
 function ProductDetailsPage() {
   const { id } = useParams() // id-ul din adresa (URL)
   return <ProductDetails key={id} id={id} />

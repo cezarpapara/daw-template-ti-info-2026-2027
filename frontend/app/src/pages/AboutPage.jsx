@@ -3,7 +3,6 @@ import Card from '../components/Card';
 import PageTitle from '../components/PageTitle';
 import '../labs.css';
 
-// Datele sunt separate de componenta care desenează fiecare card.
 const sections = [
   {
     id: 'backend',

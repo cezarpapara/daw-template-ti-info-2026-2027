@@ -1,6 +1,6 @@
 # Laboratorul 11 — Git și depanare
 
-Proceduri pentru conflicte Git și depanarea API-ului. Rezultatele locale sunt în secțiunea 5.
+Procedurile de mai jos acoperă conflictele Git și identificarea erorilor în API. Rezultatele exercițiilor locale sunt în secțiunea 5; exercițiul cu un coleg este în lista de activități rămase.
 
 ## 1. Identitatea și modul de lucru
 

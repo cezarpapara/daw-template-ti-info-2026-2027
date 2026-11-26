@@ -43,7 +43,6 @@ final class HelloController extends AbstractController
             return $this->json(['error' => 'n trebuie să fie un număr întreg între 1 și 100.'], 400);
         }
 
-        // Exercițiul 3: păstrăm numai numerele pare și refacem indicii listei.
         $numbers = array_values(array_filter(range(1, $n), fn (int $number) => $number % 2 === 0));
 
         return $this->json([

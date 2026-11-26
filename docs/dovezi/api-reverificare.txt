@@ -1,0 +1,2 @@
+PASS: 65 HTTP checks; validation, CRUD, averages and cascade verified.
+PASS: temporary test records cleaned up; existing data retained.

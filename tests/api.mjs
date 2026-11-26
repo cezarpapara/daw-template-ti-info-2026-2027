@@ -66,13 +66,21 @@ try {
   assert.equal((await call(`/api/products/${first}/reviews`)).length, 2)
   for (const [change, field] of [
     [{ author: '' }, 'author'], [{ author: 'A' }, 'author'], [{ author: 'A'.repeat(101) }, 'author'],
+    [{ author: 'Ana\u0000Test' }, 'author'], [{ author: '\u0000Ana' }, 'author'], [{ author: 'Ana\u0000' }, 'author'],
     [{ rating: '4' }, 'rating'], [{ rating: 1.5 }, 'rating'], [{ rating: 0 }, 'rating'], [{ rating: 6 }, 'rating'],
     [{ comment: 'x'.repeat(1001) }, 'comment'], [{ comment: [] }, 'comment'],
+    [{ comment: 'Text\u0000test' }, 'comment'], [{ comment: '\u0000Text' }, 'comment'], [{ comment: 'Text\u0000' }, 'comment'],
     [{ productId: 2147483647 }, 'product'], [{ productId: '1' }, 'product'],
   ]) {
     const invalid = await call('/api/reviews', 'POST', { ...payload, ...change }, 400)
     assert.ok(invalid.errors[field], `Expected ${field} error`)
   }
+  const invalidNulUpdate = await call('/api/reviews/' + created.id, 'PUT', {
+    ...payload, author: '\u0000Ana', comment: 'Text\u0000', rating: 3,
+  }, 400)
+  assert.match(invalidNulUpdate.errors.author, /caractere nule/)
+  assert.match(invalidNulUpdate.errors.comment, /caractere nule/)
+  assert.deepEqual(await call('/api/reviews/' + created.id), created, 'NUL update must not change any persisted field')
   for (const bad of ['{', '[]', 'null', '"text"', '']) {
     assert.ok((await call('/api/reviews', 'POST', bad, 400)).errors.body)
   }

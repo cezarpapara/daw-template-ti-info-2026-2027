@@ -24,3 +24,5 @@ fetch('/api/products').then(r => r.json()).then(console.log)
 ```
 
 Apelul citește produsele din Symfony. Datele meteo ale paginii statice sunt cerute separat, de la Open-Meteo.
+
+Pentru pornirea aplicației, vezi [README-ul proiectului](../../README.md).

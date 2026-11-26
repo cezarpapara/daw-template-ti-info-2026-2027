@@ -1,24 +1,25 @@
 import { useEffect, useState } from 'react'
 import { api } from '../api.js'
 
-// Pagina Categorii: lista categoriilor + formular de adaugare
 function CategoriesPage() {
   const [categories, setCategories] = useState([])
   const [name, setName] = useState('')
   const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  // Incarca lista de categorii de la backend
   function loadCategories() {
+    setLoading(true)
+    setError(null)
     api.getCategories()
       .then((data) => setCategories(data))
       .catch((err) => setError(err.message))
+      .finally(() => setLoading(false))
   }
 
   useEffect(() => {
     loadCategories()
   }, [])
 
-  // Trimite formularul: POST /api/categories
   async function handleSubmit(event) {
     event.preventDefault() // opreste reincarcarea paginii
     try {
@@ -43,12 +44,12 @@ function CategoriesPage() {
         <form onSubmit={handleSubmit} className="form">
           <label className="field-label">
             Numele categoriei
-          <input
-            value={name}
-            onChange={(event) => setName(event.target.value)}
-            placeholder="Numele categoriei"
-            required
-          />
+            <input
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              placeholder="Numele categoriei"
+              required
+            />
           </label>
           <button type="submit">Adauga</button>
         </form>
@@ -56,25 +57,28 @@ function CategoriesPage() {
 
       <section className="card">
         <h2>Lista categoriilor</h2>
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Nume</th>
-              <th scope="col">Numar produse</th>
-            </tr>
-          </thead>
-          <tbody>
-            {categories.map((category) => (
-              <tr key={category.id}>
-                <td>{category.id}</td>
-                <td>{category.name}</td>
-                <td>{category.productCount}</td>
+        {loading && <p role="status">Se încarcă categoriile…</p>}
+        <div className="table-container" role="region" aria-label="Tabelul categoriilor" tabIndex={0}>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nume</th>
+                <th scope="col">Numar produse</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        {categories.length === 0 && <p>Nu exista categorii.</p>}
+            </thead>
+            <tbody>
+              {categories.map((category) => (
+                <tr key={category.id}>
+                  <td>{category.id}</td>
+                  <td>{category.name}</td>
+                  <td>{category.productCount}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {!loading && !error && categories.length === 0 && <p>Nu exista categorii.</p>}
       </section>
     </>
   )

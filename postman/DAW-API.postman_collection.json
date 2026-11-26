@@ -285,6 +285,44 @@
           ]
         },
         {
+          "name": "n zero",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/numbers?n=0"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "n text",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/numbers?n=abc"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));"
+                ]
+              }
+            }
+          ]
+        },
+        {
           "name": "Suma a+b",
           "request": {
             "method": "GET",
@@ -655,6 +693,42 @@
                 "exec": [
                   "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
                   "pm.test('Eroare pe comment',()=>pm.expect(pm.response.json().errors).to.have.property('comment'));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "11b. Trei erori de validare",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/reviews",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"author\": \"\",\n  \"rating\": 7,\n  \"comment\": \"Recenzie temporara pentru laborator.\",\n  \"productId\": 2147483647\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('HTTP 400', () => pm.response.to.have.status(400));",
+                  "pm.test('Eroare pe author',()=>pm.expect(pm.response.json().errors).to.have.property('author'));",
+                  "pm.test('Eroare pe rating',()=>pm.expect(pm.response.json().errors).to.have.property('rating'));",
+                  "pm.test('Eroare pe product',()=>pm.expect(pm.response.json().errors).to.have.property('product'));"
                 ]
               }
             }

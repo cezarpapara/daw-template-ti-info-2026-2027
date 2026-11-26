@@ -4,7 +4,6 @@ import { api } from '../api.js'
 
 const emptyForm = { name: '', description: '', price: '', categoryId: '' }
 
-// Pagina Produse: lista produselor, adaugare si stergere
 function ProductsPage() {
   const [products, setProducts] = useState([])
   const [search, setSearch] = useState('')
@@ -32,18 +31,15 @@ function ProductsPage() {
 
   useEffect(() => {
     loadProducts()
-    // categoriile sunt necesare pentru lista de selectie din formular
     api.getCategories()
       .then((data) => setCategories(data))
       .catch((err) => setError(err.message))
   }, [])
 
-  // Actualizeaza campul modificat din formular
   function handleChange(event) {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
 
-  // POST /api/products
   async function handleSubmit(event) {
     event.preventDefault()
     try {
@@ -62,7 +58,6 @@ function ProductsPage() {
     }
   }
 
-  // DELETE /api/products/{id}
   async function handleDelete(id) {
     try {
       await api.deleteProduct(id)
@@ -130,7 +125,7 @@ function ProductsPage() {
           )}
         </div>
         {loading && <p role="status">Se încarcă produsele…</p>}
-        <div className="product-table-container">
+        <div className="table-container">
           <table>
             <thead>
               <tr>

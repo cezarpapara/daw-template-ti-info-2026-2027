@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-26T14:02:35.713Z",
+  "test": "Mobile layout with fixtures for maximum-length author, product and category names",
+  "cases": [
+    {
+      "name": "review author100/comment1000",
+      "viewport": 375,
+      "page": 375
+    },
+    {
+      "name": "product name150/category100/description1000",
+      "viewport": 375,
+      "page": 375
+    },
+    {
+      "name": "category name100",
+      "viewport": 375,
+      "page": 375
+    }
+  ],
+  "errorDoesNotShowEmptyState": true,
+  "success": true
+}

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { api } from '../api.js'
 
-// Pagina de start: verifica daca backend-ul si baza de date raspund
 function HomePage() {
   const [health, setHealth] = useState(null)
   const [error, setError] = useState(null)

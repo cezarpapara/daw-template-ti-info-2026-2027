@@ -18,6 +18,7 @@ class Review
     #[ORM\Column(length: 100)]
     #[Assert\NotBlank(message: 'Autorul este obligatoriu.')]
     #[Assert\Length(min: 2, max: 100, minMessage: 'Autorul trebuie să aibă cel puțin {{ limit }} caractere.', maxMessage: 'Autorul are cel mult {{ limit }} caractere.')]
+    #[Assert\Regex(pattern: '/\x00/', match: false, message: 'Autorul nu poate conține caractere nule.')]
     private ?string $author = null;
 
     #[ORM\Column]
@@ -27,6 +28,7 @@ class Review
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     #[Assert\Length(max: 1000, maxMessage: 'Comentariul are cel mult {{ limit }} caractere.')]
+    #[Assert\Regex(pattern: '/\x00/', match: false, message: 'Comentariul nu poate conține caractere nule.')]
     private ?string $comment = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]

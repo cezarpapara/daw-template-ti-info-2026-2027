@@ -8,6 +8,8 @@ Deschide Docker Desktop și așteaptă „Engine running”. Pornește backend-u
 
 În `HelloController.php`, explică: atributul `Route` leagă URL-ul de metodă, `Request` citește query parameters, iar `$this->json()` produce răspunsul JSON și statusul HTTP.
 
+Pentru lista rutelor, rulează `docker exec daw-php php bin/console debug:router` și `docker exec daw-php php bin/console debug:router api_numbers`. Proba de depanare `formatt()` → 500 → jurnal → corectare este consemnată în [dovezi/lab06-depanare.json](dovezi/lab06-depanare.json).
+
 ## 07 — Baza de date
 
 Arată `Review.php` și migrarea `Version20261126090000.php`. O recenzie aparține unui produs: relație ManyToOne; `product_id` este cheia străină. `ON DELETE CASCADE` șterge recenziile când este șters produsul. `createdAt` este completat în constructor.

@@ -7,7 +7,6 @@ import AboutPage from './pages/AboutPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
 import './App.css'
 
-// Structura comuna a tuturor paginilor: meniul de sus + pagina curenta
 function App() {
   return (
     <>
@@ -24,7 +23,6 @@ function App() {
       </header>
 
       <main className="container" id="continut" tabIndex={-1}>
-        {/* Fiecare adresa (URL) afiseaza o alta pagina */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/categorii" element={<CategoriesPage />} />

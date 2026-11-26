@@ -24,3 +24,5 @@ Verificarea a fost efectuată și în WebAIM Contrast Checker: [verde](https://w
 ## Comportament intenționat
 
 Acesta este un exercițiu de structură și stil: butoanele „Adaugă în coș” nu modifică un coș. Formularul verifică adresa în browser; cu o adresă validă reîncarcă pagina locală, fără înregistrarea unei abonări. Nu există serviciu de newsletter sau bază de date. Cărțile și prețurile sunt date demonstrative.
+
+Pentru pornirea aplicației, vezi [README-ul proiectului](../../README.md).

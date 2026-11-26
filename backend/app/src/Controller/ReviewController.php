@@ -160,9 +160,11 @@ final class ReviewController extends AbstractController
         }
 
         $data = get_object_vars($data);
-        $author = is_string($data['author'] ?? null) ? trim($data['author']) : '';
+        // Eliminăm spațiile obișnuite, dar păstrăm NUL pentru respingerea prin Validator.
+        $whitespace = " \t\n\r\x0B";
+        $author = is_string($data['author'] ?? null) ? trim($data['author'], $whitespace) : '';
         $rating = is_int($data['rating'] ?? null) ? $data['rating'] : 0;
-        $comment = is_string($data['comment'] ?? null) ? trim($data['comment']) : null;
+        $comment = is_string($data['comment'] ?? null) ? trim($data['comment'], $whitespace) : null;
         $productId = $data['productId'] ?? null;
         $product = is_int($productId) && $productId > 0 && $productId <= 2147483647
             ? $this->products->find($productId) : null;
