@@ -69,6 +69,20 @@ function ProductsPage() {
       {error && <div className="status status-error">{error}</div>}
 
       <section className="card">
+        <label htmlFor="product-search">Caută după nume</label>
+        <input
+          id="product-search"
+          type="search"
+          placeholder="Caută după nume…"
+          aria-label="Caută produse"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+        />
+        {search !== '' && (
+          <button type="button" onClick={() => setSearch('')}>
+            ★ Șterge căutarea
+          </button>
+        )}
         <h2>Adauga un produs</h2>
         <form onSubmit={handleSubmit} className="form form-grid">
           <input name="name" value={form.name} onChange={handleChange} placeholder="Nume" required />
@@ -95,20 +109,6 @@ function ProductsPage() {
 
       <section className="card">
         <h2>Lista produselor</h2>
-        <label htmlFor="product-search">Caută după nume</label>
-        <input
-          id="product-search"
-          type="search"
-          placeholder="Caută după nume…"
-          aria-label="Caută produse"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-        />
-        {search !== '' && (
-          <button type="button" onClick={() => setSearch('')}>
-            ★ Șterge căutarea
-          </button>
-        )}
         <p>{visibleProducts.length} din {products.length} produse</p>
         <table>
           <thead>
