@@ -44,7 +44,6 @@ export default function ContactPage() {
   function handleSubmit(event) {
     event.preventDefault();
     if (!isValid) return;
-    console.log('Mesaj de trimis:', values);
     setSent(true);
     setValues(EMPTY);
     setTouched({});
@@ -52,6 +51,7 @@ export default function ContactPage() {
 
   return (
     <section>
+      <title>Contact – Magazin PW / DAW</title>
       <h1>Contact</h1>
       {sent && <p className="form-success">Mesajul a fost trimis. Mulțumim!</p>}
       <form onSubmit={handleSubmit} noValidate>

@@ -14,6 +14,7 @@ function HomePage() {
 
   return (
     <>
+      <title>Acasă – Magazin PW / DAW</title>
       <h1>Aplicatie PW / DAW  / Tufa Rares-Mihaita</h1>
       <p className="subtitle">Frontend React conectat la un backend Symfony</p>
 

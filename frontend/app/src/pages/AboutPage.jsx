@@ -29,6 +29,7 @@ export default function AboutPage() {
 
   return (
     <section className="container">
+      <title>Despre – Magazin PW / DAW</title>
       <PageTitle
         title="Despre proiect"
         subtitle={`Acest proiect are ${sections.length} secțiuni principale.`}

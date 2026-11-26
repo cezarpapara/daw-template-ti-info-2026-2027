@@ -64,6 +64,7 @@ function ProductsPage() {
 
   return (
     <>
+      <title>Produse – Magazin PW / DAW</title>
       <h1>Produse</h1>
 
       {error && <div className="status status-error">{error}</div>}
@@ -71,24 +72,36 @@ function ProductsPage() {
       <section className="card">
         <h2>Adauga un produs</h2>
         <form onSubmit={handleSubmit} className="form form-grid">
-          <input name="name" value={form.name} onChange={handleChange} placeholder="Nume" required />
-          <input
-            name="price"
-            value={form.price}
-            onChange={handleChange}
-            placeholder="Pret (ex: 49.99)"
-            type="number"
-            step="0.01"
-            min="0"
-            required
-          />
-          <select name="categoryId" value={form.categoryId} onChange={handleChange} required>
-            <option value="">Alege categoria</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>{category.name}</option>
-            ))}
-          </select>
-          <input name="description" value={form.description} onChange={handleChange} placeholder="Descriere (optional)" />
+          <label>
+            Nume produs
+            <input name="name" value={form.name} onChange={handleChange} placeholder="Nume" required />
+          </label>
+          <label>
+            Preț
+            <input
+              name="price"
+              value={form.price}
+              onChange={handleChange}
+              placeholder="Preț (ex: 49.99)"
+              type="number"
+              step="0.01"
+              min="0"
+              required
+            />
+          </label>
+          <label>
+            Categoria
+            <select name="categoryId" value={form.categoryId} onChange={handleChange} required>
+              <option value="">Alege categoria</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>{category.name}</option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Descriere
+            <input name="description" value={form.description} onChange={handleChange} placeholder="Descriere (opțional)" />
+          </label>
           <button type="submit">Adauga</button>
         </form>
       </section>

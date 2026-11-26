@@ -17,6 +17,7 @@ function ProductDetailsPage() {
 
   return (
     <>
+      <title>{product ? `${product.name} – Magazin PW / DAW` : 'Detalii produs – Magazin PW / DAW'}</title>
       <p><Link to="/produse">&larr; Inapoi la produse</Link></p>
 
       {error && <div className="status status-error">{error}</div>}
