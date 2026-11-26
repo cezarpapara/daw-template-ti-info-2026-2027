@@ -13,6 +13,7 @@ function ReviewSection({ productId }) {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const [fieldErrors, setFieldErrors] = useState({})
   const [form, setForm] = useState(EMPTY_FORM)
 
   useEffect(() => {
@@ -23,13 +24,19 @@ function ReviewSection({ productId }) {
 
     api.getReviews(productId)
       .then((data) => {
-        if (active) setReviews(data)
+        if (active) {
+          setReviews(data)
+        }
       })
       .catch((err) => {
-        if (active) setError(err.message)
+        if (active) {
+          setError(err.message)
+        }
       })
       .finally(() => {
-        if (active) setLoading(false)
+        if (active) {
+          setLoading(false)
+        }
       })
 
     return () => {
@@ -44,6 +51,13 @@ function ReviewSection({ productId }) {
       ...current,
       [name]: value,
     }))
+
+    setFieldErrors((current) => ({
+      ...current,
+      [name]: '',
+    }))
+
+    setError('')
   }
 
   async function handleSubmit(event) {
@@ -51,19 +65,27 @@ function ReviewSection({ productId }) {
 
     setSaving(true)
     setError('')
+    setFieldErrors({})
 
     try {
       const created = await api.createReview({
-        author: form.author,
+        author: form.author.trim(),
         rating: Number(form.rating),
-        comment: form.comment,
+        comment: form.comment.trim(),
         productId: Number(productId),
       })
 
       setReviews((current) => [created, ...current])
       setForm(EMPTY_FORM)
+      setFieldErrors({})
     } catch (err) {
-      setError(err.message)
+      const responseErrors = err.response?.errors
+
+      if (responseErrors) {
+        setFieldErrors(responseErrors)
+      } else {
+        setError(err.message)
+      }
     } finally {
       setSaving(false)
     }
@@ -74,7 +96,9 @@ function ReviewSection({ productId }) {
       'Sigur dorești să ștergi această recenzie?'
     )
 
-    if (!confirmed) return
+    if (!confirmed) {
+      return
+    }
 
     setError('')
 
@@ -104,7 +128,9 @@ function ReviewSection({ productId }) {
       )}
 
       {!loading && reviews.length === 0 && (
-        <p className="muted">Nu există încă recenzii pentru acest produs.</p>
+        <p className="muted">
+          Nu există încă recenzii pentru acest produs.
+        </p>
       )}
 
       {!loading && reviews.length > 0 && (
@@ -132,6 +158,7 @@ function ReviewSection({ productId }) {
 
               <button
                 type="button"
+                className="button-danger"
                 onClick={() => handleDelete(review.id)}
               >
                 Șterge
@@ -141,27 +168,50 @@ function ReviewSection({ productId }) {
         </ul>
       )}
 
-      <form className="review-form" onSubmit={handleSubmit}>
+      <form
+        className="review-form"
+        onSubmit={handleSubmit}
+        noValidate
+      >
         <h3>Adaugă o recenzie</h3>
 
-        <label>
-          Numele tău
+        <div className="form-field">
+          <label htmlFor="review-author">Numele tău</label>
+
           <input
+            id="review-author"
             type="text"
             name="author"
             value={form.author}
             onChange={handleChange}
-            required
             maxLength={100}
+            className={fieldErrors.author ? 'input-invalid' : ''}
+            aria-invalid={Boolean(fieldErrors.author)}
+            aria-describedby={
+              fieldErrors.author ? 'review-author-error' : undefined
+            }
           />
-        </label>
 
-        <label>
-          Nota
+          {fieldErrors.author && (
+            <p id="review-author-error" className="form-error">
+              {fieldErrors.author}
+            </p>
+          )}
+        </div>
+
+        <div className="form-field">
+          <label htmlFor="review-rating">Nota</label>
+
           <select
+            id="review-rating"
             name="rating"
             value={form.rating}
             onChange={handleChange}
+            className={fieldErrors.rating ? 'input-invalid' : ''}
+            aria-invalid={Boolean(fieldErrors.rating)}
+            aria-describedby={
+              fieldErrors.rating ? 'review-rating-error' : undefined
+            }
           >
             {[5, 4, 3, 2, 1].map((number) => (
               <option key={number} value={number}>
@@ -169,17 +219,45 @@ function ReviewSection({ productId }) {
               </option>
             ))}
           </select>
-        </label>
 
-        <label>
-          Comentariu (opțional)
+          {fieldErrors.rating && (
+            <p id="review-rating-error" className="form-error">
+              {fieldErrors.rating}
+            </p>
+          )}
+        </div>
+
+        <div className="form-field">
+          <label htmlFor="review-comment">
+            Comentariu (opțional)
+          </label>
+
           <textarea
+            id="review-comment"
             name="comment"
             value={form.comment}
             onChange={handleChange}
             rows={3}
+            maxLength={1000}
+            className={fieldErrors.comment ? 'input-invalid' : ''}
+            aria-invalid={Boolean(fieldErrors.comment)}
+            aria-describedby={
+              fieldErrors.comment ? 'review-comment-error' : undefined
+            }
           />
-        </label>
+
+          {fieldErrors.comment && (
+            <p id="review-comment-error" className="form-error">
+              {fieldErrors.comment}
+            </p>
+          )}
+        </div>
+
+        {fieldErrors.product && (
+          <p className="form-error" role="alert">
+            {fieldErrors.product}
+          </p>
+        )}
 
         <button type="submit" disabled={saving}>
           {saving ? 'Se trimite...' : 'Trimite recenzia'}

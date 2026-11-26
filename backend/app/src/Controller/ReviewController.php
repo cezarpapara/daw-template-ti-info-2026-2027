@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[OA\Tag(name: 'Reviews')]
 final class ReviewController extends AbstractController
@@ -28,6 +29,7 @@ final class ReviewController extends AbstractController
         private EntityManagerInterface $em,
         private ReviewRepository $reviews,
         private ProductRepository $products,
+        private ValidatorInterface $validator,
     ) {
     }
 
@@ -141,8 +143,8 @@ final class ReviewController extends AbstractController
                 ? trim($data['author'])
                 : '';
 
-            if ($author === '' || mb_strlen($author) > 100) {
-                $errors['author'] = 'Autorul este obligatoriu (cel mult 100 de caractere).';
+            if ($author === '' || mb_strlen($author) < 2 || mb_strlen($author) > 100) {
+                $errors['author'] = 'Numele trebuie să aibă între 2 și 100 de caractere.';
             } else {
                 $review->setAuthor($author);
             }
@@ -163,6 +165,8 @@ final class ReviewController extends AbstractController
 
             if ($comment !== null && !is_string($comment)) {
                 $errors['comment'] = 'Comentariul trebuie să fie text sau null.';
+            } elseif (is_string($comment) && mb_strlen(trim($comment)) > 1000) {
+                $errors['comment'] = 'Comentariul poate avea cel mult 1000 de caractere.';
             } else {
                 $review->setComment(
                     $comment === null || trim($comment) === ''
@@ -222,35 +226,21 @@ final class ReviewController extends AbstractController
             ];
         }
 
-        $errors = [];
-
         $author = is_string($data['author'] ?? null)
             ? trim($data['author'])
             : '';
 
-        if ($author === '' || mb_strlen($author) > 100) {
-            $errors['author'] = 'Autorul este obligatoriu (cel mult 100 de caractere).';
-        }
-
-        $rating = $data['rating'] ?? null;
-
-        if (!is_int($rating) || $rating < 1 || $rating > 5) {
-            $errors['rating'] = 'Nota trebuie să fie un număr întreg între 1 și 5.';
-        }
-
-        $product = $this->products->find((int) ($data['productId'] ?? 0));
-
-        if (!$product) {
-            $errors['productId'] = 'Produsul indicat nu există.';
-        }
-
-        if ($errors) {
-            return $errors;
-        }
-
         $comment = is_string($data['comment'] ?? null)
             ? trim($data['comment'])
             : '';
+
+        $rating = is_int($data['rating'] ?? null)
+            ? $data['rating']
+            : 0;
+
+        $product = $this->products->find(
+            (int) ($data['productId'] ?? 0)
+        );
 
         $review
             ->setAuthor($author)
@@ -258,6 +248,13 @@ final class ReviewController extends AbstractController
             ->setComment($comment === '' ? null : $comment)
             ->setProduct($product);
 
-        return [];
+        $errors = [];
+
+        foreach ($this->validator->validate($review) as $violation) {
+            $field = $violation->getPropertyPath();
+            $errors[$field] = $violation->getMessage();
+        }
+
+        return $errors;
     }
 }

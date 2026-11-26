@@ -27,6 +27,7 @@ async function request(path, options = {}) {
       || `Eroare ${response.status}`
 
     const error = new Error(message)
+    error.response = data
     error.fields = fields
     throw error
   }

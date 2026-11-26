@@ -21,7 +21,9 @@
         "symfony/flex": "^2",
         "symfony/framework-bundle": "8.1.*",
         "symfony/runtime": "8.1.*",
+        "symfony/security-bundle": "8.1.*",
         "symfony/twig-bundle": "8.1.*",
+        "symfony/validator": "8.1.*",
         "symfony/yaml": "8.1.*",
         "twig/twig": "^3.0"
     },
