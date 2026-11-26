@@ -80,7 +80,7 @@ class Review
         $this->author = $author;
         return $this;
     }
-    public function setRating(int $rating): static
+    public function setRating(int $rating): static //Setat la setRaating pentru a vedea ce eroare apare in F12 (500)
     {
         $this->rating = $rating;
         return $this;

@@ -66,7 +66,7 @@ function ProductsPage() {
   return (
     <>
       <h1>Produse</h1>
-
+      <title>Produse – Magazinul nostru</title>
       {error && <div className="status status-error">{error}</div>}
 
       <section className="card">

@@ -24,6 +24,7 @@ export default function AboutPage() {
 
     return (
         <section>
+            <title>Despre proiect – Magazinul nostru</title>
             <PageTitle
                 title="Despre proiect"
                 subtitle="Informații despre proiect și tehnologiile utilizate."

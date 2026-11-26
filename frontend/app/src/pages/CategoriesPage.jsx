@@ -33,6 +33,7 @@ function CategoriesPage() {
 
   return (
     <>
+      <title>Categorii – Magazinul nostru</title>
       <h1>Categorii</h1>
 
       {error && <div className="status status-error">{error}</div>}
