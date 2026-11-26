@@ -6,7 +6,15 @@
 
 body {
   margin: 0;
+  line-height: 1.5;
 }
+
+* { box-sizing: border-box; }
+a { color: #174ea6; }
+:is(a, button, input, select, textarea):focus-visible { outline: 3px solid #a64f00; outline-offset: 3px; }
+.skip-link { position: absolute; left: 16px; top: -100px; padding: 10px 16px; background: #fff; z-index: 10; }
+.skip-link:focus { top: 8px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 
 /* Meniul de sus */
 .header {
@@ -108,7 +116,11 @@ td {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  align-items: end;
 }
+
+.field-label { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.field-label :is(input, select) { width: 100%; min-width: 0; }
 
 .form-grid {
   display: grid;
@@ -116,12 +128,18 @@ td {
 }
 
 input,
-select {
+select,
+textarea {
   padding: 8px 10px;
   border: 1px solid #cbd2d9;
   border-radius: 6px;
-  font-size: 1rem;
+  font: inherit;
+  background: #fff;
+  color: #1f2933;
 }
+
+textarea { resize: vertical; }
+button:disabled { opacity: 0.55; cursor: not-allowed; }
 
 button {
   background: #2f5fd0;
@@ -134,10 +152,25 @@ button {
 }
 
 .button-danger {
-  background: #e12d39;
+  background: #b42318;
   padding: 4px 10px;
   font-size: 0.9rem;
 }
+
+/* Recenziile folosesc text React obișnuit, inclusiv pentru comentarii. */
+.reviews h2 { margin-top: 0; }
+.review-list { margin: 0; padding: 0; list-style: none; }
+.review-list li { padding: 16px 0; border-bottom: 1px solid #cbd2d9; }
+.review-comment { white-space: pre-wrap; overflow-wrap: anywhere; }
+.stars { color: #815300; white-space: nowrap; }
+.error { color: #a61b14; }
+.review-success { color: #1d652b; font-weight: 600; }
+.review-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.review-form { margin-top: 24px; }
+.review-form fieldset { display: flex; flex-direction: column; gap: 6px; min-width: 0; margin: 0; padding: 0; border: 0; max-width: 560px; }
+.review-form label { margin-top: 12px; font-weight: 600; }
+.review-form :is(input, select, textarea) { width: 100%; min-width: 0; }
+[aria-invalid="true"] { border: 2px solid #a61b14; }
 
 /* Cautarea din laboratorul 05 filtreaza lista deja primita de la API. */
 .product-search { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }

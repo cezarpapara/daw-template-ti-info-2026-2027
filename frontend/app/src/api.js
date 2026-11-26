@@ -47,3 +47,48 @@ export const api = {
   // DELETE /api/products/{id}
   deleteProduct: (id) => request(`/api/products/${id}`, { method: 'DELETE' }),
 }
+
+// Recenzii (laboratoarele 09–10). Erorile de validare sunt păstrate pe câmpuri.
+const REVIEWS_BASE = API_URL.replace(/\/+$/, '').replace(/\/api$/, '')
+
+async function reviewRequest(path, options = {}) {
+  let response
+  try {
+    response = await fetch(`${REVIEWS_BASE}${path}`, options)
+  } catch (error) {
+    if (error.name === 'AbortError') throw error
+    throw new Error('Nu se poate contacta API-ul. Verificați conexiunea și dacă backend-ul este pornit.')
+  }
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({}))
+    const fields = body.errors || {}
+    const error = new Error(Object.values(fields).join(' ') || body.error || `Eroare ${response.status}`)
+    error.fields = fields
+    throw error
+  }
+  return response.status === 204 ? null : response.json()
+}
+
+export function getReviews(productId, signal) {
+  return reviewRequest(`/api/products/${encodeURIComponent(productId)}/reviews`, { signal })
+}
+
+export function createReview(data) {
+  return reviewRequest('/api/reviews', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+}
+
+export function updateReview(id, data) {
+  return reviewRequest(`/api/reviews/${encodeURIComponent(id)}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  })
+}
+
+export function deleteReview(id) {
+  return reviewRequest(`/api/reviews/${encodeURIComponent(id)}`, { method: 'DELETE' })
+}
