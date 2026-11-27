@@ -181,3 +181,54 @@ button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.reviews {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #d0d7de;
+  max-width: 720px;
+}
+
+.average-rating {
+  font-weight: 600;
+  color: #1f2328;
+  margin-bottom: 0.75rem;
+}
+
+.review-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.review-list li {
+  background-color: #ffffff;
+  color: #1f2328;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  padding: 0.9rem 1rem;
+}
+
+.stars {
+  color: #b45309;
+  letter-spacing: 1px;
+}
+
+.error {
+  color: #842029;
+  background-color: #f8d7da;
+  border: 1px solid #f5c2c7;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+}
+
+.success {
+  color: #0f5132;
+  background-color: #d1e7dd;
+  border: 1px solid #badbcc;
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+}
