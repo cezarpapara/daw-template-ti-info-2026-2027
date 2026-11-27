@@ -232,3 +232,8 @@ button:disabled {
   padding: 0.6rem 0.8rem;
   border-radius: 6px;
 }
+
+.reviews [aria-invalid="true"] {
+  border: 2px solid #dc2626;
+  outline: none;
+}

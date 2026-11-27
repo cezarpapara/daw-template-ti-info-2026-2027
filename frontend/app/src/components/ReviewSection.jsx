@@ -7,6 +7,7 @@ export default function ReviewSection({ productId }) {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
   const [successMsg, setSuccessMsg] = useState('');
   const [form, setForm] = useState(EMPTY_FORM);
   const [editingId, setEditingId] = useState(null);
@@ -15,12 +16,16 @@ export default function ReviewSection({ productId }) {
   useEffect(() => {
     setLoading(true);
     setError('');
+    setFieldErrors({});
     setSuccessMsg('');
     setEditingId(null);
     setForm(EMPTY_FORM);
     getReviews(productId)
       .then(setReviews)
-      .catch((err) => setError(err.message))
+      .catch((err) => {
+        setError(err.message);
+        setFieldErrors(err.fields || {});
+      })
       .finally(() => setLoading(false));
   }, [productId]);
 
@@ -41,6 +46,7 @@ export default function ReviewSection({ productId }) {
       comment: review.comment ?? '',
     });
     setError('');
+    setFieldErrors({});
     setSuccessMsg('');
   }
 
@@ -48,6 +54,7 @@ export default function ReviewSection({ productId }) {
     setEditingId(null);
     setForm(EMPTY_FORM);
     setError('');
+    setFieldErrors({});
   }
 
   function showTemporaryMessage(msg) {
@@ -61,6 +68,7 @@ export default function ReviewSection({ productId }) {
     e.preventDefault();
     setSaving(true);
     setError('');
+    setFieldErrors({});
     setSuccessMsg('');
 
     const payload = {
@@ -84,6 +92,7 @@ export default function ReviewSection({ productId }) {
       setForm(EMPTY_FORM);
     } catch (err) {
       setError(err.message);
+      setFieldErrors(err.fields || {});
     } finally {
       setSaving(false);
     }
@@ -129,23 +138,43 @@ export default function ReviewSection({ productId }) {
         ))}
       </ul>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} noValidate>
         <h3>{editingId !== null ? 'Editează recenzia' : 'Adăugați o recenzie'}</h3>
         <label>
           Numele vostru
-          <input name="author" value={form.author} onChange={handleChange} required />
+          <input
+            name="author"
+            value={form.author}
+            onChange={handleChange}
+            aria-invalid={Boolean(fieldErrors.author)}
+            required
+          />
+          {fieldErrors.author && <span className="error">{fieldErrors.author}</span>}
         </label>
         <label>
           Nota
-          <select name="rating" value={form.rating} onChange={handleChange}>
+          <select
+            name="rating"
+            value={form.rating}
+            onChange={handleChange}
+            aria-invalid={Boolean(fieldErrors.rating)}
+          >
             {[5, 4, 3, 2, 1].map((n) => (
               <option key={n} value={n}>{n}</option>
             ))}
           </select>
+          {fieldErrors.rating && <span className="error">{fieldErrors.rating}</span>}
         </label>
         <label>
           Comentariu (opțional)
-          <textarea name="comment" value={form.comment} onChange={handleChange} rows={3} />
+          <textarea
+            name="comment"
+            value={form.comment}
+            onChange={handleChange}
+            aria-invalid={Boolean(fieldErrors.comment)}
+            rows={3}
+          />
+          {fieldErrors.comment && <span className="error">{fieldErrors.comment}</span>}
         </label>
         <button type="submit" disabled={saving}>
           {saving
