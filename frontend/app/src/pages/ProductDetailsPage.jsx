@@ -1,37 +1,38 @@
-import { useEffect, useState } from 'react'
-import { Link, useParams } from 'react-router'
-import { api } from '../api.js'
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import ReviewSection from '../components/ReviewSection';
 
-// Pagina de detalii pentru un produs: /produse/:id
-function ProductDetailsPage() {
-  const { id } = useParams() // id-ul din adresa (URL)
-  const [product, setProduct] = useState(null)
-  const [error, setError] = useState(null)
+export default function ProductDetailsPage() {
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
-    api.getProduct(id)
-      .then((data) => setProduct(data))
+    setLoading(true);
+    setError('');
+    fetch(`http://localhost:8080/api/products/${id}`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Nu s-a putut încărca produsul.');
+        return res.json();
+      })
+      .then(setProduct)
       .catch((err) => setError(err.message))
-  }, [id])
+      .finally(() => setLoading(false));
+  }, [id]);
+
+  if (loading) return <p>Se încarcă produsul...</p>;
+  if (error) return <p className="error">{error}</p>;
+  if (!product) return <p>Produsul nu a fost găsit.</p>;
 
   return (
-    <>
-      <p><Link to="/produse">&larr; Inapoi la produse</Link></p>
+    <div className="product-details">
+      <h1>{product.name}</h1>
+      {product.description && <p>{product.description}</p>}
+      {product.price !== undefined && <p>Preț: {product.price}</p>}
 
-      {error && <div className="status status-error">{error}</div>}
-      {!product && !error && <p>Se incarca...</p>}
-
-      {product && (
-        <section className="card">
-          <h1>{product.name}</h1>
-          <p><strong>Categorie:</strong> {product.category.name}</p>
-          <p><strong>Pret:</strong> {product.price} lei</p>
-          <p><strong>Descriere:</strong> {product.description || '-'}</p>
-          <p className="muted">Date primite de la <code>GET {api.url}/api/products/{product.id}</code></p>
-        </section>
-      )}
-    </>
-  )
+      {/* Secțiunea de recenzii legată de produsul curent */}
+      <ReviewSection productId={id} />
+    </div>
+  );
 }
-
-export default ProductDetailsPage
